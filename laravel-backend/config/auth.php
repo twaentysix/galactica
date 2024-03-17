@@ -40,6 +40,14 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'api' => [
+            'driver' => 'jwt',
+            'provider' => 'users',
+        ],
+        'localAuth' => [
+            'driver' => 'session',
+            'provider' => 'users',
+        ],
     ],
 
     /*
