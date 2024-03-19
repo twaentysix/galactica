@@ -47,9 +47,25 @@ services:
                 - '-p${DB_PASSWORD}'
             retries: 3
             timeout: 5s
+    mitmproxy:
+        container_name: mitmproxy_galactica
+        image: mitmproxy/mitmproxy:10.2.1
+        tty: true
+        stdin_open: true
+        ports:
+            # mitmproxy web interface
+            - "8090:8081"
+            - "8080:8080"
+        volumes:
+            - 'mitmproxy:/home/mitmproxy/.mitmproxy'
+        command: mitmweb --web-host 0.0.0.0 --mode reverse:http://laravel.test --set keep_host_header=true
+        networks:
+            - sail
 networks:
     sail:
         driver: bridge
 volumes:
     sail-mariadb:
+        driver: local
+    mitmproxy:
         driver: local

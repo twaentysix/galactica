@@ -130,6 +130,7 @@
       <path value="$PROJECT_DIR$/laravel-backend/vendor/symfony/css-selector" />
       <path value="$PROJECT_DIR$/laravel-backend/vendor/symfony/polyfill-intl-normalizer" />
       <path value="$PROJECT_DIR$/laravel-backend/vendor/firebase/php-jwt" />
+      <path value="$PROJECT_DIR$/laravel-backend/vendor/_laravel_idea" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.2">

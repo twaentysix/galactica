@@ -3,18 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\CustomGuards\JwtHelper;
-use Illuminate\Http\Request;
+use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RegisterRequest;
+use App\Http\Resources\UserResource;
+use App\Models\User;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class AuthenticationController extends Controller
 {
-    public function authenticate (Request $request)
+    public function authenticate (LoginRequest $request)
     {
-        $credentials = $request->validate([
-            'username' => ['required', 'string'],
-            'password' => ['required', 'string'],
-        ]);
-
+        $credentials = $request->validated();
         // TODO password = hash in der request --> hier testen
 
         if(Auth::guard('localAuth')->attempt($credentials)){
@@ -23,20 +23,43 @@ class AuthenticationController extends Controller
                 return response()->json(Controller::getApiErrorMessage("Your account email is not confirmed"), 400);
             }
             $token = JwtHelper::generateToken($user);
-            return response()->json(['jwt' => $token, 'user' => new User($user)]);
+            return response()->json(['jwt' => $token, 'user' => new UserResource($user)]);
         }
         return response()->json(Controller::getApiErrorMessage("Invalid credentials"), 401);
     }
 
-    public function register() {
-        // TODO registration
+    public function register(RegisterRequest $request) {
         $data = request()->post();
         if(!$data){
             return response()->json(Controller::getApiErrorMessage("Missing data"),400);
         }
-        return response()->json([
-            'user' => [
+
+        $data = $request->validated();
+        $user = User::where('name', '=', $data['name'])->first();
+        if($user){
+            return response()->json(Controller::getApiErrorMessage("Username already given."),400);
+        }
+
+        $user = User::where('email', '=', $data['email'])->first();
+        if($user){
+            return response()->json(Controller::getApiErrorMessage("Email already given."),400);
+        }
+
+        // TODO send email on verification
+        $user = User::create(
+            [
+                'name' => $data['name'],
+                'password' => $data['password'],
+                'email' => $data['email'],
             ]
-        ]);
+        );
+        $user->markEmailAsVerified();
+        $user->save();
+
+        return [
+            'data' => [
+                'user' => new UserResource($user),
+            ]
+        ];
     }
 }

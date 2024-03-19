@@ -12,9 +12,8 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: url(/image/galactic.jpeg) no-repeat;
     background-size: cover;
-    background-position: center;
+    background: url('../image/galactic.jpeg') no-repeat center;
 }
 
 .wrapper {
