@@ -37,12 +37,12 @@ class AuthenticationController extends Controller
         $data = $request->validated();
         $user = User::where('name', '=', $data['name'])->first();
         if($user){
-            return response()->json(Controller::getApiErrorMessage("Username already given."),400);
+            return response()->json(Controller::getApiErrorMessage("Username already taken."),400);
         }
 
         $user = User::where('email', '=', $data['email'])->first();
         if($user){
-            return response()->json(Controller::getApiErrorMessage("Email already given."),400);
+            return response()->json(Controller::getApiErrorMessage("Email already taken."),400);
         }
 
         // TODO send email on verification
