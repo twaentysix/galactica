@@ -14,58 +14,71 @@ return new class extends Migration
     {
         Schema::create('galaxies', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->unique(true)->nullable(false);
         });
 
         Schema::create('planets', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('galaxy_id'); // Assuming PersonID is an unsigned big integer
+            $table->unsignedBigInteger('galaxy_id')->nullable();
             $table->foreign('galaxy_id')->references('id')->on('galaxies')->onDelete('cascade');
             $table->string('name');
         });
 
         Schema::create('bases', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('planet_id'); // Assuming PersonID is an unsigned big integer
+            $table->integer('level')->default(0)->nullable(false);
+            $table->dateTime('created_at')->nullable();
+            $table->dateTime('last_upgraded_at')->nullable();
+            $table->string('name')->nullable(false);
+
+            $table->unsignedBigInteger('planet_id')->nullable();
             $table->foreign('planet_id')->references('id')->on('planets')->onDelete('cascade');
-            $table->integer('level');
-            $table->dateTime('created_at');
-            $table->dateTime('last_upgraded_at');
+
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
         });
 
         Schema::create('base_resources', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('base_id'); // Assuming PersonID is an unsigned big integer
+            $table->unsignedBigInteger('base_id')->nullable();
             $table->foreign('base_id')->references('id')->on('bases')->onDelete('cascade');
-            $table->integer('metal');
-            $table->integer('cristal');
-            $table->integer('gas');
+            $table->integer('metal')->default(0)->nullable(false);
+            $table->integer('cristal')->default(0)->nullable(false);
+            $table->integer('gas')->default(0)->nullable(false);
         });
 
         Schema::create('armies', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('base_id'); // Assuming PersonID is an unsigned big integer
+            $table->integer('ships')->default(0)->nullable();
+            $table->integer('broken_ships')->nullable();
+
+            $table->unsignedBigInteger('base_id')->nullable(); // Assuming PersonID is an unsigned big integer
             $table->foreign('base_id')->references('id')->on('bases')->onDelete('cascade');
-            $table->integer('ships');
-            $table->integer('broken_ships');
+
         });
 
         Schema::create('troops', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('army_id'); // Assuming PersonID is an unsigned big integer
+            $table->integer('ships')->default(0)->nullable();
+            $table->integer('broken_ships')->nullable();
+
+            $table->unsignedBigInteger('army_id')->nullable();
             $table->foreign('army_id')->references('id')->on('armies')->onDelete('cascade');
-            $table->integer('ships');
-            $table->integer('broken_ships');
+
+            $table->string('name')->nullable(false);
         });
 
         Schema::create('collectors', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('base_id'); // Assuming PersonID is an unsigned big integer
+            $table->enum('type', ['metal', 'cristal', 'gas'])->nullable(false);
+            $table->dateTime('last_collected')->nullable();
+            $table->integer('level')->default(0)->nullable(false);
+            $table->integer('rate_per_hour')->default(2)->nullable(false);
+
+            $table->unsignedBigInteger('base_id')->nullable();
             $table->foreign('base_id')->references('id')->on('bases')->onDelete('cascade');
-            $table->enum('type', ['metal', 'cristal', 'gas']);
-            $table->dateTime('last_collected');
-            $table->integer('level');
-            $table->integer('rate_per_hour');
+
         });
 
         DB::statement("ALTER TABLE collectors ADD CONSTRAINT collectors_type_constraint CHECK (type IN ('metal', 'gas', 'cristal'))");
