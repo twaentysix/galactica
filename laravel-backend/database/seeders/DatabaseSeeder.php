@@ -8,6 +8,7 @@ use App\Models\Galaxies;
 use App\Models\Planets;
 use App\Models\ResourceCollectors;
 use App\Models\Resources;
+use App\Models\ShipTypes;
 use App\Models\Troops;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -50,15 +51,11 @@ class DatabaseSeeder extends Seeder
         $base->save();
 
         $army = Armies::create([
-            'ships' => 0,
-            'broken_ships' => 0,
         ]);
         $army->base()->associate($base);
         $army->save();
 
         $troop = Troops::create([
-            'broken_ships' => 0,
-            'ships' => 0,
             'name' => 'Affenbande',
         ]);
         $troop->army()->associate($army);
@@ -99,7 +96,20 @@ class DatabaseSeeder extends Seeder
         $cristal_collector->base()->associate($base);
         $cristal_collector->save();
 
-
-
+        ShipTypes::create([
+            'type' => 'light_fighter'
+        ]);
+        ShipTypes::create([
+            'type' => 'heavy_fighter'
+        ]);
+        ShipTypes::create([
+            'type' => 'transporter'
+        ]);
+        ShipTypes::create([
+            'type' => 'battleship'
+        ]);
+        ShipTypes::create([
+            'type' => 'cruiser'
+        ]);
     }
 }

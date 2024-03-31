@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ShipTypes;
+
 abstract class Controller
 {
     static function getApiErrorMessage(string $message){
@@ -13,6 +15,7 @@ abstract class Controller
                 'name' => 'ApplicationError',
                 'status'=>400,
             ],
+
         ];
     }
 }

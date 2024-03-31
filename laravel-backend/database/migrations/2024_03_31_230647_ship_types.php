@@ -23,7 +23,7 @@ return new class extends Migration
 
         Schema::table('troops', function (Blueprint $table){
             $table->dropColumn('ships');
-            $table->dropColumn('broken_ship');
+            $table->dropColumn('broken_ships');
             $table->integer('transporter')->default(0);;
             $table->integer('light_fighter')->default(0);;
             $table->integer('heavy_fighter')->default(0);;
@@ -34,9 +34,9 @@ return new class extends Migration
         Schema::create('ship_types', function(Blueprint $table){
             $table->id();
             $table->string('type')->unique();
-            $table->integer('health');
-            $table->integer('armor');
-            $table->integer('damage');
+            $table->integer('health')->default(200);
+            $table->integer('armor')->default(200);
+            $table->integer('damage')->default(50);
         });
         DB::statement("ALTER TABLE ship_types ADD CONSTRAINT ship_types_type_constraint
                             CHECK (type IN ('transporter',
