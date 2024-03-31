@@ -98,5 +98,8 @@ class DatabaseSeeder extends Seeder
         ]);
         $cristal_collector->base()->associate($base);
         $cristal_collector->save();
+
+
+
     }
 }

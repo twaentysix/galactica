@@ -19,8 +19,11 @@ class Troops extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'ships',
-        'broken_ships',
+        'light_fighter',
+        'transporter',
+        'heavy_fighter',
+        'battleship',
+        'cruiser',
         'name',
     ];
 
@@ -41,8 +44,12 @@ class Troops extends Model
         return [
             'id' => 'integer',
             'army_id' => 'integer',
-            'ships' => 'integer',
             'broken_ships' => 'integer',
+            'light_fighter' => 'integer',
+            'transporter' => 'integer',
+            'heavy_fighter' => 'integer',
+            'battleship' => 'integer',
+            'cruiser' => 'integer',
             'name' => 'string',
         ];
     }

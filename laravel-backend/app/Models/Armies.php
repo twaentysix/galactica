@@ -21,8 +21,11 @@ class Armies extends Model
      */
     protected $fillable = [
         'base_id',
-        'ships',
-        'broken_ships',
+        'light_fighter',
+        'transporter',
+        'heavy_fighter',
+        'battleship',
+        'cruiser',
     ];
 
     /**
@@ -43,6 +46,11 @@ class Armies extends Model
             'id' => 'integer',
             'ships' => 'integer',
             'broken_ships' => 'integer',
+            'light_fighter' => 'integer',
+            'transporter' => 'integer',
+            'heavy_fighter' => 'integer',
+            'battleship' => 'integer',
+            'cruiser' => 'integer',
         ];
     }
 
