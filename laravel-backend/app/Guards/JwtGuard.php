@@ -3,7 +3,6 @@
 namespace App\Guards;
 
 
-use App\CustomGuards\JwtHelper;
 use Carbon\Carbon;
 use Illuminate\Auth\GuardHelpers;
 use Illuminate\Contracts\Auth\Authenticatable;
@@ -32,6 +31,7 @@ class JwtGuard implements Guard
         if (request()->bearerToken() && $user = $this->validate(['jwt' => request()->bearerToken()])) {
             return $this->user = $user;
         }
+        return false;
     }
 
     public function validate(array $credentials = []): bool | Authenticatable | JsonResponse
@@ -42,7 +42,6 @@ class JwtGuard implements Guard
 
         try {
             $decoded = JwtHelper::decodeToken($credentials['jwt']);
-
             if($decoded->exp < Carbon::now()->timestamp){
                 return false;
             }
@@ -58,7 +57,6 @@ class JwtGuard implements Guard
     {
         $user = $this->user();
         if($user){
-
             Auth::guard('localAuth')->login($user);
             return true;
         }

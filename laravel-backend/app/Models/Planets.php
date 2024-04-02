@@ -60,6 +60,6 @@ class Planets extends Model
      */
     public function base()
     {
-        return $this->hasOne(Bases::class,);
+        return $this->hasOne(Bases::class,'planet_id', 'id');
     }
 }

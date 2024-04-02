@@ -24,7 +24,7 @@ class Armies extends Model
         'light_fighter',
         'transporter',
         'heavy_fighter',
-        'battleship',
+        'battleships',
         'cruiser',
     ];
 
@@ -44,12 +44,10 @@ class Armies extends Model
     {
         return [
             'id' => 'integer',
-            'ships' => 'integer',
-            'broken_ships' => 'integer',
             'light_fighter' => 'integer',
             'transporter' => 'integer',
             'heavy_fighter' => 'integer',
-            'battleship' => 'integer',
+            'battleships' => 'integer',
             'cruiser' => 'integer',
         ];
     }

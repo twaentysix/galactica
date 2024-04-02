@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\CustomGuards\JwtHelper;
+use App\Guards\JwtHelper;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class AuthenticationController extends Controller
