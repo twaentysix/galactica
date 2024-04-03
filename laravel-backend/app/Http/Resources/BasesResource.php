@@ -19,6 +19,7 @@ class BasesResource extends JsonResource
         $resources = $this->resources;
         $collectors = $this->collectors;
         $user = $this->user;
+        $planet = $this->planet;
 
         return [
             'id' => $this->id,
@@ -30,6 +31,7 @@ class BasesResource extends JsonResource
             'resources' => $resources ? new ResourcesResource($resources) : null,
             'collectors' => $collectors ? new CollectorsCollection($collectors) : null,
             'user' => $user ? new UserResource($user) : null,
+            'planet' => $planet ? new PlanetsResource($this->planet) : null
         ];
     }
 }

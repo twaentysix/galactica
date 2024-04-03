@@ -3,13 +3,13 @@
 bearer_token=$1
 
 base_url="http://localhost:8080/api/"
-laravel_endpoints=("bases")
+laravel_endpoints=("bases" "planets" "army/1" "army/2" "resources/1" "collectors/1" "troops/1")
 
 jwt="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0IiwiaWQiOjEsImlhdCI6MTcxMjA4OTc0MywiZXhwIjoxNzE0NzE3NzQzfQ.N653AMZ9eApwjxjBNhxnRu6WjQdfMmvb307G_S_I5l4"
 
 
 # Make 3 HTTP requests with the bearer token
-for i in {0..0}; do
+for i in {0..6}; do
     api_endpoint="${base_url}${laravel_endpoints[i]}"
     headers="Authorization:Bearer ${jwt}"
     # Make the HTTP request with cURL

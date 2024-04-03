@@ -1,8 +1,15 @@
 <?php
 
+use App\Http\Controllers\ArmiesController;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\BasesController;
+use App\Http\Controllers\CollectorsController;
 use App\Http\Controllers\GalaxiesController;
+use App\Http\Controllers\PlanetsController;
+use App\Http\Controllers\ResourceController;
+use App\Http\Controllers\ShipTypesController;
+use App\Http\Controllers\TroopsController;
+use App\Http\Controllers\UserController;
 use App\Http\Middleware\ApiAuth;
 use Illuminate\Support\Facades\Route;
 
@@ -23,14 +30,14 @@ Route::prefix('planets')->middleware(ApiAuth::class)->controller(PlanetsControll
 
 Route::prefix('users')->middleware(ApiAuth::class)->controller(UserController::class)->group(function () {
     Route::GET('/me','fetchLoggedInUser');
-    Route::GET('/{id}', 'fetchSpecificUser');
+    Route::GET('/{id}', 'w');
 });
 
 Route::middleware(ApiAuth::class)->get('/base',[BasesController::class, 'fetchBase']);
 Route::middleware(ApiAuth::class)->get('/bases',[BasesController::class, 'fetchBases']);
-Route::middleware(ApiAuth::class)->get('/resources',[ResourceController::class, 'fetchBase']);
-Route::middleware(ApiAuth::class)->get('/army',[ArmiesController::class, 'fetchBase']);
-Route::middleware(ApiAuth::class)->get('/troops',[TroopsController::class, 'fetchBase']);
-Route::middleware(ApiAuth::class)->get('/ship-types',[ShipTypesController::class, 'fetchBase']);
-Route::middleware(ApiAuth::class)->get('/collectors',[CollectorsController::class, 'fetchBase']);
+Route::middleware(ApiAuth::class)->get('/resources/{base_id}',[ResourceController::class, 'fetch']);
+Route::middleware(ApiAuth::class)->get('/army/{base_id}',[ArmiesController::class, 'fetch']);
+Route::middleware(ApiAuth::class)->get('/troops/{base_id}',[TroopsController::class, 'fetch']);
+Route::middleware(ApiAuth::class)->get('/ship-types/{base_id}',[ShipTypesController::class, 'fetch']);
+Route::middleware(ApiAuth::class)->get('/collectors/{base_id}',[CollectorsController::class, 'fetch']);
 
