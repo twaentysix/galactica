@@ -89,9 +89,15 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
+*/node_modules
 node_modules/*
-dist
+*/node_modules/*
+*/dist
+/dist
 dist-ssr
+*/dist-ssr
+package.json
+*/package.json
 *.local
 
 # Editor directories and files
@@ -104,5 +110,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+
 
 
