@@ -6,51 +6,43 @@ require_once 'ships.class.php';
 // Define a class for the battle algorithm
 class BattleAlgorithm {
     // Method to simulate a battle
-    public static function simulateBattle(array $playerShips, array $pirateShips): ?bool {
+    public static function simulateBattle(Fleet $playerFleet, Fleet $pirateFleet): ?bool {
         // Add some initial messages
         echo "Battle Begins!\n";
 
         while (true) {
             // Player's turn
             echo "Player's Turn:\n";
-            if (self::allShipsDestroyed($playerShips)) {
+            if ($playerFleet->allShipsDestroyed()) {
                 return false; // Player loses
             }
-            foreach ($playerShips as $playerShip) {
+            $pirateTargetShip = $pirateFleet->ships[rand(0, count($pirateFleet->ships) - 1)];
+            foreach ($playerFleet->ships as $playerShip) {
                 if (!$playerShip->isDestroyed()) {
-                    $targetShip = $pirateShips[rand(0, count($pirateShips) - 1)];
-                    $playerShip->attack($targetShip);
-                    if ($targetShip->isDestroyed()) {
-                        echo "{$targetShip->name} is destroyed!\n";
+                    $playerShip->attack($pirateTargetShip);
+                    if ($pirateTargetShip->isDestroyed()) {
+                        echo "{$pirateTargetShip->name} is destroyed!\n";
+                        $pirateFleet->calculateTotalAttributes(); // Recalculate total attributes
                     }
                 }
             }
 
             // Pirate's turn
             echo "Pirate's Turn:\n";
-            if (self::allShipsDestroyed($pirateShips)) {
+            if ($pirateFleet->allShipsDestroyed()) {
                 return true; // Player wins
             }
-            foreach ($pirateShips as $pirateShip) {
+            $playerTargetShip = $playerFleet->ships[rand(0, count($playerFleet->ships) - 1)];
+            foreach ($pirateFleet->ships as $pirateShip) {
                 if (!$pirateShip->isDestroyed()) {
-                    $targetShip = $playerShips[rand(0, count($playerShips) - 1)];
-                    $pirateShip->attack($targetShip);
-                    if ($targetShip->isDestroyed()) {
-                        echo "{$targetShip->name} is destroyed!\n";
+                    $pirateShip->attack($playerTargetShip);
+                    if ($playerTargetShip->isDestroyed()) {
+                        echo "{$playerTargetShip->name} is destroyed!\n";
+                        $playerFleet->calculateTotalAttributes(); // Recalculate total attributes
                     }
                 }
             }
         }
-    }
-
-    // Method to check if all ships in the array are destroyed
-    private static function allShipsDestroyed(array $ships): bool {
-        foreach ($ships as $ship) {
-            if (!$ship->isDestroyed()) {
-                return false;
-            }
-        }
-        return true;
     }
 }
 
