@@ -2,9 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\ActionController;
 
-class BattleController extends Controller
+class BattleController extends Controller implements ActionController
 {
-    //
+    function register()
+    {
+        // TODO: Implement register() method.
+    }
+
+    function resolve()
+    {
+        // TODO: Implement resolve() method.
+    }
 }
