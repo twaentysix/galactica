@@ -15,7 +15,7 @@ class BasesResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        $army = $this->army;
+        $harbour = $this->harbour;
         $resources = $this->resources;
         $collectors = $this->collectors;
         $user = $this->user;
@@ -27,7 +27,7 @@ class BasesResource extends JsonResource
             'level' => $this->level,
             'createdAt' => $this->created_at,
             'lastUpgraded' => $this->last_upgraded_at,
-            'army' => $army ? new ArmyResource($army) : null,
+            'harbour' => $harbour ? new HarbourResource($harbour) : null,
             'resources' => $resources ? new ResourcesResource($resources) : null,
             'collectors' => $collectors ? new CollectorsCollection($collectors) : null,
             'user' => $user ? new UserResource($user) : null,

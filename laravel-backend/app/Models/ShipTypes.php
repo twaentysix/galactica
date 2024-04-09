@@ -51,8 +51,8 @@ class ShipTypes extends Model
     /**
      * @return BelongsTo
      */
-    public function army()
+    public function harbour()
     {
-        return $this->belongsTo(Armies::class,'army_id', 'id');
+        return $this->belongsTo(Harbours::class,'harbour_id', 'id');
     }
 }

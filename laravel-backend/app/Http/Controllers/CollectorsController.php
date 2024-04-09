@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\ArmyResource;
+use App\Http\Resources\HarbourResource;
 use App\Http\Resources\CollectorsCollection;
 use App\Models\Bases;
 use Illuminate\Http\Request;

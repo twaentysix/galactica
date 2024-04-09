@@ -5,12 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Troops extends Model
+class Harbours extends Model
 {
     use HasFactory;
 
-    protected $table = 'troops';
+    protected $table = 'harbours';
     public $timestamps = false;
 
     /**
@@ -19,12 +20,12 @@ class Troops extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'base_id',
         'light_fighter',
         'transporter',
         'heavy_fighter',
-        'battleship',
+        'battleships',
         'cruiser',
-        'name',
     ];
 
     /**
@@ -43,22 +44,27 @@ class Troops extends Model
     {
         return [
             'id' => 'integer',
-            'army_id' => 'integer',
-            'broken_ships' => 'integer',
             'light_fighter' => 'integer',
             'transporter' => 'integer',
             'heavy_fighter' => 'integer',
-            'battleship' => 'integer',
+            'battleships' => 'integer',
             'cruiser' => 'integer',
-            'name' => 'string',
         ];
     }
 
     /**
      * @return BelongsTo
      */
-    public function army()
+    public function base()
     {
-        return $this->belongsTo(Armies::class,'army_id', 'id');
+        return $this->belongsTo(Bases::class,'base_id', 'id');
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function fleets()
+    {
+        return $this->hasMany(Fleets::class,'harbour_id', 'id');
     }
 }

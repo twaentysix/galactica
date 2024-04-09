@@ -2,14 +2,14 @@
 
 namespace Database\Seeders;
 
-use App\Models\Armies;
+use App\Models\Harbours;
 use App\Models\Bases;
 use App\Models\Galaxies;
 use App\Models\Planets;
 use App\Models\ResourceCollectors;
 use App\Models\Resources;
 use App\Models\ShipTypes;
-use App\Models\Troops;
+use App\Models\Fleets;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -50,16 +50,16 @@ class DatabaseSeeder extends Seeder
         $base->planet()->associate($planet);
         $base->save();
 
-        $army = Armies::create([
+        $harbour = Harbours::create([
         ]);
-        $army->base()->associate($base);
-        $army->save();
+        $harbour->base()->associate($base);
+        $harbour->save();
 
-        $troop = Troops::create([
+        $fleet = Fleets::create([
             'name' => 'Affenbande',
         ]);
-        $troop->army()->associate($army);
-        $troop->save();
+        $fleet->harbour()->associate($harbour);
+        $fleet->save();
 
         $resources = Resources::create([
             'metal' => 0,

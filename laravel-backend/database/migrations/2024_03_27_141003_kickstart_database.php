@@ -48,7 +48,7 @@ return new class extends Migration
             $table->integer('gas')->default(0)->nullable(false);
         });
 
-        Schema::create('armies', function (Blueprint $table) {
+        Schema::create('harbours', function (Blueprint $table) {
             $table->id();
             $table->integer('ships')->default(0)->nullable();
             $table->integer('broken_ships')->nullable();
@@ -58,13 +58,13 @@ return new class extends Migration
 
         });
 
-        Schema::create('troops', function (Blueprint $table) {
+        Schema::create('fleets', function (Blueprint $table) {
             $table->id();
             $table->integer('ships')->default(0)->nullable();
             $table->integer('broken_ships')->nullable();
 
-            $table->unsignedBigInteger('army_id')->nullable();
-            $table->foreign('army_id')->references('id')->on('armies')->onDelete('cascade');
+            $table->unsignedBigInteger('harbour_id')->nullable();
+            $table->foreign('harbour_id')->references('id')->on('harbours')->onDelete('cascade');
 
             $table->string('name')->nullable(false);
         });
@@ -92,8 +92,8 @@ return new class extends Migration
         Schema::dropIfExists('collectors');
         Schema::dropIfExists('bases');
         Schema::dropIfExists('base_resources');
-        Schema::dropIfExists('troops');
-        Schema::dropIfExists('armies');
+        Schema::dropIfExists('fleets');
+        Schema::dropIfExists('harbours');
         Schema::dropIfExists('planet');
         Schema::dropIfExists('galaxies');
     }

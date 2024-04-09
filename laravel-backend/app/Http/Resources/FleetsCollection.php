@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Support\Collection;
 
-class TroopsCollection extends ResourceCollection
+class FleetsCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.

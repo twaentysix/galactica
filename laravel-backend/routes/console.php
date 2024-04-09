@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Troops;
+use App\Models\Fleets;
 use Illuminate\Support\Facades\Schedule;
 
 

@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('armies', function (Blueprint $table){
+        Schema::table('harbours', function (Blueprint $table){
             $table->dropColumn('ships');
             $table->dropColumn('broken_ships');
             $table->integer('transporter')->default(0);
@@ -21,7 +21,7 @@ return new class extends Migration
             $table->integer('battleships')->default(0);;
         });
 
-        Schema::table('troops', function (Blueprint $table){
+        Schema::table('fleets', function (Blueprint $table){
             $table->dropColumn('ships');
             $table->dropColumn('broken_ships');
             $table->integer('transporter')->default(0);;

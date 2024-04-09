@@ -54,8 +54,8 @@ class Bases extends Model
     /**
      * @return HasOne
      */
-    public function army(){
-        return $this->hasOne(Armies::class, 'base_id', 'id');
+    public function harbour(){
+        return $this->hasOne(Harbours::class, 'base_id', 'id');
     }
 
     /**

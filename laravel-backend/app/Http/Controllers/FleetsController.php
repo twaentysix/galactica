@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\ArmyResource;
+use App\Http\Resources\HarbourResource;
+use App\Http\Resources\FleetsCollection;
 use App\Models\Bases;
+use Illuminate\Http\Request;
 
-class ArmiesController extends Controller
+class FleetsController extends Controller
 {
     public function fetch ($base_id)
     {
@@ -14,10 +16,10 @@ class ArmiesController extends Controller
             return $base;
         }
 
-        $army = $base->army;
-        if(!$army){
+        $fleets = $base->harbour->fleets;
+        if(!$fleets){
             return response()->json(self::getApiErrorMessage('Resources Information missing.'));
         }
-        return new ArmyResource($army);
+        return new FleetsCollection($fleets);
     }
 }

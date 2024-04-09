@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Armies;
-use App\Models\Troops;
+use App\Models\Harbours;
+use App\Models\Fleets;
 use Illuminate\Http\Request;
 
 class BattlePlayerController extends BattleController
 {
-    public function simulateBattle(Troops $attackerTroops, Armies $defenderArmy): ?bool {
+    public function simulateBattle(Fleets $attackerFleets, Harbours $defenderHarbour): ?bool {
         //TODO
 
         // Calculate total damage of player fleet

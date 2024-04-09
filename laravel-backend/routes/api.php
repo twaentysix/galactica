@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\ArmiesController;
+use App\Http\Controllers\HarboursController;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\BasesController;
 use App\Http\Controllers\CollectorsController;
@@ -8,7 +8,7 @@ use App\Http\Controllers\GalaxiesController;
 use App\Http\Controllers\PlanetsController;
 use App\Http\Controllers\ResourceController;
 use App\Http\Controllers\ShipTypesController;
-use App\Http\Controllers\TroopsController;
+use App\Http\Controllers\FleetsController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\ApiAuth;
 use Illuminate\Support\Facades\Route;
@@ -36,8 +36,8 @@ Route::prefix('users')->middleware(ApiAuth::class)->controller(UserController::c
 Route::middleware(ApiAuth::class)->get('/base',[BasesController::class, 'fetchBase']);
 Route::middleware(ApiAuth::class)->get('/bases',[BasesController::class, 'fetchBases']);
 Route::middleware(ApiAuth::class)->get('/resources/{base_id}',[ResourceController::class, 'fetch']);
-Route::middleware(ApiAuth::class)->get('/army/{base_id}',[ArmiesController::class, 'fetch']);
-Route::middleware(ApiAuth::class)->get('/troops/{base_id}',[TroopsController::class, 'fetch']);
+Route::middleware(ApiAuth::class)->get('/harbour/{base_id}',[HarboursController::class, 'fetch']);
+Route::middleware(ApiAuth::class)->get('/fleets/{base_id}',[FleetsController::class, 'fetch']);
 Route::middleware(ApiAuth::class)->get('/ship-types/{base_id}',[ShipTypesController::class, 'fetch']);
 Route::middleware(ApiAuth::class)->get('/collectors/{base_id}',[CollectorsController::class, 'fetch']);
 
