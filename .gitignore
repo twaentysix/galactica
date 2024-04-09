@@ -91,13 +91,11 @@ lerna-debug.log*
 node_modules
 */node_modules
 node_modules/*
-*/node_modules/*
+frontend/node_modules/*
 */dist
 /dist
 dist-ssr
 */dist-ssr
-package.json
-*/package.json
 *.local
 
 # Editor directories and files
@@ -105,6 +103,7 @@ package.json
 !.vscode/extensions.json
 .idea
 .DS_Store
+*/.DS_Store
 *.suo
 *.ntvs*
 *.njsproj
