@@ -10,7 +10,7 @@ class ExpeditionManager {
         $resources = self::generateResources($numTroops);
 
         // Apply resources to the fleet
-        $fleet->applyResources($resources);
+        self::applyResourcesToFleet($fleet, $resources);
 
         // Output expedition result
         echo "Expedition completed!\n";
@@ -32,8 +32,18 @@ class ExpeditionManager {
         return $resources;
     }
 
+    // Method to apply resources to the fleet
+    private static function applyResourcesToFleet(Fleet $fleet, array $resources): void {
+        foreach ($fleet->ships as $ship) {
+            // Apply resources based on ship's attributes
+            $ship->lifePoints += $resources['Metal'] * 100; // Assuming 1 Metal increases lifePoints by 100
+            $ship->armor += $resources['Crystal'] * 2; // Assuming 1 Crystal increases armor by 2
+            $ship->speed += $resources['Fuel'] * 5; // Assuming 1 Fuel increases speed by 5
+        }
+    }
+
     // Method to trigger battle with pirates
-    public static function triggerPirateBattle(Fleet $fleet): void {
+    private static function triggerPirateBattle(Fleet $fleet): void {
         // Create pirate fleet
         $pirateFleet = self::generatePirateFleet();
 
