@@ -43,7 +43,7 @@ class ExpeditionManager {
     }
 
     // Method to trigger battle with pirates
-    private static function triggerPirateBattle(Fleet $fleet): void {
+    public static function triggerPirateBattle(Fleet $fleet): void {
         // Create pirate fleet
         $pirateFleet = self::generatePirateFleet();
 
