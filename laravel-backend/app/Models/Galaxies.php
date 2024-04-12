@@ -2,12 +2,15 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class User extends Authenticatable
+class Galaxies extends Model
 {
-    protected $table = 'users';
+    use HasFactory;
+
+    protected $table = 'galaxies';
     public $timestamps = false;
 
     /**
@@ -17,8 +20,6 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'email',
-        'password',
     ];
 
     /**
@@ -26,10 +27,7 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
+    protected $hidden = [];
 
     /**
      * Get the attributes that should be cast.
@@ -39,13 +37,16 @@ class User extends Authenticatable
     protected function casts(): array
     {
         return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
+            'name' => 'string',
+            'id' => 'integer'
         ];
     }
 
-    public function bases ()
+    /**
+     * @return HasMany
+     */
+    public function planets()
     {
-        return $this->hasMany(Bases::class, 'user_id', 'id');
+        return $this->hasMany(Planets::class, 'galaxy_id', 'id');
     }
 }

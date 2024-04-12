@@ -22,7 +22,6 @@ class AuthServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Auth::extend('jwt', function ($app, $name, array $config) {
-            // Return an instance of Illuminate\Contracts\Auth\Guard...
             return new JwtGuard(Auth::createUserProvider($config['provider']));
         });
     }

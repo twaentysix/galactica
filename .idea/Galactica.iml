@@ -122,6 +122,8 @@
       <excludeFolder url="file://$MODULE_DIR$/laravel-backend/vendor/voku/portable-ascii" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-backend/vendor/webmozart/assert" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-backend/vendor/_laravel_idea" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-backend/storage/app" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-backend/storage/framework" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

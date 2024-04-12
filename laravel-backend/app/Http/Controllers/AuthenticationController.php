@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\CustomGuards\JwtHelper;
+use App\Guards\JwtHelper;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class AuthenticationController extends Controller
@@ -37,12 +36,12 @@ class AuthenticationController extends Controller
         $data = $request->validated();
         $user = User::where('name', '=', $data['name'])->first();
         if($user){
-            return response()->json(Controller::getApiErrorMessage("Username already given."),400);
+            return response()->json(Controller::getApiErrorMessage("Username already taken."),400);
         }
 
         $user = User::where('email', '=', $data['email'])->first();
         if($user){
-            return response()->json(Controller::getApiErrorMessage("Email already given."),400);
+            return response()->json(Controller::getApiErrorMessage("Email already taken."),400);
         }
 
         // TODO send email on verification

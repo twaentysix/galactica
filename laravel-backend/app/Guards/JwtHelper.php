@@ -1,6 +1,6 @@
 <?php
 
-namespace App\CustomGuards;
+namespace App\Guards;
 
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
