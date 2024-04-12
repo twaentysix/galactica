@@ -1,7 +1,7 @@
 <?php
 
 // Define a class for ships
-class Ship {
+#[AllowDynamicProperties] class Ship {
     // Properties
     public string $name;
     public int $lifePoints;
@@ -24,7 +24,7 @@ class Ship {
     public function attack(Ship $targetShip): void {
         $damageDealt = max(0, $this->damage - $targetShip->armor);
         $targetShip->lifePoints -= $damageDealt;
-        echo "{$this->name} attacks {$targetShip->name} and deals {$damageDealt} damage.\n";
+        echo "$this->name attacks $targetShip->name and deals $damageDealt damage.\n";
     }
 
     // Method to check if the ship is destroyed

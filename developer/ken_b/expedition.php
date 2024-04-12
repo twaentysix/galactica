@@ -6,41 +6,45 @@ require_once 'fleet.class.php';
 class ExpeditionManager {
     // Method to start an expedition
     public static function startExpedition(Fleet $fleet, int $numTroops): void {
-        // Randomly generate resources
-        $resources = self::generateResources($numTroops);
-
-        // Apply resources to the fleet
-        self::applyResourcesToFleet($fleet, $resources);
+        // Randomly generate resources for each ship in the fleet
+        foreach ($fleet->ships as $ship) {
+            $resourcesFound = self::generateResourcesForShip($ship, $numTroops);
+            self::applyResourcesToShip($ship, $resourcesFound);
+        }
 
         // Output expedition result
         echo "Expedition completed!\n";
         echo "Resources gathered:\n";
-        foreach ($resources as $resource => $amount) {
-            echo "- $resource: $amount\n";
-        }
-    }
-
-    // Method to generate resources based on the number of troops
-    private static function generateResources(int $numTroops): array {
-        $resources = ['Metal' => 0, 'Crystal' => 0, 'Fuel' => 0];
-
-        // Randomly generate resources based on the number of troops
-        $resources['Metal'] = rand(1, $numTroops);
-        $resources['Crystal'] = rand(1, $numTroops);
-        $resources['Fuel'] = rand(1, $numTroops);
-
-        return $resources;
-    }
-
-    // Method to apply resources to the fleet
-    private static function applyResourcesToFleet(Fleet $fleet, array $resources): void {
         foreach ($fleet->ships as $ship) {
-            // Apply resources based on ship's attributes
-            $ship->lifePoints += $resources['Metal'] * 100; // Assuming 1 Metal increases lifePoints by 100
-            $ship->armor += $resources['Crystal'] * 2; // Assuming 1 Crystal increases armor by 2
-            $ship->speed += $resources['Fuel'] * 5; // Assuming 1 Fuel increases speed by 5
+            echo "$ship->name found:\n";
+            foreach ($ship->resourcesFound as $resource => $amount) {
+                echo "- $resource: $amount\n";
+            }
         }
     }
+
+    private static function generateResourcesForShip(Ship $ship, int $numTroops): array {
+        $resourcesFound = ['Metal' => 0, 'Crystal' => 0, 'Fuel' => 0];
+
+        // Define probability of finding each resource based on ship's class
+        $metalProbability = $ship->lifePoints / $numTroops; // Adjust as needed
+        $crystalProbability = $ship->armor / $numTroops; // Adjust as needed
+        $fuelProbability = $ship->speed / $numTroops; // Adjust as needed
+
+        // Generate random numbers to determine which resources are found
+        if (rand(0, $numTroops) <= $metalProbability) {
+            $resourcesFound['Metal'] = rand(1, $numTroops);
+        }
+        if (rand(0, $numTroops) <= $crystalProbability) {
+            $resourcesFound['Crystal'] = rand(1, $numTroops);
+        }
+        if (rand(0, $numTroops) <= $fuelProbability) {
+            $resourcesFound['Fuel'] = rand(1, $numTroops);
+        }
+
+        return $resourcesFound;
+    }
+
 
     // Method to trigger battle with pirates
     public static function triggerPirateBattle(Fleet $fleet): void {
@@ -49,6 +53,11 @@ class ExpeditionManager {
 
         // Start battle
         Battle::startBattle($fleet, $pirateFleet);
+    }
+
+    private static function applyResourcesToShip(Ship $ship, array $resourcesFound): void {
+        // Store the resources found on the ship
+        $ship->resourcesFound = $resourcesFound;
     }
 
     // Method to generate a pirate fleet for battle
