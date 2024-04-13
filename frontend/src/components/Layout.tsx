@@ -1,6 +1,7 @@
-import React from "react";
+import AuthHandler from "@/lib/api/AuthHandler";
 
-const Layout = ( props ) => {
+const Layout = (props: any) => {
+    AuthHandler.register("Amely", 'contact@röseler.de', 'password')
     return (
         <div className="container mx-auto px-4">
             <div className="grid grid-cols-12 gap-1">

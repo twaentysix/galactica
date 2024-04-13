@@ -22,11 +22,15 @@ function setup(){
     vendor/bin/sail artisan migrate
     vendor/bin/sail artisan db:seed
     # frontend stuff missing
+    cd ../frontend
+    npm install
 }
 
 function start(){
     cd laravel-backend
     vendor/bin/sail up -d
+    cd ../frontend
+    npm run dev
 }
 
 function seed(){

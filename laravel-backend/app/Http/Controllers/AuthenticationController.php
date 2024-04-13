@@ -15,7 +15,6 @@ class AuthenticationController extends Controller
     {
         $credentials = $request->validated();
         // TODO password = hash in der request --> hier testen
-
         if(Auth::guard('localAuth')->attempt($credentials)){
             $user = Auth::guard('localAuth')->user();
             if(!$user->hasVerifiedEmail()){
