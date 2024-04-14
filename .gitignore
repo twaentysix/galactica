@@ -96,7 +96,6 @@ node_modules/*
 /dist
 dist-ssr
 */dist-ssr
-frontend/package.json
 *.local
 
 # Editor directories and files
