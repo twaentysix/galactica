@@ -1,6 +1,6 @@
 <?php
 
-class Ressources {
+class Resources {
     public float $metal;
     public float $crystal;
     public float $fuel;
@@ -12,9 +12,9 @@ class Ressources {
         $this->fuel = 0;
     }
 
-    public function generateRessources(int $playerLevel, float $timeInterval = 10.0): void
+    public function generateResources(int $playerLevel, float $timeInterval = 10.0): void
     {
-        // Annahme: Jeder Spielerlevel erhöht den Multiplikator um 0.1
+        // Annahme: Jeder Spieler level erhöht den Multiplikator um 0.1
         $multiplier = 1.0 + ($playerLevel * 0.1);
 
         $generationRate = 1.0; // Beispielrate, wie viel jede Ressource pro Sekunde generiert wird
@@ -32,4 +32,4 @@ class Ressources {
 }
 
 $playerLevel = 5; // Beispiel-Level des Spielers
-(new Ressources)->generateRessources($playerLevel);
+(new Resources)->generateResources($playerLevel);
