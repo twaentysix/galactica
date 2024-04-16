@@ -12,7 +12,7 @@ function App() {
   return (
     <BrowserRouter>
     <div className="w-full lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px]">
-      <div className="flex items-center justify-center py-12">
+      <div className="flex items-center justify-center py-12 bg-g_base_gradient_1">
         <div className="mx-auto grid w-[350px] gap-6">
           <div className="grid gap-2 text-center">
             <h1>Welcome to Galactica</h1>

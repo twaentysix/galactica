@@ -4,8 +4,8 @@
 
 @layer base {
   :root {
-    --background: 266, 65%, 13%, 1;
-    --foreground: 0 0% 100%, .67;
+    --background: hsla(0, 0%, 100%, 1);
+    --foreground: hsla(0, 0%, 0%, 1);
 
     --card: 0 0% 100%;
     --card-foreground: 240 10% 3.9%;
@@ -32,7 +32,34 @@
     --input: 240 5.9% 90%;
     --ring: 240 10% 3.9%;
 
-    --radius: 1rem;
+    --radius: 1.5rem;
+
+    --g_background: hsla(266, 65%, 13%, 1);
+    
+    --g_base_gradient_0: linear-gradient(45deg, hsla(266, 65%, 17%, .15), hsla(266, 65%, 27%, 1));
+    --g_base_gradient_1: linear-gradient(45deg, hsla(266, 65%, 37%, .15), hsl(267, 65%, 37%, 1));
+
+    --g_grey_gradient: linear-gradient(45deg, hsla(0, 0%, 62%, .15), hsl(0, 0%, 60%, 1));
+
+    --g_red_gradient: linear-gradient(45deg, hsla(0, 86%, 70%, .15), hsl(0, 86%, 70%, 1));
+
+    --g_green_gradient: linear-gradient(45deg, hsla(144, 100%, 33%, .44), hsl(144, 100%, 33%, 1));
+
+    --g_light_gradient: linear-gradient(0deg, hsla(0, 0%, 90%, .5), hsl(0, 0%, 90%, 1));
+    --g_light_gradient_inactive: linear-gradient(0deg, hsla(0, 0%, 90%, .15), hsl(0, 0%, 90%, .4));
+
+    --g_dark_gradient: linear-gradient(0deg, hsla(0, 0%, 0%, .5), hsl(0, 0%, 0%, 1));
+    --g_dark_gradient_inactive: linear-gradient(0deg, hsla(0, 0%, 10%, .15), hsl(0, 0%, 10%, .4));
+
+    --g_yellow: hsla(43, 87%, 59%, 1);
+    --g_light: hsla(0, 0%, 90%, 1);
+    --g_dark: hsla(0, 0%, 10%, 1);
+    --g_cyan: hsla(180, 48%, 50%, 1);
+    --g_purple: hsla(299, 51%, 40%, 1);
+    --g_brown: hsla(0, 9%, 38%, 1);
+
+    --g_border: 2px solid hsla(0, 0%, 100%, .1);
+    --g_shadow: box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.75);
   }
 
   .dark {
@@ -65,17 +92,16 @@
     --ring: 240 4.9% 83.9%;
   }
 }
-
 @layer base {
   * {
-    @apply border-border;
+    @apply border-g_border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-g_background text-g_light;
   }
 
   h1, h2, h3, h4, h5 {
-    @apply font-headline font-bold;
+    @apply font-headline font-bold text-g_light;
   }
 
   h1 {
@@ -95,10 +121,6 @@
   }
 
   p, a, span, td {
-    @apply font-main text-base;
-  }
-
-  * {
-    @apply font-main text-base;
+    @apply font-main text-g_light;
   }
 }
