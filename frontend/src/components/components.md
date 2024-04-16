@@ -3,14 +3,28 @@
 ## Wie
 Eine Komponente wird im Ordner "components" erstellt. Jeder Name der Komponente wird in PascalCase geschrieben und dessen Name wird auch im Funktionsnamen fortgeführt.
 
+Komponenten, die von Shadcn/ui kommen haben immer ein "Our" davor, um Namenskonflikte zu vermeiden.
+
 ### Beispiel:
 
-**Komponentenname:** ``` LayoutConnector.jsx ```
+**Komponentenname:** ``` LayoutConnector.tsx (kommt nicht von Shadcn)```
 
 **Funktionsdeklaration:**
 
 ```javascript
 export default function LayoutConnector(props) {
+    return (
+        <>some JSX</>
+    );
+}
+```
+
+**Komponentenname:** ``` OurDialog.tsx (kommt von Shadcn dialog.tsx)```
+
+**Funktionsdeklaration:**
+
+```javascript
+export default function OurDialog(props) {
     return (
         <>some JSX</>
     );
