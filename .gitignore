@@ -96,7 +96,8 @@ node_modules/*
 /dist
 dist-ssr
 */dist-ssr
-**/package.json
+**/package-lock.json
+package-lock.json
 *.local
 
 # Editor directories and files
