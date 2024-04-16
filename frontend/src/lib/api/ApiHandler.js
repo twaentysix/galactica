@@ -37,6 +37,18 @@ class ApiHandler{
             }
         }
     }
+
+    static async sendRequest (method, url, headers) {
+        return await axios({
+                            method: method,
+                            url: url,
+                            headers: headers,
+                        }).then(function (response) {
+                            return response.data['data'];
+                        }).catch(function (error){
+                            return error.response.data;
+                        });
+    }
 }
 
 export default ApiHandler;

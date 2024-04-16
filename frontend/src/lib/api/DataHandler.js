@@ -7,150 +7,90 @@ class DataHandler {
         if(!ApiHandler.setJwt()){
             return {'error': {'message': "User not logged in!"}};
         }
-        return await axios({
-            method: 'get',
-            url: ApiHandler.BASE_URL + "galaxies",
-            headers: ApiHandler.getHeaders('data'),
-        }).then(function (response) {
-                return response.data['data'];
-        }).catch(function (error){
-            return error.response.data;
-        });
+        const url = ApiHandler.BASE_URL + "galaxies";
+        const headers = ApiHandler.getHeaders('data');
+        return await ApiHandler.sendRequest('get', url, headers);
     }
 
     static async getGalaxy (galaxyId) {
         if(!ApiHandler.setJwt()){
             return {'error': {'message': "User not logged in!"}};
         }
-        return await axios({
-            method: 'get',
-            url: ApiHandler.BASE_URL + "galaxies/"+galaxyId,
-            headers: ApiHandler.getHeaders('data'),
-        }).then(function (response) {
-            return response.data['data'];
-        }).catch(function (error){
-            return error.response.data;
-        });
+        const url = ApiHandler.BASE_URL + "galaxies/"+galaxyId;
+        const headers = ApiHandler.getHeaders('data');
+        return await ApiHandler.sendRequest('get', url, headers);
     }
 
     static async getPlanets () {
         if(!ApiHandler.setJwt()){
             return {'error': {'message': "User not logged in!"}};
         }
-        return await axios({
-            method: 'get',
-            url: ApiHandler.BASE_URL + "planets",
-            headers: ApiHandler.getHeaders('data'),
-        }).then(function (response) {
-            return response.data['data'];
-        }).catch(function (error){
-            return error.response.data;
-        });
+        const url = ApiHandler.BASE_URL + "planets";
+        const headers = ApiHandler.getHeaders('data');
+        return await ApiHandler.sendRequest('get', url, headers);
     }
 
     static async getPlanet (planetId) {
         if(!ApiHandler.setJwt()){
             return {'error': {'message': "User not logged in!"}};
         }
-        return await axios({
-            method: 'get',
-            url: ApiHandler.BASE_URL + "planets/"+planetId,
-            headers: ApiHandler.getHeaders('data'),
-        }).then(function (response) {
-            return response.data['data'];
-        }).catch(function (error){
-            return error.response.data;
-        });
+        const url = ApiHandler.BASE_URL + "planets/"+planetId;
+        const headers = ApiHandler.getHeaders('data');
+        return await ApiHandler.sendRequest('get', url, headers);
     }
 
     static async getBases () {
         if(!ApiHandler.setJwt()){
             return {'error': {'message': "User not logged in!"}};
         }
-        return await axios({
-            method: 'get',
-            url: ApiHandler.BASE_URL + "bases",
-            headers: ApiHandler.getHeaders('data'),
-        }).then(function (response) {
-            return response.data['data'];
-        }).catch(function (error){
-            return error.response.data;
-        });
+        const url = ApiHandler.BASE_URL + "bases";
+        const headers = ApiHandler.getHeaders('data');
+        return await ApiHandler.sendRequest('get', url, headers);
     }
 
     static async getResources (baseId) {
         if(!ApiHandler.setJwt()){
             return {'error': {'message': "User not logged in!"}};
         }
-        return await axios({
-            method: 'get',
-            url: ApiHandler.BASE_URL + "resources"+baseId,
-            headers: ApiHandler.getHeaders('data'),
-        }).then(function (response) {
-            return response.data['data'];
-        }).catch(function (error){
-            return error.response.data;
-        });
+        const url = ApiHandler.BASE_URL + "resources/"+baseId;
+        const headers = ApiHandler.getHeaders('data');
+        return await ApiHandler.sendRequest('get', url, headers);
     }
 
     static async getHarbour (baseId) {
         if(!ApiHandler.setJwt()){
             return {'error': {'message': "User not logged in!"}};
         }
-        return await axios({
-            method: 'get',
-            url: ApiHandler.BASE_URL + "harbour"+baseId,
-            headers: ApiHandler.getHeaders('data'),
-        }).then(function (response) {
-            return response.data['data'];
-        }).catch(function (error){
-            return error.response.data;
-        });
+        const url = ApiHandler.BASE_URL + "harbour/"+baseId;
+        const headers = ApiHandler.getHeaders('data');
+        return await ApiHandler.sendRequest('get', url, headers);
     }
 
     static async getFleets (baseId) {
         if(!ApiHandler.setJwt()){
             return {'error': {'message': "User not logged in!"}};
         }
-        return await axios({
-            method: 'get',
-            url: ApiHandler.BASE_URL + "fleets/"+baseId,
-            headers: ApiHandler.getHeaders('data'),
-        }).then(function (response) {
-            return response.data['data'];
-        }).catch(function (error){
-            return error.response.data;
-        });
+        const url = ApiHandler.BASE_URL + "fleets/"+baseId;
+        const headers = ApiHandler.getHeaders('data');
+        return await ApiHandler.sendRequest('get', url, headers);
     }
 
     static async getShipTypes () {
         if(!ApiHandler.setJwt()){
             return {'error': {'message': "User not logged in!"}};
         }
-        return await axios({
-            method: 'get',
-            url: ApiHandler.BASE_URL + "ship-types",
-            headers: ApiHandler.getHeaders('data'),
-        }).then(function (response) {
-            return response.data['data'];
-        }).catch(function (error){
-            return error.response.data;
-        });
+        const url = ApiHandler.BASE_URL + "ship-types";
+        const headers = ApiHandler.getHeaders('data');
+        return await ApiHandler.sendRequest('get', url, headers);
     }
 
     static async getCollectors (baseId) {
         if(!ApiHandler.setJwt()){
             return {'error': {'message': "User not logged in!"}};
         }
-        return await axios({
-            method: 'get',
-            url: ApiHandler.BASE_URL + "collectors/"+baseId,
-            headers: ApiHandler.getHeaders('data'),
-        }).then(function (response) {
-            return response.data['data'];
-        }).catch(function (error){
-            return error.response.data;
-        });
+        const url = ApiHandler.BASE_URL + "collectors/"+baseId;
+        const headers = ApiHandler.getHeaders('data');
+        return await ApiHandler.sendRequest('get', url, headers);
     }
 }
 
