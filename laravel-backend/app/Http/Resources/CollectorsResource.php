@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\ResourceCollectors;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -18,7 +19,8 @@ class CollectorsResource extends JsonResource
             'type' => $this->type,
             'lastCollected' => $this->last_collected,
             'level' => $this->level,
-            'ratePerHour' => $this->rate_per_hour,
+            'upgradePrice' => $this->upgradePrice(),
+            'amountStored' => $this->getAmountStored(),
         ];
     }
 }

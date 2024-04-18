@@ -38,6 +38,12 @@ Route::middleware(ApiAuth::class)->get('/bases',[BasesController::class, 'fetchB
 Route::middleware(ApiAuth::class)->get('/resources/{base_id}',[ResourceController::class, 'fetch']);
 Route::middleware(ApiAuth::class)->get('/harbour/{base_id}',[HarboursController::class, 'fetch']);
 Route::middleware(ApiAuth::class)->get('/fleets/{base_id}',[FleetsController::class, 'fetch']);
-Route::middleware(ApiAuth::class)->get('/ship-types/{base_id}',[ShipTypesController::class, 'fetch']);
-Route::middleware(ApiAuth::class)->get('/collectors/{base_id}',[CollectorsController::class, 'fetch']);
+Route::middleware(ApiAuth::class)->get('/ship-types',[ShipTypesController::class, 'fetch']);
+
+Route::prefix('collectors')->middleware(ApiAuth::class)->controller(CollectorsController::class)->group(function () {
+    Route::GET('/{base_id}','fetch');
+    Route::PATCH('/upgrade','upgrade');
+    Route::PATCH('/collect','collect');
+});
+
 

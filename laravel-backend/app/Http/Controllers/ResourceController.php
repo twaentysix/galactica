@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\ResourcesResource;
 use App\Models\Bases;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class ResourceController extends Controller
 {

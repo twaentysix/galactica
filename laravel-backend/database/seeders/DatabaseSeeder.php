@@ -64,7 +64,7 @@ class DatabaseSeeder extends Seeder
         $resources = Resources::create([
             'metal' => 0,
             'gas' => 0,
-            'cristal' => 0,
+            'gems' => 0,
         ]);
         $resources->base()->associate($base);
         $resources->save();
@@ -73,7 +73,7 @@ class DatabaseSeeder extends Seeder
             'type' => 'metal',
             'last_collected' => Carbon::now(),
             'level' => 1,
-            'rate_per_hour' => 2
+            'max_capacity' => 5000
         ]);
         $metal_collector->base()->associate($base);
         $metal_collector->save();
@@ -82,19 +82,19 @@ class DatabaseSeeder extends Seeder
             'type' => 'gas',
             'last_collected' => Carbon::now(),
             'level' => 1,
-            'rate_per_hour' => 2
+            'max_capacity' => 5000
         ]);
         $gas_collector->base()->associate($base);
         $gas_collector->save();
 
-        $cristal_collector = ResourceCollectors::create([
-            'type' => 'cristal',
+        $gem_collector = ResourceCollectors::create([
+            'type' => 'gems',
             'last_collected' => Carbon::now(),
             'level' => 1,
-            'rate_per_hour' => 2
+            'max_capacity' => 5000
         ]);
-        $cristal_collector->base()->associate($base);
-        $cristal_collector->save();
+        $gem_collector->base()->associate($base);
+        $gem_collector->save();
 
         ShipTypes::create([
             'type' => 'light_fighter'

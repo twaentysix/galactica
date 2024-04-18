@@ -17,7 +17,7 @@ class ResourcesResource extends JsonResource
         return [
             'metal' => $this->metal,
             'gas' => $this->gas,
-            'cristal' => $this->cristal,
+            'gems' => $this->gems,
         ];
     }
 }

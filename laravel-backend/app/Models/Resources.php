@@ -22,7 +22,7 @@ class Resources extends Model
     protected $fillable = [
         'base_id',
         'metal',
-        'cristal',
+        'gems',
         'gas'
     ];
 
@@ -44,7 +44,7 @@ class Resources extends Model
             'id' => 'integer',
             'metal' => 'integer',
             'gas' => 'integer',
-            'cristal' => 'integer',
+            'gems' => 'integer',
         ];
     }
 
