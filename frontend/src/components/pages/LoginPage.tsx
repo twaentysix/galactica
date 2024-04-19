@@ -1,0 +1,65 @@
+import Button from "../button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+
+import LoginImage from "../../assets/purple_moon_base.jpg";
+import Logo from "../../assets/Logo.svg"
+
+const LoginPage = () => {
+    return (
+        <div id="loginScreen" className="lg:flex">
+            <div className="hidden lg:block lg:w-2/3 h-dvh overflow-y-hidden">
+                <img
+                    src={LoginImage}
+                    alt="Moon base of Galactica"
+                    className=""
+                />
+            </div>
+            <div className="flex items-center justify-center py-12 bg-g_base_gradient_0 lg:w-1/3 lg:h-dvh">
+                <div className="flex flex-col gap-10">
+                    <div className="flex justify-center items-center flex-col gap-5">
+                        <div className="py-20">
+                            <img src={Logo} alt="Logo Galactica" />
+                        </div>
+                        <h1>Welcome to Galactica</h1>
+                        <p className="">
+                            Login to your account
+                        </p>
+                    </div>
+                    <div className="flex flex-col gap-5">
+                        <div className="">
+                            <Label htmlFor="email" className="sr-only">Email</Label>
+                            <Input
+                                id="email"
+                                type="email"
+                                placeholder="nicegame2004@someservice.com"
+                                required
+                            />
+                        </div>
+                        <div className="">
+                            <div className="">
+                                <Label htmlFor="password" className="sr-only">Password</Label>
+                            </div>
+                            <Input id="password" type="password" required  placeholder="Your password"/>
+                        </div>
+                            <Button type="submit" onclick={loginHandler}>
+                                Login
+                            </Button>
+                    </div>
+                    <div className="text-center">
+                        Don&apos;t have an account?{" "}
+                            <a href="#" className="underline">
+                                Sign up
+                            </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+const loginHandler = () => {
+  // TODO: Create LoginHandler
+}
+
+export default LoginPage
