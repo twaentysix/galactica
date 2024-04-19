@@ -11,7 +11,7 @@ import {
 function OurDialog() {
   return (
   <Dialog>
-    <DialogTrigger className="text-red">Open</DialogTrigger>
+    <DialogTrigger>Open</DialogTrigger>
     <DialogContent>
       <DialogHeader>
         <DialogTitle>
