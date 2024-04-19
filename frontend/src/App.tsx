@@ -3,16 +3,27 @@ import './App.css'
 // import Layout from './components/Layout'
 // import OurDialog from './components/OurDialog'
 
-import { Button } from "@/components/ui/button"
+import Button from './components/button'
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+
+import LoginImage from "./assets/purple_moon_base.jpg"; 
 
 function App() {
 
   return (
     <BrowserRouter>
-    <div className="w-full lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px]">
-      <div className="flex items-center justify-center py-12 bg-g_base_gradient_1">
+    <div className="lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px]">
+      <div className="hidden bg-muted lg:block">
+        <img
+          src={LoginImage}
+          alt="of space"
+          width="1920"
+          height="1080"
+          className="h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
+        />
+      </div>
+      <div className="flex items-center justify-center py-12 bg-g_base_gradient_0">
         <div className="mx-auto grid w-[350px] gap-6">
           <div className="grid gap-2 text-center">
             <h1>Welcome to Galactica</h1>
@@ -36,7 +47,7 @@ function App() {
               </div>
               <Input id="password" type="password" required />
             </div>
-            <Button type="submit" className="w-full">
+            <Button type="submit" onclick={loginHandler}>
               Login
             </Button>
           </div>
@@ -48,18 +59,13 @@ function App() {
           </div>
         </div>
       </div>
-      <div className="hidden bg-muted lg:block">
-        <img
-          src="/placeholder.svg"
-          alt="of space"
-          width="1920"
-          height="1080"
-          className="h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
-        />
-      </div>
     </div>
     </BrowserRouter>
   )
+}
+
+const loginHandler = () => {
+  // TODO: Create LoginHandler
 }
 
 export default App
