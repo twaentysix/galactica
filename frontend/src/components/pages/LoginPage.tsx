@@ -4,8 +4,17 @@ import { Label } from "@/components/ui/label";
 
 import LoginImage from "../../assets/purple_moon_base.jpg";
 import Logo from "../../assets/Logo.svg"
+import { useState } from "react";
+
+import ToastNotification from "../toastNotification/ToastNotification";
 
 const LoginPage = () => {
+    const [notification, setNotification] = useState(false);
+
+    const loginHandler = () => {
+        setNotification(true);
+    }
+
     return (
         <div id="loginScreen" className="lg:flex">
             <div className="hidden lg:block lg:w-2/3 h-dvh overflow-y-hidden">
@@ -42,9 +51,10 @@ const LoginPage = () => {
                             </div>
                             <Input id="password" type="password" required  placeholder="Your password"/>
                         </div>
-                            <Button type="submit" onclick={loginHandler}>
-                                Login
-                            </Button>
+                        <Button type="submit" onClick={() => setNotification(true)}>
+                            Login
+                        </Button>
+                        {notification == true ? <ToastNotification>Sahne</ToastNotification> : null}
                     </div>
                     <div className="text-center">
                         Don&apos;t have an account?{" "}
@@ -56,10 +66,6 @@ const LoginPage = () => {
             </div>
         </div>
     )
-}
-
-const loginHandler = () => {
-  // TODO: Create LoginHandler
 }
 
 export default LoginPage

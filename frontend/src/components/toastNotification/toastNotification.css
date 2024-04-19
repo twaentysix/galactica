@@ -1,0 +1,20 @@
+@keyframes toastNotification {
+  0% {
+    transform: translateY(-50%);
+    opacity: 0;
+  }
+
+  10%, 20%, 30%, 40%, 50%, 60%, 70%, 80%, 90% {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(-50%);
+    opacity: 0;
+  }
+}
+
+#toastNotification {
+  animation: toastNotification 5s ease-in-out forwards;
+}
