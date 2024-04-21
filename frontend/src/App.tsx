@@ -5,11 +5,11 @@ import DashboardPage from './components/pages/DashboardPage';
 
 function App() {
 
-  let sessionExists = localStorage.getItem("loggedInUser");
+  let sessionExists = localStorage.setItem("loggedInUser", "Kekw");
 
   return (
     <BrowserRouter>
-    {sessionExists == null ? <LoginPage /> : <DashboardPage />}
+      <DashboardPage />
     </BrowserRouter>
   )
 }
