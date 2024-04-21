@@ -1,44 +1,48 @@
+import Layout from "../Layout";
 
 const DashboardPage = () => {
     return (
-        <>
-            <div className="bg-gray-900 text-white">
-                {/* Top Bar */}
-                <div className="flex items-center justify-between px-8 py-4">
-                    <h1 className="text-lg font-bold">Top Bar</h1>
-                    {/* Add your top bar content here */}
+        <Layout>
+            {/* First column using two grid sections */}
+            <div className="col-span-2 bg-g_base_gradient_0 rounded-lg">
+                {/* Top bar for the first column */}
+                <div className="bg-g_light h-10 px-4 flex items-center rounded-t-lg">
+                    {/* Top bar content */}
+                    (First Column)
+                </div>
+                {/* Content */}
+                <div className="p-4">
+                    {/* Add content here */}
+                    (2 sections)
                 </div>
             </div>
-
-            <div className="container mx-auto mt-8 px-8">
-                {/* Grid */}
-                <div className="grid grid-cols-12 gap-8">
-                    {/* First column using two grid sections */}
-                    <div className="col-span-2 bg-gray-200 p-4">
-                        {/* First section */}
-                        <div className="mb-8">
-                            {/* Add content here */}
-                            First Column (2 sections)
-                        </div>
-                        {/* Second section */}
-                        <div>
-                            {/* Add content here */}
-                            First Column (2 sections)
-                        </div>
-                    </div>
-                    {/* Bigger column using 7 */}
-                    <div className="col-span-7 bg-gray-300 p-4">
-                        {/* Add content here */}
-                        Second Column (7 sections)
-                    </div>
-                    {/* Third column using 3 */}
-                    <div className="col-span-3 bg-gray-400 p-4">
-                        {/* Add content here */}
-                        Third Column (3 sections)
-                    </div>
+            {/* Bigger column using 7 */}
+            <div className="col-span-7 bg-g_base_gradient_0 rounded-lg">
+                {/* Top bar for the second column */}
+                <div className="bg-g_light h-10 px-4 flex items-center rounded-t-lg">
+                    {/* Top bar content */}
+                    (Second Column)
+                </div>
+                {/* Content */}
+                <div className="p-4">
+                    {/* Add content here */}
+                    (7 sections)
                 </div>
             </div>
-        </>
+            {/* Third column using 3 */}
+            <div className="col-span-3 bg-g_base_gradient_0 rounded-lg">
+                {/* Top bar for the third column */}
+                <div className="bg-g_light h-10 px-4 flex items-center rounded-t-lg">
+                    {/* Top bar content */}
+                    (Third Column)
+                </div>
+                {/* Content */}
+                <div className="p-4">
+                    {/* Add content here */}
+                    (3 sections)
+                </div>
+            </div>
+        </Layout>
     );
 }
 
