@@ -93,7 +93,7 @@ module.exports = {
           to: { height: "0" },
         },
         "blur-in": {
-          from: { filter: "brightness(0%) blur(50px)" },
+          from: { filter: "brightness(0%) blur(15px)" },
           to: { filter: "brightness(100%) blur(0px)" },
         },
       },
