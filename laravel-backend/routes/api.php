@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ExpeditionsController;
 use App\Http\Controllers\HarboursController;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\BasesController;
@@ -11,6 +12,7 @@ use App\Http\Controllers\ShipTypesController;
 use App\Http\Controllers\FleetsController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\ApiAuth;
+use App\Models\Expeditions;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('auth')->controller(AuthenticationController::class)->group(function () {
@@ -46,4 +48,7 @@ Route::prefix('collectors')->middleware(ApiAuth::class)->controller(CollectorsCo
     Route::PATCH('/collect','collect');
 });
 
+Route::prefix('expeditions')->middleware(ApiAuth::class)->controller(ExpeditionsController::class)->group(function () {
+    Route::POST('/register','register');
+});
 

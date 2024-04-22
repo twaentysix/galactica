@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Fleets extends Model
 {
@@ -25,6 +26,7 @@ class Fleets extends Model
         'battleship',
         'cruiser',
         'name',
+        'busy',
     ];
 
     /**
@@ -51,14 +53,43 @@ class Fleets extends Model
             'battleship' => 'integer',
             'cruiser' => 'integer',
             'name' => 'string',
+            'busy' => 'boolean'
         ];
+    }
+
+    /**
+     * Multiplier to edit expedition Resources
+     * @return float
+     */
+    public function getExpeditionResourceMultiplier () : float
+    {
+        $multiplier = 1;
+        $multiplier += $this->transporter * 0.002;
+        $multiplier += $this->heavy_fighter * 0.001;
+        $multiplier += $this->cruiser * 0.0015;
+        $multiplier += $this->light_fighter * 0.0005;
+        $multiplier += $this->battleships * 0.0005;
+        return $multiplier;
     }
 
     /**
      * @return BelongsTo
      */
-    public function harbour()
+    public function harbour(): BelongsTo
     {
         return $this->belongsTo(Harbours::class,'harbour_id', 'id');
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function battles(): HasMany
+    {
+        return $this->hasMany(Battles::class,'fleet_id', 'id');
+    }
+
+    public function expeditions(): hasMany
+    {
+        return $this->hasMany(Expeditions::class,'fleet_id', 'id');
     }
 }
