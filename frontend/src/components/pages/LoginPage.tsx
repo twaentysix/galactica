@@ -19,7 +19,7 @@ const LoginPage = () => {
     const handleSubmit = (event: any) => {
         event.preventDefault();
         // TODO: Validate form data and create a session using the API
-        
+
         buttonHandler(); // -> To test the <ToastNotification /> component
     };
 
@@ -29,7 +29,7 @@ const LoginPage = () => {
                 <img
                     src={LoginImage}
                     alt="Moon base of Galactica"
-                    className=""
+                    className="animate-blur-in"
                 />
             </div>
             <div className="flex items-center justify-center py-12 bg-g_base_gradient_0 lg:w-1/3 lg:h-dvh">
