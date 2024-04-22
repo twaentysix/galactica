@@ -11,9 +11,17 @@ import ToastNotification from "../toastNotification/ToastNotification";
 const LoginPage = () => {
     const [notification, setNotification] = useState(false);
 
-    const loginHandler = () => {
+    const buttonHandler = () => {
         setNotification(true);
+        setTimeout(() => setNotification(false), 6000);
     }
+
+    const handleSubmit = (event: any) => {
+        event.preventDefault();
+        // TODO: Validate form data and create a session using the API
+        
+        buttonHandler(); // -> To test the <ToastNotification /> component
+    };
 
     return (
         <div id="loginScreen" className="lg:flex">
@@ -35,27 +43,29 @@ const LoginPage = () => {
                             Login to your account
                         </p>
                     </div>
-                    <div className="flex flex-col gap-5">
-                        <div className="">
-                            <Label htmlFor="email" className="sr-only">Email</Label>
-                            <Input
-                                id="email"
-                                type="email"
-                                placeholder="nicegame2004@someservice.com"
-                                required
-                            />
-                        </div>
-                        <div className="">
+                    <form onSubmit={handleSubmit}>
+                        <div className="flex flex-col gap-5">
                             <div className="">
-                                <Label htmlFor="password" className="sr-only">Password</Label>
+                                <Label htmlFor="email" className="sr-only">Email</Label>
+                                <Input
+                                    id="email"
+                                    type="email"
+                                    placeholder="nicegame2004@someservice.com"
+                                    required
+                                />
                             </div>
-                            <Input id="password" type="password" required  placeholder="Your password"/>
+                            <div className="">
+                                <div className="">
+                                    <Label htmlFor="password" className="sr-only">Password</Label>
+                                </div>
+                                <Input id="password" type="password" required  placeholder="Your password"/>
+                            </div>
+                            <Button type="submit">
+                                Login
+                            </Button>
+                            {notification === true ? <ToastNotification type="info" message="No password given!"/> : null}
                         </div>
-                        <Button type="submit" onClick={() => setNotification(true)}>
-                            Login
-                        </Button>
-                        {notification == true ? <ToastNotification>Sahne</ToastNotification> : null}
-                    </div>
+                    </form>
                     <div className="text-center">
                         Don&apos;t have an account?{" "}
                             <a href="#" className="underline">
