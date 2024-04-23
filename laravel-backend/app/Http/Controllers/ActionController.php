@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Fleets;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
 interface ActionController{
@@ -15,19 +15,19 @@ interface ActionController{
     function register(Request $request);
 
     /**
-     * Actions can only be performed by fleets.
-     * The resolve function needs to know which fleets action is being resolved.
-     * @param $fleet_id
+     * Actions are performed on models, therefore we need to pass a model.
+     * The resolve function needs to know which model action is being resolved.
+     * @param Model $model
      * @return void
      */
-    function resolve(Fleets $fleet);
+    function resolve(Model $model);
 
     /**
      * Each Action has to be started.
-     * Since only fleets can perform actions, we need to pass a fleet_id.
-     * @param $fleet_id
+     * Actions are performed on models, therefore we need to pass a model.
+     * @param Model $model
      * @return mixed
      */
-    function start(Fleets $fleet);
+    function start(Model $model);
 }
 

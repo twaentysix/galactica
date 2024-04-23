@@ -6,6 +6,8 @@ use App\Http\Resources\ExpeditionResource;
 use App\Models\Bases;
 use App\Models\Expeditions;
 use App\Models\Fleets;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
 class ExpeditionsController extends Controller implements ActionController
@@ -64,20 +66,39 @@ class ExpeditionsController extends Controller implements ActionController
         return new ExpeditionResource($expedition);
     }
 
-    function resolve(Fleets $fleet)
+    /**
+     * @param Model $model
+     * @return false|void
+     * @var Expeditions $expedition
+     */
+    function resolve(Model $model)
     {
         // TODO: Implement resolve() method. --> battle and set resources and status of expedition
-        $expedition = $fleet->expeditions()->where('status' , '=', 'started')->first();
-
+        if(!$model instanceof Expeditions){
+            return false;
+        }
+        $model->update([
+            'status' => 'succeeded',
+            'ended_at' => Carbon::now(),
+        ]);
+        $model->save();
 
     }
 
-    function start(Fleets $fleet)
+    /**
+     * @param Model $model
+     * @return false|void
+     * @var Expeditions $expedition
+     */
+    function start(Model $model)
     {
-        $expedition = $fleet->expeditions()->where('status' , '=', 'idle')->first();
-        $expedition->update([
+        if(!$model instanceof Expeditions){
+            return false;
+        }
+        $model->update([
             'status' => 'started',
+            'started_at' => Carbon::now(),
         ]);
-        $expedition->save();
+        $model->save();
     }
 }
