@@ -38,6 +38,7 @@ return new class extends Migration
             $table->integer('lost_ships')->default(0);
             $table->unsignedBigInteger('expedition_id')->nullable();
             $table->foreign('expedition_id')->references('id')->on('expeditions')->nullOnDelete();
+            $table->boolean('finished')->default(false);
         });
     }
 

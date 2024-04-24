@@ -22,4 +22,8 @@ class FleetsController extends Controller
         }
         return new FleetsCollection($fleets);
     }
+
+    public function create (){
+        //TODO Darf nicht Pirates im Namen haben!!
+    }
 }

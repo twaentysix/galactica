@@ -8,7 +8,9 @@ use App\Models\Expeditions;
 use App\Models\Fleets;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use LaravelIdea\Helper\App\Models\_IH_Bases_C;
 
 class ExpeditionsController extends Controller implements ActionController
 {
@@ -16,6 +18,10 @@ class ExpeditionsController extends Controller implements ActionController
     static float $BASE_GAS_REWARD = 30;
     static float $BASE_GEMS_REWARD = 10;
 
+    /**
+     * @param Request $request
+     * @return ExpeditionResource|Bases|Bases[]|JsonResponse|_IH_Bases_C|mixed
+     */
     function register(Request $request)
     {
         $fleet_id = $request->input('fleet_id');
@@ -74,15 +80,35 @@ class ExpeditionsController extends Controller implements ActionController
     function resolve(Model $model)
     {
         // TODO: Implement resolve() method. --> battle and set resources and status of expedition
+        // TODO: check if battle happend, resolve the battle
+        // TODO: if expedition succeeded --> resources into base resources, update expedition
         if(!$model instanceof Expeditions){
             return false;
         }
+
+        $battleHappens = 0.05 * $model->duration <= rand(0, 10000) / 10000;
+
+        if($battleHappens){
+            $battleController = new ExpeditionBattleController();
+            $battle = $battleController->create($model->fleet, $battleController->getPirateFleet($model->fleet));
+            $battle->expedition()->associate($model);
+            $battleController->resolve($battle);
+        }
+
         $model->update([
             'status' => 'succeeded',
             'ended_at' => Carbon::now(),
         ]);
         $model->save();
-
+        $resources = $model->fleet->harbour->base->resources;
+        $metal = $resources->metal + $model->metal;
+        $gas = $resources->gas + $model->gas;
+        $gems = $resources->gems + $model->gems;
+        $resources->update([
+            'metal' => $metal,
+            'gems' => $gems,
+            'gas' => $gas
+        ]);
     }
 
     /**

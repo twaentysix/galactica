@@ -111,5 +111,37 @@ class DatabaseSeeder extends Seeder
         ShipTypes::create([
             'type' => 'cruiser'
         ]);
+
+        $fleet = Fleets::create([
+            'name' => 'Pirates_easy',
+            'transporter' => 50,
+            'cruiser' => 50,
+            'light_fighter' => 150,
+            'heavy_fighter' => 100,
+            'battleships' => 50,
+            'busy' => false,
+        ]);
+        $fleet->save();
+        $fleet = Fleets::create([
+            'name' => 'Pirates_medium',
+            'transporter' => 50,
+            'cruiser' => 50,
+            'light_fighter' => 150,
+            'heavy_fighter' => 100,
+            'battleships' => 50,
+            'busy' => false,
+        ]);
+        $fleet->save();
+
+        $fleet = Fleets::create([
+            'name' => 'Pirates_hard',
+            'transporter' => 50,
+            'cruiser' => 50,
+            'light_fighter' => 150,
+            'heavy_fighter' => 100,
+            'battleships' => 50,
+            'busy' => false,
+        ]);
+        $fleet->save();
     }
 }

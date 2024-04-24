@@ -73,6 +73,28 @@ class Fleets extends Model
     }
 
     /**
+     * Get Battle strength of a fleet to determine if it wins a battle.
+     * @return float
+     */
+    public function getBattleStrength () : float
+    {
+        $strength = 0;
+        $strength += $this->transporter * 2;
+        $strength += $this->heavy_fighter * 10;
+        $strength += $this->cruiser * 12;
+        $strength += $this->light_fighter * 7;
+        $strength += $this->battleships * 15;
+        return $strength;
+    }
+
+    public function destroyShipsAfterBattle(float $rate){
+        //TODO: destroys ships based on a given rate (percentage) --> different types of ships need to be destroyed
+
+        return 200;
+    }
+
+
+    /**
      * @return BelongsTo
      */
     public function harbour(): BelongsTo
