@@ -32,13 +32,13 @@ return new class extends Migration
             $table->unsignedBigInteger('fleet_id')->nullable();
             $table->foreign('opponent_id')->references('id')->on('fleets')->nullOnDelete();
             $table->foreign('fleet_id')->references('id')->on('fleets')->cascadeOnDelete();
-            $table->unsignedBigInteger('base_id')->nullable();
-            $table->foreign('base_id')->references('id')->on('bases')->cascadeOnDelete();
             $table->boolean('won')->default(true);
             $table->integer('lost_ships')->default(0);
             $table->unsignedBigInteger('expedition_id')->nullable();
             $table->foreign('expedition_id')->references('id')->on('expeditions')->nullOnDelete();
             $table->boolean('finished')->default(false);
+            $table->integer('fleet_strength')->nullable();
+            $table->integer('opponent_strength')->nullable();
         });
     }
 

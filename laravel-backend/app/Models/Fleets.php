@@ -23,7 +23,7 @@ class Fleets extends Model
         'light_fighter',
         'transporter',
         'heavy_fighter',
-        'battleship',
+        'battleships',
         'cruiser',
         'name',
         'busy',
@@ -87,10 +87,47 @@ class Fleets extends Model
         return $strength;
     }
 
-    public function destroyShipsAfterBattle(float $rate){
-        //TODO: destroys ships based on a given rate (percentage) --> different types of ships need to be destroyed
+    /**
+     * Different rates for types of ships because different ships are differently involved in battles.
+     * @param float $rate
+     * @return float
+     */
+    public function destroyShipsAfterBattle(float $rate): float
+    {
+        $amountShips = $this->transporter + $this->heavy_fighter + $this->light_fighter + $this->battleships + $this->cruiser;
+        $lostShips = $amountShips * $rate;
 
-        return 200;
+        // percentage of all ships
+        $pHF = $this->heavy_fighter / $amountShips;
+        $pLF = $this->heavy_fighter / $amountShips;
+        $pC = $this->heavy_fighter / $amountShips;
+        $pT = $this->heavy_fighter / $amountShips;
+        $pBS = $this->heavy_fighter / $amountShips;
+
+        // subtract standard part of the lostShips considering the percentage
+        $newHF = $this->heavy_fighter - $lostShips * $pHF;
+        $newLF = $this->light_fighter - $lostShips * $pLF;
+        $newC = $this->cruiser - $lostShips * $pC;
+        $newT = $this->transporter - $lostShips * $pT;
+        $newBS = $this->battleships - $lostShips * $pBS;
+
+        // additionally destroy some ships according to ship specific survival rate
+        $newHF = (int)($newHF * (1 - 0.2 * $rate));
+        $newLF = (int)($newLF * (1 - 0.3 * $rate));
+        $newC = (int)($newC * (1 - 0.15 * $rate));
+        $newT = (int)($newT * (1 - 0.1 * $rate));
+        $newBS = (int)($newBS * (1 - 0.25 * $rate));
+
+        $this->update([
+            'battleships' => $newBS,
+            'heavy_fighter' => $newHF,
+            'light_fighter' => $newLF,
+            'cruiser' => $newC,
+            'transporter' => $newT,
+        ]);
+        $this->save();
+
+        return $lostShips;
     }
 
 

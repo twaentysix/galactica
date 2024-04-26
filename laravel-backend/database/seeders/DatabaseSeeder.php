@@ -124,22 +124,22 @@ class DatabaseSeeder extends Seeder
         $fleet->save();
         $fleet = Fleets::create([
             'name' => 'Pirates_medium',
-            'transporter' => 50,
-            'cruiser' => 50,
-            'light_fighter' => 150,
-            'heavy_fighter' => 100,
-            'battleships' => 50,
+            'transporter' => 70,
+            'cruiser' => 235,
+            'light_fighter' => 340,
+            'heavy_fighter' => 420,
+            'battleships' => 400,
             'busy' => false,
         ]);
         $fleet->save();
 
         $fleet = Fleets::create([
             'name' => 'Pirates_hard',
-            'transporter' => 50,
-            'cruiser' => 50,
-            'light_fighter' => 150,
-            'heavy_fighter' => 100,
-            'battleships' => 50,
+            'transporter' => 100,
+            'cruiser' => 550,
+            'light_fighter' => 650,
+            'heavy_fighter' => 700,
+            'battleships' => 680,
             'busy' => false,
         ]);
         $fleet->save();

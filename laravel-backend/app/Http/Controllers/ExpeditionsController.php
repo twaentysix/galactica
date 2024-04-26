@@ -87,28 +87,44 @@ class ExpeditionsController extends Controller implements ActionController
         }
 
         $battleHappens = 0.05 * $model->duration <= rand(0, 10000) / 10000;
-
+        $battleController = new ExpeditionBattleController();
+        $battle = $battleController->create($model->fleet, $battleController->getPirateFleet($model->fleet));
+        $battle->expedition()->associate($model);
+        $battleController->resolve($battle);
         if($battleHappens){
-            $battleController = new ExpeditionBattleController();
-            $battle = $battleController->create($model->fleet, $battleController->getPirateFleet($model->fleet));
-            $battle->expedition()->associate($model);
-            $battleController->resolve($battle);
+
+        }
+
+        if($model->battle){
+            $status = $model->battle->won ? 'succeeded' : 'failed';
+        }else{
+            $status = 'succeeded';
         }
 
         $model->update([
-            'status' => 'succeeded',
+            'status' => $status,
             'ended_at' => Carbon::now(),
         ]);
         $model->save();
-        $resources = $model->fleet->harbour->base->resources;
-        $metal = $resources->metal + $model->metal;
-        $gas = $resources->gas + $model->gas;
-        $gems = $resources->gems + $model->gems;
-        $resources->update([
-            'metal' => $metal,
-            'gems' => $gems,
-            'gas' => $gas
+
+        $fleet = $model->fleet;
+        $fleet->update([
+            'busy' => false,
         ]);
+        $fleet->save();
+
+        if($status == 'succeeded'){
+            $resources = $model->fleet->harbour->base->resources;
+            $metal = $resources->metal + $model->metal;
+            $gas = $resources->gas + $model->gas;
+            $gems = $resources->gems + $model->gems;
+            $resources->update([
+                'metal' => $metal,
+                'gems' => $gems,
+                'gas' => $gas
+            ]);
+            $resources->save();
+        }
     }
 
     /**

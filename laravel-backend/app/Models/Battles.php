@@ -25,6 +25,8 @@ class Battles extends Model
         'lost_ships',
         'base_id',
         'finished',
+        'opponent_strength',
+        'fleet_strength',
     ];
 
     /**
@@ -48,7 +50,9 @@ class Battles extends Model
             'won' => 'boolean',
             'lost_ships' => 'integer',
             'base_id' => 'integer',
-            'finished' => 'boolean'
+            'finished' => 'boolean',
+            'opponent_strength' => 'integer',
+            'fleet_strength' => 'integer',
         ];
     }
 
