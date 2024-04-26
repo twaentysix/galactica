@@ -87,12 +87,12 @@ class ExpeditionsController extends Controller implements ActionController
         }
 
         $battleHappens = 0.05 * $model->duration <= rand(0, 10000) / 10000;
-        $battleController = new ExpeditionBattleController();
-        $battle = $battleController->create($model->fleet, $battleController->getPirateFleet($model->fleet));
-        $battle->expedition()->associate($model);
-        $battleController->resolve($battle);
-        if($battleHappens){
 
+        if($battleHappens){
+            $battleController = new ExpeditionBattleController();
+            $battle = $battleController->create($model->fleet, $battleController->getPirateFleet($model->fleet));
+            $battle->expedition()->associate($model);
+            $battleController->resolve($battle);
         }
 
         if($model->battle){
