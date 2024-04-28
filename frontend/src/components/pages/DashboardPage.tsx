@@ -1,4 +1,5 @@
 import Layout from "../Layout";
+import CustomCard from "../customCard";
 
 const DashboardPage = () => {
     return (
@@ -6,14 +7,14 @@ const DashboardPage = () => {
             {/* First column using two grid sections */}
             <div className="col-span-2 bg-g_base_gradient_0 rounded-lg">
                 {/* Top bar for the first column */}
-                <div className="bg-g_light h-10 px-4 flex items-center rounded-t-lg">
+                <div className="bg-g_light h-10 px-4 flex items-center justify-center rounded-t-lg">
                     {/* Top bar content */}
-                    (First Column)
+                    <span className="text-g_dark font-headline font-bold">Milkyway</span>
                 </div>
                 {/* Content */}
-                <div className="p-4">
+                <div className="my-4                             ">
                     {/* Add content here */}
-                    (2 sections)
+                    <CustomCard/>
                 </div>
             </div>
             {/* Bigger column using 7 */}
