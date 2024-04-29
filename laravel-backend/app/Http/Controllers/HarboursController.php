@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\HarbourResource;
 use App\Models\Bases;
+use App\Models\Harbours;
 
 class HarboursController extends Controller
 {

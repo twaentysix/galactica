@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BarracksController;
 use App\Http\Controllers\ExpeditionsController;
 use App\Http\Controllers\HarboursController;
 use App\Http\Controllers\AuthenticationController;
@@ -52,62 +53,6 @@ Route::prefix('expeditions')->middleware(ApiAuth::class)->controller(Expeditions
     Route::POST('/register','register');
 });
 
-
-Route::prefix('test')->controller(ExpeditionsController::class)->group(function () {
-    Route::GET('/resolve', function () {
-        $controller = new ExpeditionsController();
-        $expeditions = Expeditions::where('status', '=', 'started')->get();
-        foreach ($expeditions as $ex){
-            $opponentStrength = $controller->resolve($ex);
-            if($ex->battle){
-                $opponentBaseStrength = $ex->battle->opponent->getBattleStrength();
-                // Calculate total strength of the second fleet
-                $randomAdjustment = rand(0, $ex->fleet->getBattleStrength() * 0.2);
-                $opponentStrength = $opponentBaseStrength + $randomAdjustment;
-                $randomFactor = rand(0, 100);
-                $modifiedFleetStrength = $ex->fleet->getBattleStrength() + ($randomFactor * 0.5);
-                $scalingFactor = $modifiedFleetStrength / $opponentStrength;
-                $winningThreshold = 1 - ($opponentStrength / ($opponentStrength + $modifiedFleetStrength * $scalingFactor));
-                $randomNumber = rand(0, 100) / 100;
-                if ($randomNumber < $winningThreshold) {
-                    $won = true;
-                    $destructionMultiplier = (rand(5, 10) * (1/$winningThreshold));
-                }
-                else{
-                    $won = false;
-                    $destructionMultiplier = (rand(50, 60) * (1/$winningThreshold));
-                }
-                $destructionRate = min(80, ($ex->fleet->getBattleStrength() / ($ex->fleet->getBattleStrength() + $opponentStrength)) * $destructionMultiplier);
-
-            }
-
-            return response()->json([
-                'battle' => $ex->battle,
-                'metal' => $ex->metal,
-                'gems' => $ex->gems,
-                'gas' => $ex->gas,
-                'strength' => $ex->fleet->getBattleStrength(),
-                'opponentStrength' => $opponentStrength,
-                'threshold' => $winningThreshold,
-                'destructionRate' => $destructionRate,
-                'modifiedStrength' => $modifiedFleetStrength,
-                'won' => $won,
-            ]);
-        }
-    });
-    Route::GET('/start', function () {
-        $expeditions = Expeditions::where('status', '=', 'idle')->get();
-        $controller = new ExpeditionsController();
-        foreach ($expeditions as $ex){
-            $controller->start($ex);
-            return response()->json([
-                'battle' => $ex->battle,
-                'metal' => $ex->metal,
-                'gems' => $ex->gems,
-                'gas' => $ex->gas,
-            ]);
-        }
-    });
+Route::prefix('barracks')->middleware(ApiAuth::class)->controller(BarracksController::class)->group(function () {
+    Route::POST('/build','build');
 });
-
-
