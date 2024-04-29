@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Bases extends Model
 {
-    use HasFactory;
 
     protected $table = 'bases';
     public $timestamps = false;
@@ -25,7 +24,7 @@ class Bases extends Model
         'created_at',
         'last_upgraded_at',
         'planet_id',
-        'user_id'
+        'user_id',
     ];
 
     /**
@@ -47,7 +46,7 @@ class Bases extends Model
             'id' => 'integer',
             'level' => 'integer',
             'created_at' => 'datetime',
-            'last_upgraded_at' => 'datetime'
+            'last_upgraded_at' => 'datetime',
         ];
     }
 

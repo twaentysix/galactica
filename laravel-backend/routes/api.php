@@ -40,8 +40,13 @@ Route::middleware(ApiAuth::class)->get('/base',[BasesController::class, 'fetchBa
 Route::middleware(ApiAuth::class)->get('/bases',[BasesController::class, 'fetchBases']);
 Route::middleware(ApiAuth::class)->get('/resources/{base_id}',[ResourceController::class, 'fetch']);
 Route::middleware(ApiAuth::class)->get('/harbour/{base_id}',[HarboursController::class, 'fetch']);
-Route::middleware(ApiAuth::class)->get('/fleets/{base_id}',[FleetsController::class, 'fetch']);
 Route::middleware(ApiAuth::class)->get('/ship-types',[ShipTypesController::class, 'fetch']);
+
+Route::prefix('fleets')->middleware(ApiAuth::class)->controller(FleetsController::class)->group(function () {
+    Route::GET('/{base_id}','fetch');
+    Route::POST('/create','create');
+    Route::POST('/update', 'update');
+});
 
 Route::prefix('collectors')->middleware(ApiAuth::class)->controller(CollectorsController::class)->group(function () {
     Route::GET('/{base_id}','fetch');
