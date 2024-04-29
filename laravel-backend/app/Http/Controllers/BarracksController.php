@@ -28,6 +28,9 @@ class BarracksController extends Controller
         $harbour = $base->harbour;
         switch($type){
             case 'light_fighter':
+                    if($base->level < 2){
+                        return response()->json(self::getApiErrorMessage('You need to upgrade your base!'));
+                    }
                     $rs = $this->applyResources($base, $amount, 50, 25, 5);
                     if(!$rs){
                         return response()->json(self::getApiErrorMessage('Not enough resources!'));
@@ -37,6 +40,9 @@ class BarracksController extends Controller
                     ]);
                 break;
             case 'heavy_fighter':
+                    if($base->level < 4){
+                        return response()->json(self::getApiErrorMessage('You need to upgrade your base!'));
+                    }
                     $rs = $this->applyResources($base, $amount, 70, 35, 10);
                     if(!$rs){
                         return response()->json(self::getApiErrorMessage('Not enough resources!'));
@@ -47,6 +53,9 @@ class BarracksController extends Controller
                 break;
             case 'battleships':
             case 'battleship':
+                    if($base->level < 6){
+                        return response()->json(self::getApiErrorMessage('You need to upgrade your base!'));
+                    }
                     $rs = $this->applyResources($base, $amount, 80, 45, 15);
                     if(!$rs){
                         return response()->json(self::getApiErrorMessage('Not enough resources!'));
@@ -56,6 +65,9 @@ class BarracksController extends Controller
                     ]);
                 break;
             case 'cruiser':
+                    if($base->level < 10){
+                        return response()->json(self::getApiErrorMessage('You need to upgrade your base!'));
+                    }
                     $rs = $this->applyResources($base, $amount, 90, 50, 12);
                     if(!$rs){
                         return response()->json(self::getApiErrorMessage('Not enough resources!'));
