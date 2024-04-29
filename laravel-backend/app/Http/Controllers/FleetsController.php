@@ -7,6 +7,7 @@ use App\Http\Resources\HarbourResource;
 use App\Http\Resources\FleetsCollection;
 use App\Models\Bases;
 use App\Models\Fleets;
+use App\Models\Harbours;
 use Illuminate\Http\Request;
 
 class FleetsController extends Controller
@@ -27,8 +28,37 @@ class FleetsController extends Controller
 
     public function create (Request $request)
     {
-        //TODO Darf nicht Pirates im Namen haben!!
+        $harbour_id = $request->input('harbour_id');
+        if(!$harbour_id){
+            return response()->json(self::getApiErrorMessage('Harbour id missing!'));
+        }
+        $name = $request->input('name');
+        if(!$name){
+            return response()->json(self::getApiErrorMessage('Name for fleet missing!'));
+        }
+        if(stripos($name, "Pirates") !== false){
+            return response()->json(self::getApiErrorMessage('The Name of your fleet cant contain "Pirates"!'));
+        }
+        $harbour = Harbours::find($harbour_id);
+        if(!$harbour){
+            return response()->json(self::getApiErrorMessage('No harbour with given id found!'));
+        }
+        $base = $harbour->base;
+        $base = self::checkBaseAndUser($base->id);
+        if(!$base instanceof Bases){
+            return $base;
+        }
+        if(sizeof($harbour->fleets) >= $harbour->fleet_cap){
+            return response()->json(self::getApiErrorMessage('You exceeded your fleet limit!'));
+        }
 
+        $fleet = Fleets::create([
+            'name' => $name,
+        ]);
+        $fleet->harbour()->associate($harbour);
+        $fleet->save();
+        $harbour->load('fleets');
+        return new HarbourResource($harbour);
     }
 
     public function update(Request $request)
@@ -54,8 +84,11 @@ class FleetsController extends Controller
         }
 
         $harbour = $fleet->harbour;
-
+        if(!isset($fleet->harbour)){
+            return response()->json(self::getApiErrorMessage('Internal error!(maybe attempting to try edit PirateFleets? :/'));
+        }
         $base = $fleet->harbour->base;
+
         $base = self::checkBaseAndUser($base->id);
         if(!$base instanceof Bases){
             return $base;
