@@ -2,11 +2,10 @@
 
 namespace App\Http\Resources;
 
-use App\Models\ResourceCollectors;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CollectorsResource extends JsonResource
+class BattlesResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,11 +15,10 @@ class CollectorsResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'type' => $this->type,
-            'lastCollected' => $this->last_collected,
-            'level' => $this->level,
-            'upgradePrice' => $this->upgradePrice(),
-            'amountStored' => $this->getAmountStored(),
+            'won' => $this->won,
+            'fleet' => new FleetsResource($this->fleet),
+            'lostShips' => $this->lost_ships,
+            'opponent' => $this->opponent->name,
         ];
     }
 }

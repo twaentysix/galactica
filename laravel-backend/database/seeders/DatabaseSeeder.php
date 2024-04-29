@@ -64,7 +64,7 @@ class DatabaseSeeder extends Seeder
         $resources = Resources::create([
             'metal' => 0,
             'gas' => 0,
-            'cristal' => 0,
+            'gems' => 0,
         ]);
         $resources->base()->associate($base);
         $resources->save();
@@ -73,7 +73,7 @@ class DatabaseSeeder extends Seeder
             'type' => 'metal',
             'last_collected' => Carbon::now(),
             'level' => 1,
-            'rate_per_hour' => 2
+            'max_capacity' => 5000
         ]);
         $metal_collector->base()->associate($base);
         $metal_collector->save();
@@ -82,19 +82,19 @@ class DatabaseSeeder extends Seeder
             'type' => 'gas',
             'last_collected' => Carbon::now(),
             'level' => 1,
-            'rate_per_hour' => 2
+            'max_capacity' => 5000
         ]);
         $gas_collector->base()->associate($base);
         $gas_collector->save();
 
-        $cristal_collector = ResourceCollectors::create([
-            'type' => 'cristal',
+        $gem_collector = ResourceCollectors::create([
+            'type' => 'gems',
             'last_collected' => Carbon::now(),
             'level' => 1,
-            'rate_per_hour' => 2
+            'max_capacity' => 5000
         ]);
-        $cristal_collector->base()->associate($base);
-        $cristal_collector->save();
+        $gem_collector->base()->associate($base);
+        $gem_collector->save();
 
         ShipTypes::create([
             'type' => 'light_fighter'
@@ -111,5 +111,37 @@ class DatabaseSeeder extends Seeder
         ShipTypes::create([
             'type' => 'cruiser'
         ]);
+
+        $fleet = Fleets::create([
+            'name' => 'Pirates_easy',
+            'transporter' => 50,
+            'cruiser' => 50,
+            'light_fighter' => 150,
+            'heavy_fighter' => 100,
+            'battleships' => 50,
+            'busy' => false,
+        ]);
+        $fleet->save();
+        $fleet = Fleets::create([
+            'name' => 'Pirates_medium',
+            'transporter' => 70,
+            'cruiser' => 235,
+            'light_fighter' => 340,
+            'heavy_fighter' => 420,
+            'battleships' => 400,
+            'busy' => false,
+        ]);
+        $fleet->save();
+
+        $fleet = Fleets::create([
+            'name' => 'Pirates_hard',
+            'transporter' => 100,
+            'cruiser' => 550,
+            'light_fighter' => 650,
+            'heavy_fighter' => 700,
+            'battleships' => 680,
+            'busy' => false,
+        ]);
+        $fleet->save();
     }
 }

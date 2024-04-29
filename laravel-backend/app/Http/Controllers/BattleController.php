@@ -2,17 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\ActionController;
+use App\Models\Battles;
+use App\Models\Fleets;
 
-class BattleController extends Controller implements ActionController
+interface BattleController
 {
-    function register()
-    {
-        // TODO: Implement register() method.
-    }
+    /**
+     * Create a battle so it is saved into database and can be resolved later.
+     * @param Fleets $fleet
+     * @param Fleets $opponent
+     * @return mixed
+     */
+    function create(Fleets $fleet, Fleets $opponent);
 
-    function resolve()
-    {
-        // TODO: Implement resolve() method.
-    }
+    /**
+     * Resolve a battle and save outcome of it
+     * @param Battles $battle
+     * @return mixed
+     */
+    function resolve(Battles $battle);
 }

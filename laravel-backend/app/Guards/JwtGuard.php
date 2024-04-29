@@ -34,7 +34,7 @@ class JwtGuard implements Guard
         return false;
     }
 
-    public function validate(array $credentials = []): bool | Authenticatable | JsonResponse
+    public function validate(array $credentials = [])
     {
         if (empty($credentials['jwt'])) {
             return false;

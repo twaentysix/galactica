@@ -5,13 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class Resources extends Model
+class Expeditions extends Model
 {
-    use HasFactory;
+    protected $table = 'expeditions';
 
-    protected $table = 'base_resources';
     public $timestamps = false;
 
     /**
@@ -20,10 +19,14 @@ class Resources extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'base_id',
+        'status',
+        'started_at',
+        'ended_at',
+        'duration',
         'metal',
+        'gas',
         'gems',
-        'gas'
+        'fleet_id'
     ];
 
     /**
@@ -42,17 +45,29 @@ class Resources extends Model
     {
         return [
             'id' => 'integer',
-            'metal' => 'integer',
-            'gas' => 'integer',
-            'gems' => 'integer',
+            'status' => 'string',
+            'started_at' => 'datetime',
+            'ended_at' => 'datetime',
+            'duration' => 'integer',
+            'metal' => 'float',
+            'gas' => 'float',
+            'gems' => 'float',
         ];
+    }
+
+    /**
+     * @return HasOne
+     */
+    public function battle(): HasOne
+    {
+        return $this->hasOne(Battles::class, 'expedition_id', 'id');
     }
 
     /**
      * @return BelongsTo
      */
-    public function base()
+    public function fleet(): BelongsTo
     {
-        return $this->belongsTo(Bases::class,'base_id', 'id');
+        return $this->belongsTo(Fleets::class, 'fleet_id', 'id');
     }
 }

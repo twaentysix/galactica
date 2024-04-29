@@ -43,9 +43,9 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('base_id')->nullable();
             $table->foreign('base_id')->references('id')->on('bases')->onDelete('cascade');
-            $table->integer('metal')->default(0)->nullable(false);
-            $table->integer('cristal')->default(0)->nullable(false);
-            $table->integer('gas')->default(0)->nullable(false);
+            $table->float('metal')->default(0)->nullable(false);
+            $table->float('gems')->default(0)->nullable(false);
+            $table->float('gas')->default(0)->nullable(false);
         });
 
         Schema::create('harbours', function (Blueprint $table) {
@@ -71,17 +71,16 @@ return new class extends Migration
 
         Schema::create('collectors', function (Blueprint $table) {
             $table->id();
-            $table->enum('type', ['metal', 'cristal', 'gas'])->nullable(false);
+            $table->enum('type', ['metal', 'gems', 'gas'])->nullable(false);
             $table->dateTime('last_collected')->nullable();
             $table->integer('level')->default(0)->nullable(false);
-            $table->integer('rate_per_hour')->default(2)->nullable(false);
 
             $table->unsignedBigInteger('base_id')->nullable();
             $table->foreign('base_id')->references('id')->on('bases')->onDelete('cascade');
 
         });
 
-        DB::statement("ALTER TABLE collectors ADD CONSTRAINT collectors_type_constraint CHECK (type IN ('metal', 'gas', 'cristal'))");
+        DB::statement("ALTER TABLE collectors ADD CONSTRAINT collectors_type_constraint CHECK (type IN ('metal', 'gas', 'gems'))");
     }
 
     /**

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Bases;
 use App\Models\ShipTypes;
+use App\Models\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 
 abstract class Controller
@@ -37,5 +39,14 @@ abstract class Controller
             return response()->json(self::getApiErrorMessage('This is not your base!'));
         }
         return $base;
+    }
+
+    public function checkUser ()
+    {
+        $user = Auth::guard('localAuth')->user();
+        if(!$user){
+            return response()->json(self::getApiErrorMessage('Authentication failed'));
+        }
+        return $user;
     }
 }
