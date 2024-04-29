@@ -7,6 +7,7 @@ import Logo from "../../assets/Logo.svg"
 import { useState } from "react";
 
 import ToastNotification from "../toastNotification/ToastNotification";
+import AuthHandler from "@/lib/api/AuthHandler";
 
 const LoginPage = () => {
     const [notification, setNotification] = useState(false);
@@ -20,28 +21,24 @@ const LoginPage = () => {
         event.preventDefault();
         // TODO: Validate form data and create a session using the API
 
-        buttonHandler(); // -> To test the <ToastNotification /> component
+        buttonHandler();
+
+        // @ts-ignore
+        const name = document.getElementById('username').value;
+        // @ts-ignore
+        const password = document.getElementById('password').value;
+        console.log(name);
+        console.log(password)
+
+        AuthHandler.login(name,password)
+            .then(() => {
+                location.reload()
+            });
+        // -> To test the <ToastNotification /> component
     };
 
     return (
         <div id="loginScreen" className="lg:flex">
-            <div id="dialog-pre-screen" className="absolute bg-g_dark_translucent animate-blur-in h-screen w-screen z-10 flex justify-center items-center">
-                <dialog open className="p-10 bg-white rounded-3xl shadow-2xl w-1/3 h-1/3 flex flex-col justify-between">
-                    <div id="dialog-headline-wrapper mb-5">
-                        <h4 className="text-g_dark text-3xl">Dialog Title</h4>
-                    </div>
-                    <div id="dialog-body-wrapper">
-                        <p className="text-g_dark">Dialog body</p>
-                    </div>
-                    <div id="dialog-meta-info" className="mb-5">
-                        <span>Here Icons Please</span>
-                    </div>
-                    <div id="dialog-button-area" className="flex flex-row gap-2 justify-between items-center w-full">
-                        <Button>Cancel</Button>
-                        <Button>Apply</Button>
-                    </div>
-                </dialog>
-            </div>
             <div className="hidden lg:block lg:w-2/3 h-dvh overflow-y-hidden">
                 <img
                     src={LoginImage}
@@ -63,11 +60,11 @@ const LoginPage = () => {
                     <form onSubmit={handleSubmit}>
                         <div className="flex flex-col gap-5">
                             <div className="">
-                                <Label htmlFor="email" className="sr-only">Email</Label>
+                                <Label htmlFor="username" className="sr-only">Email</Label>
                                 <Input
-                                    id="email"
-                                    type="email"
-                                    placeholder="nicegame2004@someservice.com"
+                                    id="username"
+                                    type="name"
+                                    placeholder="YouUsername123"
                                     required
                                 />
                             </div>

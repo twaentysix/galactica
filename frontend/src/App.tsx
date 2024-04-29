@@ -5,7 +5,7 @@ import DashboardPage from './components/pages/DashboardPage';
 
 function App() {
 
-  let sessionExists = localStorage.getItem("loggedInUser");
+  let sessionExists = sessionStorage.getItem("jwt");
 
   return (
     <BrowserRouter>

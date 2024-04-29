@@ -3,8 +3,8 @@ import ApiHandler from "@/lib/api/ApiHandler.js";
 
 class AuthHandler{
 
-    static login (name, password) {
-        axios({
+    static async login (name, password) {
+        return axios({
             method: 'post',
             url: ApiHandler.BASE_URL + "auth/login",
             headers: ApiHandler.getHeaders('auth'),
@@ -20,8 +20,8 @@ class AuthHandler{
         });
     }
 
-    static register (name, email, password) {
-        axios({
+    static async register (name, email, password) {
+        return axios({
             method: 'post',
             url: ApiHandler.BASE_URL + "/auth/register",
             headers: ApiHandler.getHeaders('auth'),
@@ -34,7 +34,7 @@ class AuthHandler{
             return response.data;
         }).catch(function (error){
             return error.response.data;
-        });;
+        });
     }
 }
 
