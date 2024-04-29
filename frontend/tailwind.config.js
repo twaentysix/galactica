@@ -30,6 +30,7 @@ module.exports = {
         g_light_gradient: "var(--g_light_gradient)",
         g_light_gradient_inactive: "var(--g_white_gradient_inactive)",
         g_dark_gradient: "var(--g_dark_gradient)",
+        g_planet_gradient: "var(--g_planet_gradient)",
       },
       colors: {
         border: "var(--border)",

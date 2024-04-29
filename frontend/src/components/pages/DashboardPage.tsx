@@ -1,7 +1,9 @@
+import Icon from "../Icon";
 import Layout from "../Layout";
 import CustomCard from "../customCard";
 
-const DashboardPage = () => {
+const DashboardPage = (props: any) => {
+    const { metals, fuels, gems, medals, bases } = props;
     return (
         <Layout>
             {/* First column using two grid sections */}
@@ -12,22 +14,82 @@ const DashboardPage = () => {
                     <span className="text-g_dark font-headline font-bold">Milkyway</span>
                 </div>
                 {/* Content */}
-                <div className="my-4                             ">
+                <div className="">
+                    <div className="m-4">
+                        <p className="text-md font-main font-bold">Bases</p>
+                        <div className="flex items-center">
+                            <p className="text-sm text-muted mr-2">Total:</p>
+                            <p className="text-md font-main font-bold">{bases}</p>
+                        </div>
+                    </div>
                     {/* Add content here */}
-                    <CustomCard/>
+                    <CustomCard
+                        backgroundColor="bg-g_planet_gradient"
+                        title="Custom Title"
+                        status="Kekw"
+                        icon={<Icon type="medal" size="20" />}
+                        value="1"
+                        svg={<Icon type="planet1" size="50" />}
+                    />
                 </div>
             </div>
             {/* Bigger column using 7 */}
             <div className="col-span-7 bg-g_base_gradient_0 rounded-lg">
-                {/* Top bar for the second column */}
-                <div className="bg-g_light h-10 px-4 flex items-center rounded-t-lg">
-                    {/* Top bar content */}
-                    (Second Column)
+                <div className="bg-g_light h-10 px-4 flex items-center rounded-t-lg justify-between">
+                    {/* Left-aligned icons */}
+                    <div className="flex items-center space-x-2 pl-4">
+                        <div><Icon type="metal" size="25" /></div>
+                        <p className="text-md">{metals}</p>
+                        <div><Icon type="fuel" size="15" /></div>
+                        <p className="text-md">{fuels}</p>
+                        <div><Icon type="gem" size="20" /></div>
+                        <p className="text-md">{gems}</p>
+                    </div>
+
+                    {/* Right-aligned medals */}
+                    <div className="flex items-center pr-4">
+                        <div className="mr-2"><Icon type="medal" size="15" /></div>
+                        <p className="text-md">{medals}</p>
+                    </div>
                 </div>
                 {/* Content */}
-                <div className="p-4">
+                <div className="p-8">
                     {/* Add content here */}
-                    (7 sections)
+                    <div className="grid grid-cols-3 gap-8">
+                        {/* Column 1 */}
+                        <div className="">
+                            <CustomCard
+                                backgroundColor="bg-g_planet_gradient"
+                                title="Custom Title"
+                                status="Kekw"
+                                icon={<Icon type="medal" size="20" />}
+                                value="1"
+                                svg={<Icon type="planet1" size="50" />}
+                            />
+                        </div>
+                        {/* Column 2 */}
+                        <div className="">
+                            <CustomCard
+                                backgroundColor="bg-g_planet_gradient"
+                                title="Custom Title"
+                                status="Kekw"
+                                icon={<Icon type="medal" size="20" />}
+                                value="1"
+                                svg={<Icon type="planet1" size="50" />}
+                            />
+                        </div>
+                        {/* Column 3 */}
+                        <div className="">
+                            <CustomCard
+                                backgroundColor="bg-g_planet_gradient"
+                                title="Custom Title"
+                                status="Kekw"
+                                icon={<Icon type="medal" size="20" />}
+                                value="1"
+                                svg={<Icon type="planet1" size="50" />}
+                            />
+                        </div>
+                    </div>
                 </div>
             </div>
             {/* Third column using 3 */}
