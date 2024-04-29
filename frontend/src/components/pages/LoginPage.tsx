@@ -11,9 +11,9 @@ import AuthHandler from "@/lib/api/AuthHandler";
 
 const LoginPage = () => {
     const [notification, setNotification] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
 
     const buttonHandler = () => {
-        setNotification(true);
         setTimeout(() => setNotification(false), 6000);
     }
 
@@ -24,21 +24,25 @@ const LoginPage = () => {
         buttonHandler();
 
         // @ts-ignore
-        const name = document.getElementById('username').value;
+        const name = document.getElementById('username').value
+
         // @ts-ignore
-        const password = document.getElementById('password').value;
-        console.log(name);
-        console.log(password)
+        const password = document.getElementById('password').value
 
         AuthHandler.login(name,password)
-            .then(() => {
-                location.reload()
+            .then(data => {
+                if (data["error"] !== undefined) {
+                    setErrorMessage(data["error"]["message"])
+                    setNotification(true)
+                } else {
+                    location.reload()
+                }
             });
-        // -> To test the <ToastNotification /> component
     };
 
     return (
         <div id="loginScreen" className="lg:flex">
+            {notification === true ? <ToastNotification type="error" message={errorMessage}/> : null}
             <div className="hidden lg:block lg:w-2/3 h-dvh overflow-y-hidden">
                 <img
                     src={LoginImage}
@@ -77,7 +81,6 @@ const LoginPage = () => {
                             <Button type="submit">
                                 Login
                             </Button>
-                            {notification === true ? <ToastNotification type="info" message="No password given!"/> : null}
                         </div>
                     </form>
                     <div className="text-center">
