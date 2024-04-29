@@ -1,8 +1,17 @@
+import DataHandler from "@/lib/api/DataHandler";
 import Icon from "../Icon";
 import Layout from "../Layout";
 import CustomCard from "../customCard";
+import { useEffect, useState } from "react";
 
 const DashboardPage = (props: any) => {
+
+    const [baseData, setBaseData] = useState([])
+
+    useEffect(() => {
+        DataHandler.getBases().then(data => setBaseData(data));
+    }, []);
+
     const { metals, fuels, gems, medals, bases } = props;
     return (
         <Layout>
@@ -22,15 +31,18 @@ const DashboardPage = (props: any) => {
                             <p className="text-md font-main font-bold">{bases}</p>
                         </div>
                     </div>
-                    {/* Add content here */}
-                    <CustomCard
-                        backgroundColor="bg-g_planet_gradient"
-                        title="Custom Title"
-                        status="Kekw"
-                        icon={<Icon type="medal" size="20" />}
-                        value="1"
-                        svg={<Icon type="planet1" size="50" />}
-                    />
+                    {baseData.map(base => (
+                        <CustomCard
+                            key={base}
+                            backgroundColor="bg-g_planet_gradient"
+                            title={base["name"]}
+                            status={"Created at: " + new Date(base["createdAt"]).toDateString() }
+                            icon={<Icon type="medal" size="20" />}
+                            value={base["level"]}
+                            svg={<Icon type="planet1" size="50" />}
+                        />
+                    ))}
+                    
                 </div>
             </div>
             {/* Bigger column using 7 */}
