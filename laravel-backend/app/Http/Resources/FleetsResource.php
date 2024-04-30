@@ -22,6 +22,7 @@ class FleetsResource extends JsonResource
             'battleship' => $this->battleships,
             'cruiser' => $this->cruiser,
             'name' =>$this->name,
+            'idleShips' => $this->harbour->getIdleShips(),
         ];
     }
 }

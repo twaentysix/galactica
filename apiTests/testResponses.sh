@@ -1,7 +1,7 @@
 #!/bin/bash
 
 base_url="http://localhost:8080/api/"
-laravel_endpoints=("expeditions/register")
+laravel_endpoints=("galaxies")
 
 jwt="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0IiwiaWQiOjEsImlhdCI6MTcxMzM3MDQ1NSwiZXhwIjoxNzE1OTk4NDU1fQ.U0R7Qt3blxK6Pjilm0HBNYX41QYwC0CDVrXKKHyXShI"
 
@@ -11,10 +11,12 @@ for i in {0..0}; do
     api_endpoint="${base_url}${laravel_endpoints[i]}"
     headers="Authorization:Bearer ${jwt}"
     # Make the HTTP request with cURL
-    response=$(curl -s -X POST \
+    response=$(curl -s -X GET \
     -H "Content-Type: application/json" \
     -H "$headers" \
-     -d "{\"fleet_id\": 1, \"duration\": 10}" \
+     -d "{\"name\": \"JoAnus\",
+          \"galaxy_id\": 1
+        }" \
     "$api_endpoint")
     # Display the response for each request
 done

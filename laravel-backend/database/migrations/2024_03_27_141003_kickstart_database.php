@@ -26,7 +26,7 @@ return new class extends Migration
 
         Schema::create('bases', function (Blueprint $table) {
             $table->id();
-            $table->integer('level')->default(0)->nullable(false);
+            $table->integer('level')->default(1)->nullable(false);
             $table->dateTime('created_at')->nullable();
             $table->dateTime('last_upgraded_at')->nullable();
             $table->string('name')->nullable(false);
@@ -73,7 +73,7 @@ return new class extends Migration
             $table->id();
             $table->enum('type', ['metal', 'gems', 'gas'])->nullable(false);
             $table->dateTime('last_collected')->nullable();
-            $table->integer('level')->default(0)->nullable(false);
+            $table->integer('level')->default(1)->nullable(false);
 
             $table->unsignedBigInteger('base_id')->nullable();
             $table->foreign('base_id')->references('id')->on('bases')->onDelete('cascade');

@@ -12,8 +12,6 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  */
 class Planets extends Model
 {
-    use HasFactory;
-
     protected $table = 'planets';
     public $timestamps = false;
 
@@ -52,7 +50,7 @@ class Planets extends Model
      */
     public function galaxy()
     {
-        return $this->belongsTo(Planets::class, 'galaxy_id', 'id');
+        return $this->belongsTo(Galaxies::class, 'galaxy_id', 'id');
     }
 
     /**

@@ -8,7 +8,7 @@
 ## Laravel initial setup
 - convert **.env.example** into **.env** file and adjust values
 - run `composer install`
-- run `docker compose -up`
+- run `./vendor/bin/sail up -d`
 - run `./vendor/bin/sail artisan migrate` --> create database schema
 - run `./vendor/bin/sail artisan db:seed` --> seed database for test data
 
