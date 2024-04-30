@@ -45,6 +45,7 @@ Route::prefix('bases')->middleware(ApiAuth::class)->controller(BasesController::
     // TODO Route::GET('/{base_id}','fetchOne');
     Route::GET('/','fetchBases');
     Route::POST('/create', 'create');
+    Route::POST('/upgrade', 'upgrade');
 });
 
 Route::prefix('fleets')->middleware(ApiAuth::class)->controller(FleetsController::class)->group(function () {

@@ -102,4 +102,47 @@ class BasesController extends Controller
         return new PlanetsResource($planet);
     }
 
+    public function upgrade (Request $request)
+    {
+        $base_id = $request->input('base_id');
+        if(!$base_id){
+            return response()->json(self::getApiErrorMessage('Base id missing!'));
+        }
+
+        $base = self::checkBaseAndUser($base_id);
+        if(!$base instanceof Bases){
+            return $base;
+        }
+
+        if($base->level >= Bases::$MAX_LEVEL){
+            return response()->json(self::getApiErrorMessage('Your Base is already max level!'));
+        }
+
+        $resources = $base->resources;
+        $cost = $base->getUpgradeCost();
+
+        if($resources->metal < $cost['metal']){
+            return response()->json(self::getApiErrorMessage('You do not have enough Metal.'));
+        }
+
+        if($resources->gas < $cost['gas']){
+            return response()->json(self::getApiErrorMessage('You do not have enough Gas.'));
+        }
+
+        if($resources->gems < $cost['gems']){
+            return response()->json(self::getApiErrorMessage('You do not have enough Gems.'));
+        }
+
+        $resources->update([
+            'metal' => $resources->metal - $cost['metal'],
+            'gas' => $resources->metal - $cost['gas'],
+            'gems' => $resources->metal - $cost['gems'],
+        ]);
+        $resources->save();
+
+        $reward = $base->upgrade();
+
+        $base->load('resources');
+        return (new BasesResource($base))->withReward($reward);
+    }
 }
