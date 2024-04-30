@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\BasesCollection;
+use App\Http\Resources\BasesResource;
 use App\Http\Resources\PlanetsResource;
 use App\Models\Bases;
 use App\Models\Galaxies;
@@ -85,8 +86,10 @@ class BasesController extends Controller
             'last_collected' => Carbon::now(),
         ]);
         $gemsCollector->base()->associate($base);
+
         $gasCollector->save();
         $metalCollector->save();
+        $gemsCollector->save();
 
         $planet = Planets::create(['name' => $name]);
         $base->planet()->associate($planet);
@@ -98,4 +101,5 @@ class BasesController extends Controller
 
         return new PlanetsResource($planet);
     }
+
 }
