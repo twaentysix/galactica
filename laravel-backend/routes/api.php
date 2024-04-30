@@ -13,7 +13,6 @@ use App\Http\Controllers\ShipTypesController;
 use App\Http\Controllers\FleetsController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\ApiAuth;
-use App\Models\Expeditions;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('auth')->controller(AuthenticationController::class)->group(function () {
@@ -41,6 +40,12 @@ Route::middleware(ApiAuth::class)->get('/bases',[BasesController::class, 'fetchB
 Route::middleware(ApiAuth::class)->get('/resources/{base_id}',[ResourceController::class, 'fetch']);
 Route::middleware(ApiAuth::class)->get('/harbour/{base_id}',[HarboursController::class, 'fetch']);
 Route::middleware(ApiAuth::class)->get('/ship-types',[ShipTypesController::class, 'fetch']);
+
+Route::prefix('bases')->middleware(ApiAuth::class)->controller(BasesController::class)->group(function () {
+    // TODO Route::GET('/{base_id}','fetchOne');
+    Route::GET('/','fetchBases');
+    Route::POST('/create', 'create');
+});
 
 Route::prefix('fleets')->middleware(ApiAuth::class)->controller(FleetsController::class)->group(function () {
     Route::GET('/{base_id}','fetch');

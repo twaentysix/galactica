@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('collectors', function (Blueprint $table) {
-            $table->integer('max_capacity');
+            $table->integer('max_capacity')->default(3000);
         });
     }
 

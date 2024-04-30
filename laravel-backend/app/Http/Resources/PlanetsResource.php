@@ -19,6 +19,7 @@ class PlanetsResource extends JsonResource
         return [
             'id' => $this->id,
             'occupied' => (bool)$base,
+            'occupiedBy' => $base ? new UserResource($base->user) : null,
             'name' => $this->name,
         ];
     }

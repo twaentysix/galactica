@@ -25,6 +25,7 @@ class Bases extends Model
         'last_upgraded_at',
         'planet_id',
         'user_id',
+        'name',
     ];
 
     /**
