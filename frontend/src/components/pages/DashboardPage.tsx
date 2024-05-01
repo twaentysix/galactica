@@ -3,29 +3,29 @@ import Icon from "../Icon";
 import Layout from "../Layout";
 import CustomCard from "../customCard";
 import { useEffect, useState } from "react";
+import {collector, base} from "@/lib/types.ts";
 
 const DashboardPage = (props: any) => {
 
-    const [baseData, setBaseData] = useState([])
+    const [baseData, setBaseData] = useState<base[]>([])
+
+    const [selectedBase, setSelectedBase] = useState<base>()
 
     useEffect(() => {
-        DataHandler.getBases().then(data => setBaseData(data));
+        DataHandler.getBases().then(data => {setBaseData(data); setSelectedBase(data[0]); console.log(selectedBase)});
     }, []);
 
     const { metals, fuels, gems, medals, bases } = props;
 
-    type collector = {
-        type : string,
-        lastCollected : string
-        level : number
-    }
+    const changeBase = (base : base) => {
+        setSelectedBase(base);
+    };
 
     function renderCollector(collector : collector) {
-
         switch (collector.type) {
             default:
                 return <CustomCard
-                    key={collector}
+                    key={collector.id}
                     backgroundColor="bg-g_planet_gradient"
                     title={collector["type"]}
                     status={"Las Updated at: " + new Date(collector.lastCollected).toDateString()}
@@ -54,16 +54,17 @@ const DashboardPage = (props: any) => {
                             <p className="text-md font-main font-bold">{bases}</p>
                         </div>
                     </div>
-                    {baseData.map(base => (
-                        <CustomCard
-                            key={base}
-                            backgroundColor="bg-g_planet_gradient"
-                            title={base["name"]}
-                            status={"Created at: " + new Date(base["createdAt"]).toDateString() }
-                            icon={<Icon type="medal" size="20" />}
-                            value={base["level"]}
-                            svg={<Icon type="planet1" size="50" />}
-                        />
+                    {baseData.map((base:base) => (
+                            <CustomCard
+                                key={base.id}
+                                backgroundColor="bg-g_planet_gradient"
+                                title={base["name"]}
+                                status={"Created at: " + new Date(base["createdAt"]).toDateString() }
+                                icon={<Icon type="medal" size="20" />}
+                                value={base["level"]}
+                                svg={<Icon type="planet1" size="50" />}
+                                onClick={() => changeBase(base)}
+                            />
                     ))}
                     
                 </div>
@@ -92,8 +93,8 @@ const DashboardPage = (props: any) => {
                     {/* Add content here */}
                     <div className="grid grid-cols-3 gap-8">
                         {
-                            baseData[0] &&
-                            (baseData[0]['collectors'] as collector[]).map((collector: collector) => (
+                            baseData[0] && selectedBase &&
+                            (selectedBase.collectors as collector[]).map((collector: collector) => (
                                     renderCollector(collector)
                                 ))
                         }
