@@ -60,7 +60,6 @@ export type galaxy = {
 
 export type base = {
     id : number,
-    collectors : object,
     name : string,
     level : number,
     createdAt : string,
@@ -69,5 +68,6 @@ export type base = {
     planet : planet
     harbour : harbour,
     resources : resources,
+    collectors : collector[],
 }
 
