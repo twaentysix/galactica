@@ -51,9 +51,9 @@ class ExpeditionsController extends Controller implements ActionController
             return response()->json(self::getApiErrorMessage('Your fleet is not strong enough.'));
         }
 
-        $metal = round(self::$BASE_METAL_REWARD * $fleetMultiplier * (float)rand(1, 1.2) ,2);
-        $gas = round(self::$BASE_GAS_REWARD * $fleetMultiplier * (float)rand(1, 1.2), 2);
-        $gems = round(self::$BASE_GEMS_REWARD * $fleetMultiplier * (float)rand(1, 1.2),2);
+        $metal = round(self::$BASE_METAL_REWARD * $fleetMultiplier * (float)rand(1, 1.2) + self::$BASE_METAL_REWARD * $duration ,2);
+        $gas = round(self::$BASE_GAS_REWARD * $fleetMultiplier * (float)rand(1, 1.2) + self::$BASE_GAS_REWARD * $duration, 2);
+        $gems = round(self::$BASE_GEMS_REWARD * $fleetMultiplier * (float)rand(1, 1.2) +  self::$BASE_GEMS_REWARD * $duration,2);
 
         $expedition = Expeditions::create([
             'status' => 'idle',

@@ -2,16 +2,12 @@
 
 namespace App\Models;
 
-use App\Http\Controllers\Controller;
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class ResourceCollectors extends Model
 {
-    use HasFactory;
 
     static int $BASIS_COST_GEMS = 50;
     static int $BASIS_COST_METAL = 180;

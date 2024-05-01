@@ -73,7 +73,6 @@ class DatabaseSeeder extends Seeder
             'type' => 'metal',
             'last_collected' => Carbon::now(),
             'level' => 1,
-            'max_capacity' => 5000
         ]);
         $metal_collector->base()->associate($base);
         $metal_collector->save();
@@ -82,7 +81,6 @@ class DatabaseSeeder extends Seeder
             'type' => 'gas',
             'last_collected' => Carbon::now(),
             'level' => 1,
-            'max_capacity' => 5000
         ]);
         $gas_collector->base()->associate($base);
         $gas_collector->save();
@@ -91,7 +89,6 @@ class DatabaseSeeder extends Seeder
             'type' => 'gems',
             'last_collected' => Carbon::now(),
             'level' => 1,
-            'max_capacity' => 5000
         ]);
         $gem_collector->base()->associate($base);
         $gem_collector->save();

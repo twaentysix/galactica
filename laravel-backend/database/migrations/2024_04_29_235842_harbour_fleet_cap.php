@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('collectors', function (Blueprint $table) {
-            $table->integer('max_capacity')->default(3000);
+        Schema::table('harbours', function (Blueprint $table) {
+            $table->integer('fleet_cap')->default(1);
         });
     }
 
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('collectors', function (Blueprint $table) {
-            $table->dropColumn('max_capacity');
+        Schema::table('harbours', function (Blueprint $table) {
+            $table->dropColumn('fleet_cap');
         });
     }
 };

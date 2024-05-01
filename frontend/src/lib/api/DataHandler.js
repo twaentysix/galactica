@@ -1,4 +1,3 @@
-import axios from "axios";
 import ApiHandler from "@/lib/api/ApiHandler.js";
 
 class DataHandler {
@@ -9,7 +8,7 @@ class DataHandler {
         }
         const url = ApiHandler.BASE_URL + "galaxies";
         const headers = ApiHandler.getHeaders('data');
-        return await ApiHandler.sendRequest('get', url, headers);
+        return await ApiHandler.sendDataRequest(url, headers);
     }
 
     static async getGalaxy (galaxyId) {
@@ -18,7 +17,7 @@ class DataHandler {
         }
         const url = ApiHandler.BASE_URL + "galaxies/"+galaxyId;
         const headers = ApiHandler.getHeaders('data');
-        return await ApiHandler.sendRequest('get', url, headers);
+        return await ApiHandler.sendDataRequest(url, headers);
     }
 
     static async getPlanets () {
@@ -27,7 +26,7 @@ class DataHandler {
         }
         const url = ApiHandler.BASE_URL + "planets";
         const headers = ApiHandler.getHeaders('data');
-        return await ApiHandler.sendRequest('get', url, headers);
+        return await ApiHandler.sendDataRequest(url, headers);
     }
 
     static async getPlanet (planetId) {
@@ -36,7 +35,7 @@ class DataHandler {
         }
         const url = ApiHandler.BASE_URL + "planets/"+planetId;
         const headers = ApiHandler.getHeaders('data');
-        return await ApiHandler.sendRequest('get', url, headers);
+        return await ApiHandler.sendDataRequest(url, headers);
     }
 
     static async getBases () {
@@ -45,7 +44,7 @@ class DataHandler {
         }
         const url = ApiHandler.BASE_URL + "bases";
         const headers = ApiHandler.getHeaders('data');
-        return await ApiHandler.sendRequest('get', url, headers);
+        return await ApiHandler.sendDataRequest(url, headers);
     }
 
     static async getResources (baseId) {
@@ -54,7 +53,7 @@ class DataHandler {
         }
         const url = ApiHandler.BASE_URL + "resources/"+baseId;
         const headers = ApiHandler.getHeaders('data');
-        return await ApiHandler.sendRequest('get', url, headers);
+        return await ApiHandler.sendDataRequest(url, headers);
     }
 
     static async getHarbour (baseId) {
@@ -63,7 +62,7 @@ class DataHandler {
         }
         const url = ApiHandler.BASE_URL + "harbour/"+baseId;
         const headers = ApiHandler.getHeaders('data');
-        return await ApiHandler.sendRequest('get', url, headers);
+        return await ApiHandler.sendDataRequest(url, headers);
     }
 
     static async getFleets (baseId) {
@@ -72,7 +71,7 @@ class DataHandler {
         }
         const url = ApiHandler.BASE_URL + "fleets/"+baseId;
         const headers = ApiHandler.getHeaders('data');
-        return await ApiHandler.sendRequest('get', url, headers);
+        return await ApiHandler.sendDataRequest(url, headers);
     }
 
     static async getShipTypes () {
@@ -81,7 +80,7 @@ class DataHandler {
         }
         const url = ApiHandler.BASE_URL + "ship-types";
         const headers = ApiHandler.getHeaders('data');
-        return await ApiHandler.sendRequest('get', url, headers);
+        return await ApiHandler.sendDataRequest(url, headers);
     }
 
     static async getCollectors (baseId) {
@@ -90,7 +89,7 @@ class DataHandler {
         }
         const url = ApiHandler.BASE_URL + "collectors/"+baseId;
         const headers = ApiHandler.getHeaders('data');
-        return await ApiHandler.sendRequest('get', url, headers);
+        return await ApiHandler.sendDataRequest(url, headers);
     }
 }
 

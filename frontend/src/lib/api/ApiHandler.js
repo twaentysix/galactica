@@ -21,7 +21,7 @@ class ApiHandler{
     }
 
     static getHeaders (type) {
-        if(type === 'data'){
+        if(type === 'data' || type === 'action'){
             return {
                 'Access-Control-Allow-Origin': '*',
                 'Content-Type': 'application/json',
@@ -38,16 +38,29 @@ class ApiHandler{
         }
     }
 
-    static async sendRequest (method, url, headers) {
-        return await axios({
-                            method: method,
-                            url: url,
-                            headers: headers,
-                        }).then(function (response) {
-                            return response.data['data'];
-                        }).catch(function (error){
-                            return error.response.data;
-                        });
+    static async sendDataRequest (url, headers) {
+        return axios({
+            method: 'get',
+            url: url,
+            headers: headers,
+        }).then(function (response) {
+            return response.data['data'];
+        }).catch(function (error){
+            return error.response.data;
+        });
+    }
+
+    static async sendActionRequest(method,url, headers, payload) {
+        return axios({
+            method: method,
+            url: url,
+            headers: headers,
+            params: payload,
+        }).then(function (response) {
+            return response.data['data'];
+        }).catch(function (error){
+            return error.response.data;
+        });
     }
 }
 

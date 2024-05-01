@@ -26,6 +26,7 @@ class Harbours extends Model
         'heavy_fighter',
         'battleships',
         'cruiser',
+        'fleet_cap',
     ];
 
     /**
@@ -49,6 +50,35 @@ class Harbours extends Model
             'heavy_fighter' => 'integer',
             'battleships' => 'integer',
             'cruiser' => 'integer',
+            'fleet_cap' => 'integer',
+        ];
+    }
+
+    /**
+     * Get amount of ships, not added to fleets yet.
+     * @return array
+     */
+    public function getIdleShips (): array
+    {
+        $lf = $this->light_fighter;
+        $hf = $this->heavy_fighter;
+        $c = $this->cruiser;
+        $t = $this->transporter;
+        $b = $this->battleships;
+
+        foreach ($this->fleets as $fleet){
+            $lf -= $fleet->light_fighter;
+            $hf -= $fleet->heavy_fighter;
+            $c -= $fleet->cruiser;
+            $t -= $fleet->transporter;
+            $b -= $fleet->battleships;
+        }
+        return [
+            'light_fighter' => $lf,
+            'heavy_fighter' => $hf,
+            'cruiser' => $c,
+            'battleships' => $b,
+            'transporter' => $t,
         ];
     }
 

@@ -118,6 +118,18 @@ class Fleets extends Model
         $newT = (int)($newT * (1 - 0.1 * $rate));
         $newBS = (int)($newBS * (1 - 0.25 * $rate));
 
+        // update harbour of the fleet
+        $harbour = $this->harbour;
+        $harbour->update([
+            'battleships' => $harbour->battleships - $this->battleships - $newBS,
+            'heavy_fighter' => $harbour->heavy_fighter - $this->heavy_fighter - $newHF,
+            'light_fighter' => $harbour->light_fighter - $this->light_fighter - $newLF,
+            'cruiser' => $harbour->cruiser - $this->cruiser - $newC,
+            'transporter' => $harbour->transporter - $this->transporter - $newT,
+        ]);
+        $harbour->save();
+
+        // update fleet itself
         $this->update([
             'battleships' => $newBS,
             'heavy_fighter' => $newHF,
