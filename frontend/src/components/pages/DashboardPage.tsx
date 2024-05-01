@@ -13,6 +13,29 @@ const DashboardPage = (props: any) => {
     }, []);
 
     const { metals, fuels, gems, medals, bases } = props;
+
+    type collector = {
+        type : string,
+        lastCollected : string
+        level : number
+    }
+
+    function renderCollector(collector : collector) {
+
+        switch (collector.type) {
+            default:
+                return <CustomCard
+                    key={collector}
+                    backgroundColor="bg-g_planet_gradient"
+                    title={collector["type"]}
+                    status={"Las Updated at: " + new Date(collector.lastCollected).toDateString()}
+                    icon={<Icon type="medal" size="20"/>}
+                    value={collector["level"]}
+                    svg={<Icon type="planet1" size="50"/>}
+                />
+        }
+    }
+
     return (
         <Layout>
             {/* First column using two grid sections */}
@@ -68,39 +91,12 @@ const DashboardPage = (props: any) => {
                 <div className="p-8">
                     {/* Add content here */}
                     <div className="grid grid-cols-3 gap-8">
-                        {/* Column 1 */}
-                        <div className="">
-                            <CustomCard
-                                backgroundColor="bg-g_planet_gradient"
-                                title="Custom Title"
-                                status="Kekw"
-                                icon={<Icon type="medal" size="20" />}
-                                value="1"
-                                svg={<Icon type="planet1" size="50" />}
-                            />
-                        </div>
-                        {/* Column 2 */}
-                        <div className="">
-                            <CustomCard
-                                backgroundColor="bg-g_planet_gradient"
-                                title="Custom Title"
-                                status="Kekw"
-                                icon={<Icon type="medal" size="20" />}
-                                value="1"
-                                svg={<Icon type="planet1" size="50" />}
-                            />
-                        </div>
-                        {/* Column 3 */}
-                        <div className="">
-                            <CustomCard
-                                backgroundColor="bg-g_planet_gradient"
-                                title="Custom Title"
-                                status="Kekw"
-                                icon={<Icon type="medal" size="20" />}
-                                value="1"
-                                svg={<Icon type="planet1" size="50" />}
-                            />
-                        </div>
+                        {
+                            baseData[0] &&
+                            (baseData[0]['collectors'] as collector[]).map((collector: collector) => (
+                                    renderCollector(collector)
+                                ))
+                        }
                     </div>
                 </div>
             </div>
