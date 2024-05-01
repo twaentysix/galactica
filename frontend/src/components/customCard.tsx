@@ -3,7 +3,7 @@ const CustomCard = (props: any) => {
   const { title, status, icon, value, svg, button, backgroundColor } = props;
 
   return (
-    <div className={`relative rounded-lg p-4 h-auto ${backgroundColor}`}>
+    <div className={`relative rounded-lg p-4 h-auto shadow-xl ${backgroundColor}`}>
       {/* SVG positioned in the top right corner */}
       <div className="absolute top-0 right-0 -mt-1.5 -mr-1.5 overflow-visible">
         {svg}
