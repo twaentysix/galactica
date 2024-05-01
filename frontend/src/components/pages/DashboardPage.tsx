@@ -3,16 +3,20 @@ import Icon from "../Icon";
 import Layout from "../Layout";
 import CustomCard from "../customCard";
 import { useEffect, useState } from "react";
-import {collector, base} from "@/lib/types.ts";
+import {collector, base, fleet} from "@/lib/types.ts";
+import ActionHandler from "@/lib/api/ActionHandler";
+import {renderCollector, renderFleet} from "@/lib/RenderFunctions.tsx";
 
 const DashboardPage = (props: any) => {
+    ActionHandler.createBase('1', 'Pimmel Base');
+
 
     const [baseData, setBaseData] = useState<base[]>([])
 
     const [selectedBase, setSelectedBase] = useState<base>()
 
     useEffect(() => {
-        DataHandler.getBases().then(data => {setBaseData(data); setSelectedBase(data[0]); console.log(selectedBase)});
+        DataHandler.getBases().then(data => {setBaseData(data); setSelectedBase(data[0]);});
     }, []);
 
     const { metals, fuels, gems, medals, bases } = props;
@@ -20,21 +24,6 @@ const DashboardPage = (props: any) => {
     const changeBase = (base : base) => {
         setSelectedBase(base);
     };
-
-    function renderCollector(collector : collector) {
-        switch (collector.type) {
-            default:
-                return <CustomCard
-                    key={collector.id}
-                    backgroundColor="bg-g_planet_gradient"
-                    title={collector["type"]}
-                    status={"Las Updated at: " + new Date(collector.lastCollected).toDateString()}
-                    icon={<Icon type="medal" size="20"/>}
-                    value={collector["level"]}
-                    svg={<Icon type="planet1" size="50"/>}
-                />
-        }
-    }
 
     return (
         <Layout>
@@ -56,6 +45,7 @@ const DashboardPage = (props: any) => {
                     </div>
                     {baseData.map((base:base) => (
                             <CustomCard
+                                className={'mb-5'}
                                 key={base.id}
                                 backgroundColor="bg-g_planet_gradient"
                                 title={base["name"]}
@@ -65,6 +55,7 @@ const DashboardPage = (props: any) => {
                                 svg={<Icon type="planet1" size="50" />}
                                 onClick={() => changeBase(base)}
                             />
+
                     ))}
                     
                 </div>
@@ -91,12 +82,23 @@ const DashboardPage = (props: any) => {
                 {/* Content */}
                 <div className="p-8">
                     {/* Add content here */}
-                    <div className="grid grid-cols-3 gap-8">
+                    <h1 className={'mb-5'}>Collectors</h1>
+                    <div className="grid grid-cols-3 gap-8 mb-10">
                         {
                             baseData[0] && selectedBase &&
                             (selectedBase.collectors as collector[]).map((collector: collector) => (
-                                    renderCollector(collector)
-                                ))
+                                renderCollector(collector)
+                            ))
+                        }
+                    </div>
+
+                    <h1 className={'mb-5'}>Harbour</h1>
+                    <div className="grid grid-cols-3 gap-8 mb-10">
+                        {
+                            baseData[0] && selectedBase &&
+                            (selectedBase.harbour.fleets as fleet[]).map((fleet: fleet) => (
+                                renderFleet(fleet)
+                            ))
                         }
                     </div>
                 </div>

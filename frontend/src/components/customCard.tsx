@@ -1,9 +1,9 @@
 
 const CustomCard = (props: any) => {
-  const { title, status, icon, value, svg, button, backgroundColor, onClick } = props;
+  const { title, status, icon, value, svg, button, backgroundColor, onClick, className } = props;
 
   return (
-    <div onClick={onClick} className={`relative rounded-lg p-4 h-auto shadow-xl ${backgroundColor}`}>
+    <div onClick={onClick} className={`relative rounded-lg p-4 h-auto shadow-xl ${backgroundColor} ${className}`}>
       {/* SVG positioned in the top right corner */}
       <div className="absolute top-0 right-0 -mt-1.5 -mr-1.5 overflow-visible">
         {svg}
