@@ -79,6 +79,16 @@ class ActionHandler{
         const payload = {'id': collector_id}
         return await ApiHandler.sendActionRequest('patch', url, headers, payload);
     }
+
+    static async buildShips (base_id, amount, type) {
+        if(!ApiHandler.setJwt()){
+            return {'error': {'message': "User not logged in!"}};
+        }
+        const url = ApiHandler.BASE_URL + "barracks/build";
+        const headers = ApiHandler.getHeaders('action');
+        const payload = {'base_id': base_id, 'amount': amount, 'type': type}
+        return await ApiHandler.sendActionRequest('post', url, headers, payload);
+    }
 }
 
 export default ActionHandler;
