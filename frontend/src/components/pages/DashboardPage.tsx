@@ -4,12 +4,9 @@ import Layout from "../Layout";
 import CustomCard from "../customCard";
 import { useEffect, useState } from "react";
 import {collector, base, fleet} from "@/lib/types.ts";
-import ActionHandler from "@/lib/api/ActionHandler";
 import {renderCollector, renderFleet} from "@/lib/RenderFunctions.tsx";
 
-const DashboardPage = (props: any) => {
-    ActionHandler.createBase('1', 'Pimmel Base');
-
+const DashboardPage = () => {
 
     const [baseData, setBaseData] = useState<base[]>([])
 
@@ -19,7 +16,6 @@ const DashboardPage = (props: any) => {
         DataHandler.getBases().then(data => {setBaseData(data); setSelectedBase(data[0]);});
     }, []);
 
-    const { metals, fuels, gems, medals, bases } = props;
 
     const changeBase = (base : base) => {
         setSelectedBase(base);
@@ -40,7 +36,7 @@ const DashboardPage = (props: any) => {
                         <p className="text-md font-main font-bold">Bases</p>
                         <div className="flex items-center">
                             <p className="text-sm text-muted mr-2">Total:</p>
-                            <p className="text-md font-main font-bold">{bases}</p>
+                            <p className="text-md font-main font-bold">{baseData.length}</p>
                         </div>
                     </div>
                     {baseData.map((base:base) => (
@@ -66,17 +62,17 @@ const DashboardPage = (props: any) => {
                     {/* Left-aligned icons */}
                     <div className="flex items-center space-x-2 pl-4">
                         <div><Icon type="metal" size="25" /></div>
-                        <p className="text-md">{metals}</p>
+                        <p className="text-md">{selectedBase?.resources.metal}</p>
                         <div><Icon type="fuel" size="15" /></div>
-                        <p className="text-md">{fuels}</p>
+                        <p className="text-md">{selectedBase?.resources.gas}</p>
                         <div><Icon type="gem" size="20" /></div>
-                        <p className="text-md">{gems}</p>
+                        <p className="text-md">{selectedBase?.resources.metal}</p>
                     </div>
 
                     {/* Right-aligned medals */}
                     <div className="flex items-center pr-4">
                         <div className="mr-2"><Icon type="medal" size="15" /></div>
-                        <p className="text-md">{medals}</p>
+                        <p className="text-md">{selectedBase?.level}</p>
                     </div>
                 </div>
                 {/* Content */}
