@@ -45,13 +45,13 @@ Route::prefix('bases')->middleware(ApiAuth::class)->controller(BasesController::
     // TODO Route::GET('/{base_id}','fetchOne');
     Route::GET('/','fetchBases');
     Route::POST('/create', 'create');
-    Route::POST('/upgrade', 'upgrade');
+    Route::PATCH('/upgrade', 'upgrade');
 });
 
 Route::prefix('fleets')->middleware(ApiAuth::class)->controller(FleetsController::class)->group(function () {
     Route::GET('/{base_id}','fetch');
     Route::POST('/create','create');
-    Route::POST('/update', 'update');
+    Route::PATCH('/update', 'update');
 });
 
 Route::prefix('collectors')->middleware(ApiAuth::class)->controller(CollectorsController::class)->group(function () {
