@@ -17,6 +17,7 @@ class ExpeditionResource extends JsonResource
     {
         $time_left = $this->started_at ? Carbon::now()->diffInMinutes($this->started_at) : $this->duration;
         return [
+            'id' => $this->id,
             'status' => $this->status,
             'duration' => $this->duration,
             'timeLeft' => $time_left,
