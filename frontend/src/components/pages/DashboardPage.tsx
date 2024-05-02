@@ -3,7 +3,7 @@ import Icon from "../Icon";
 import Layout from "../Layout";
 import CustomCard from "../customCard";
 import { useEffect, useState } from "react";
-import {collector, base, fleet, galaxy} from "@/lib/types.ts";
+import {collector, base, fleet, galaxy, barracks} from "@/lib/types.ts";
 import {renderCollector, renderFleet} from "@/lib/RenderFunctions.tsx";
 import ActionSidebar from "../ActionSidebar";
 
@@ -13,8 +13,8 @@ const DashboardPage = () => {
     const [galaxiesData, setGalaxiesData] = useState<galaxy[]>([])
     const [selectedBase, setSelectedBase] = useState<base>()
     const [starMapActive, setStarMap] = useState<boolean>(false)
-    const [actionSideBarState, setActionSideBarState] = useState<string>('collector')
-    const [sideBarItem, setBarItem] = useState<any>()
+    const [sideBarType, setSideBarType] = useState<string>('')
+    const [sideBarItem, setSideBarItem] = useState<collector | galaxy | barracks | fleet>()
 
     useEffect(() => {
         DataHandler.getBases().then(data => {setBaseData(data); data.length > 0 && setSelectedBase(data[0])});
@@ -26,6 +26,12 @@ const DashboardPage = () => {
         starMapActive && setStarMap(false);
         setSelectedBase(base);
     };
+
+     const changeSidebar = (_type:string, item: collector | galaxy | barracks | fleet ) => {
+        setSideBarItem(item);
+        setSideBarType(_type);
+    }
+
 
     return (
         <Layout>
@@ -103,12 +109,13 @@ const DashboardPage = () => {
                                     title={galaxy.name}
                                     status={"Amount of Planets: " + galaxy.planets.length}
                                     svg={<Icon type="planet2" size="50"/>}
+                                    onClick={()=>{changeSidebar('galaxy',galaxy)}}
                                 />
                             ))}
                         {
                             baseData[0] && selectedBase && !starMapActive &&
                             (selectedBase.collectors as collector[]).map((collector: collector) => (
-                                renderCollector(collector)
+                                renderCollector(collector, ()=>{changeSidebar('collector',collector)})
                             ))
                         }
                     </div>
@@ -118,7 +125,7 @@ const DashboardPage = () => {
 
                             baseData[0] && selectedBase && !starMapActive &&
                             (selectedBase.harbour.fleets as fleet[]).map((fleet: fleet) => (
-                                renderFleet(fleet)
+                                renderFleet(fleet, ()=>{changeSidebar('fleet',fleet)})
                             ))
                         }
                     </div>
@@ -127,16 +134,16 @@ const DashboardPage = () => {
             {/* Third column using 3 */}
             <div className="col-span-3 bg-g_base_gradient_0 rounded-lg">
                 {/* Top bar for the third column */}
-                <div className="bg-g_light h-10 px-4 flex items-center rounded-t-lg">
-                    {/* Top bar content */}
-                    (Third Column)
-                
+                <div className="bg-g_light h-10 px-4 flex items-center rounded-t-lg justify-center">
+                        <span className="text-g_dark font-headline font-bold">Action Unit</span>
                 </div>
                 {/* Content */}
                 <div className="p-4">
                     {/* Add content here */}
-                    (3 sections)
-                    {actionSideBarState === 'collector' }
+                    <ActionSidebar
+                        type={sideBarType}
+                        item={sideBarItem}
+                    />
                 </div>
             </div>
         </Layout>

@@ -2,7 +2,7 @@ import Icon from "@/components/Icon.tsx";
 import {collector, fleet} from "@/lib/types.ts";
 import CustomCard from "@/components/customCard.tsx";
 
-export function renderCollector(collector : collector) {
+export function renderCollector(collector : collector, changeSidebar:any) {
     switch (collector.type) {
     case 'metal':
         return <CustomCard
@@ -13,6 +13,7 @@ export function renderCollector(collector : collector) {
             icon={<Icon type="medal" size="20"/>}
             value={collector["level"]}
             svg={<Icon type="metal" size="50"/>}
+            onClick={changeSidebar}
         />
     case 'gas':
         return <CustomCard
@@ -23,6 +24,7 @@ export function renderCollector(collector : collector) {
             icon={<Icon type="medal" size="20"/>}
             value={collector["level"]}
             svg={<Icon type="fuel" size="30"/>}
+            onClick={changeSidebar}
         />
     case 'gems':
         return <CustomCard
@@ -33,6 +35,7 @@ export function renderCollector(collector : collector) {
             icon={<Icon type="medal" size="20"/>}
             value={collector["level"]}
             svg={<Icon type="gem" size="40"/>}
+            onClick={changeSidebar}
         />
     default:
         return <CustomCard
@@ -47,11 +50,12 @@ export function renderCollector(collector : collector) {
 }
 }
 
-export function renderFleet(fleet : fleet) {
+export function renderFleet(fleet : fleet, changeSidebar:any) {
     return <CustomCard
                 key={fleet.id}
                 backgroundColor="bg-g_grey_gradient"
                 title={fleet.name}
                 status={"Ships " + (fleet.lightFighter + fleet.heavyFighter + fleet.battleship + fleet.transporter + fleet.cruiser)}
+                onClick={changeSidebar}
             />
 }
