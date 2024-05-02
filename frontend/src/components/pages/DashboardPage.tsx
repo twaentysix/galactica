@@ -12,7 +12,6 @@ const DashboardPage = () => {
     const [galaxiesData, setGalaxiesData] = useState<galaxy[]>([])
     const [selectedBase, setSelectedBase] = useState<base>()
     const [starMapActive, setStarMap] = useState<boolean>(false)
-
     const [actionBarType, setActionBarType] = useState<string>('')
     const [actionBarItem, setActionBarItem] = useState<collector | galaxy | barracks | fleet>()
 
@@ -27,7 +26,7 @@ const DashboardPage = () => {
         setSelectedBase(base);
     };
 
-     const changeSidebar = (_type:string, item: collector | galaxy | barracks | fleet) => {
+     const changeSidebar = (_type:string, item?: collector | galaxy | barracks | fleet) => {
         setActionBarItem(item);
         setActionBarType(_type);
     }
@@ -39,7 +38,6 @@ const DashboardPage = () => {
         });
         DataHandler.getGalaxies().then(data => {setGalaxiesData(data)});
     }
-
 
     return (
         <Layout>
@@ -137,6 +135,19 @@ const DashboardPage = () => {
                             (selectedBase.harbour.fleets as fleet[]).map((fleet: fleet) => (
                                 renderFleet(fleet, ()=>{changeSidebar('fleet',fleet)})
                             ))
+                        }
+                    </div>
+                    {!starMapActive&& <h2 className={'mb-5'}>Barracks</h2>}
+                    <div className="grid grid-cols-3 gap-8 mb-10">
+                        {
+                            !starMapActive &&
+                            <CustomCard
+                                className={'mb-5'}
+                                key={'barracks'}
+                                backgroundColor="bg-g_grey_gradient"
+                                title={'Baracks'}
+                                onClick={() => {changeSidebar('barracks')}}
+                            />
                         }
                     </div>
                 </div>

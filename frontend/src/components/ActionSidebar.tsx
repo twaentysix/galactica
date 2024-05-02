@@ -4,7 +4,7 @@ import Icon from "@/components/Icon.tsx";
 import ActionButton from "./ActionButton";
 import ActionHandler from "@/lib/api/ActionHandler";
 
-const ActionSidebar = ({type : _type, item : item, reload : reload } : {type : string, item: any, reload : any}) => {
+const ActionSidebar = ({type : _type, item : item, reload : reload } : {type : string, item?: any, reload : any}) => {
    switch(_type){
        case 'collector':
            return getCollectorSidebar(item as collector, reload)
