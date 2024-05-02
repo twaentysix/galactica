@@ -93,7 +93,7 @@ const DashboardPage = () => {
                     {/* Right-aligned medals */}
                     <div className="flex items-center pr-4">
                         <div className="mr-2"><Icon type="medal" size="15" /></div>
-                        <p className="text-md">{selectedBase?.level}</p>
+                        <p className="text-md font-headline font-bold text-g_dark">{selectedBase?.level}</p>
                     </div>
                 </div>
                 {/* Content */}
