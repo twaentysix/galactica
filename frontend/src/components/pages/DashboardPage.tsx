@@ -55,8 +55,9 @@ const DashboardPage = () => {
                         key={galaxiesData}
                         backgroundColor="bg-g_planet_gradient"
                         title={'Star map'}
-                        value={'Total galaxies: ' + galaxiesData.length}
+                        value={galaxiesData.length}
                         onClick={() => setStarMap(true)}
+                        icon={<Icon type="galaxy" size="32" />}
                     />
                     <>
                         <h2 className="font-headline font-bold">Bases</h2>
@@ -110,11 +111,11 @@ const DashboardPage = () => {
                                 <CustomCard
                                     className={'mb-5'}
                                     key={galaxy.id}
-                                    backgroundColor="bg-g_planet_gradient"
+                                    backgroundColor="bg-g_base_gradient_1"
                                     title={galaxy.name}
-                                    status={"Amount of Planets: " + galaxy.planets.length}
-                                    svg={<Icon type="planet2" size="50"/>}
+                                    value={galaxy.planets.length}
                                     onClick={()=>{changeSidebar('galaxy',galaxy)}}
+                                    icon={<Icon type="planet1" size="30" />}
                                 />
                             ))}
                         {
