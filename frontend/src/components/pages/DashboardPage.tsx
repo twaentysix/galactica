@@ -13,8 +13,9 @@ const DashboardPage = () => {
     const [galaxiesData, setGalaxiesData] = useState<galaxy[]>([])
     const [selectedBase, setSelectedBase] = useState<base>()
     const [starMapActive, setStarMap] = useState<boolean>(false)
-    const [sideBarType, setSideBarType] = useState<string>('')
-    const [sideBarItem, setSideBarItem] = useState<collector | galaxy | barracks | fleet>()
+
+    const [actionBarType, setActionBarType] = useState<string>('')
+    const [actionBarItem, setActionBarItem] = useState<collector | galaxy | barracks | fleet>()
 
     useEffect(() => {
         DataHandler.getBases().then(data => {setBaseData(data); data.length > 0 && setSelectedBase(data[0])});
@@ -27,9 +28,9 @@ const DashboardPage = () => {
         setSelectedBase(base);
     };
 
-     const changeSidebar = (_type:string, item: collector | galaxy | barracks | fleet ) => {
-        setSideBarItem(item);
-        setSideBarType(_type);
+     const changeSidebar = (_type:string, item: collector | galaxy | barracks | fleet) => {
+        setActionBarItem(item);
+        setActionBarType(_type);
     }
 
 
@@ -141,8 +142,8 @@ const DashboardPage = () => {
                 <div className="p-4">
                     {/* Add content here */}
                     <ActionSidebar
-                        type={sideBarType}
-                        item={sideBarItem}
+                        type={actionBarType}
+                        item={actionBarItem}
                     />
                 </div>
             </div>

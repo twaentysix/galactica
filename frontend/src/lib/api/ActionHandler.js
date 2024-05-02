@@ -66,7 +66,7 @@ class ActionHandler{
         }
         const url = ApiHandler.BASE_URL + "collectors/upgrade";
         const headers = ApiHandler.getHeaders('action');
-        const payload = {'collector_id': collector_id}
+        const payload = {'id': collector_id}
         return await ApiHandler.sendActionRequest('patch', url, headers, payload);
     }
 

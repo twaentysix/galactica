@@ -28,10 +28,10 @@ const getCollectorSidebar = (collector:collector) => {
             <h1>{collector.type}</h1>
             <p>{new Date(collector.lastCollected).toDateString()}</p>
             <p>{collector.id}</p>
-            <Button onClick={() => ActionHandler.collectResources(collector.id)}>
+            <Button onClick={() => ActionHandler.collectResources(collector.id).then()}>
                 <h2>Collect</h2>
             </Button>
-            <Button>
+            <Button onClick={() => ActionHandler.upgradeCollector(collector.id).then()}>
                 <h2>Upgrade</h2>
             </Button>
         </div>
@@ -40,7 +40,14 @@ const getCollectorSidebar = (collector:collector) => {
 
 const getFleetSidebar = (fleet:fleet) => {
     return (
-        <div>{fleet.name}</div>
+        <div>
+            <h1>{fleet.name}</h1>
+            {/* add onclick new dialog for updating fleet*/}
+            <Button ><h2>Update Ships</h2></Button>
+            {/* add onclick new dialog for starting expeditions */}
+            <Button ><h2>Start expedition</h2></Button>
+        </div>
+
     )
 }
 
@@ -59,6 +66,7 @@ const getGalaxySidebar = (galaxy:galaxy) => {
                         />
                 ))
             }
+            {/* add onclick new dialog for creating a base */}
             <Button>
                 <h2>New Base</h2>
             </Button>
