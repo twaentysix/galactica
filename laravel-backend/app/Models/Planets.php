@@ -42,6 +42,7 @@ class Planets extends Model
         return [
             'name' => 'string',
             'id' => 'integer',
+            'galaxy_id' => 'integer'
         ];
     }
 

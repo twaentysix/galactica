@@ -15,6 +15,7 @@ class BattlesResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
+            'id' => $this->id,
             'won' => $this->won,
             'fleet' => new FleetsResource($this->fleet),
             'lostShips' => $this->lost_ships,
