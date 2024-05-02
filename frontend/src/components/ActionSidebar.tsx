@@ -1,14 +1,13 @@
-import {collector, fleet, galaxy, planet} from "@/lib/types";
+import {collector, error, fleet, galaxy, planet} from "@/lib/types";
 import CustomCard from "@/components/customCard.tsx";
 import Icon from "@/components/Icon.tsx";
 import ActionButton from "./ActionButton";
 import ActionHandler from "@/lib/api/ActionHandler";
-import DataHandler from "@/lib/api/DataHandler";
 
-const ActionSidebar = ({type : _type, item : item, reload : reload } : {type : string, item?: any, reload : any}) => {
+const ActionSidebar = ({type : _type, item : item, reload : reload, notification : notification } : {type : string, item?: any, reload : any, notification : any}) => {
    switch(_type){
        case 'collector':
-           return getCollectorSidebar(item as collector, reload)
+           return getCollectorSidebar(item as collector, reload, notification)
        case 'galaxy':
            return getGalaxySidebar(item as galaxy)
        case 'fleet':
@@ -23,7 +22,7 @@ const ActionSidebar = ({type : _type, item : item, reload : reload } : {type : s
 
 export default ActionSidebar;
 
-const getCollectorSidebar = (collector:collector, update : any) => {
+const getCollectorSidebar = (collector:collector, update : any, notification : any) => {
     return (
         <div>
             {collector.type == "metal" && (<div className="mt-2 mb-6"><Icon type="metal" size="54" /></div>)}
@@ -32,10 +31,25 @@ const getCollectorSidebar = (collector:collector, update : any) => {
             <h3 className="my-3">{collector.type.charAt(0).toUpperCase() + collector.type.slice(1) + " Collector"}</h3>
             <div className="flex gap-1 mb-2"><span className="">Last collected: </span><p className="font-bold">{new Date(collector.lastCollected).toLocaleTimeString()}</p></div>
             <div className="flex gap-1 mb-10"><span className="">Current level: </span><p className="font-bold">{collector.level}</p></div>
-            <ActionButton onClick={() => ActionHandler.collectResources(collector.id).then(update)}>
+            <ActionButton onClick={() => ActionHandler.collectResources(collector.id)
+                .then((data:any) => {
+                    update();
+                    data['error'] === undefined ? notification({message:'Successfully collected resources!', type:'info'}) : notification({message:(data['error'] as error).message, type:'warning'})
+                })
+            }
+            >
+            <h3 className="my-3">{}</h3>
+            <p>{new Date(collector.lastCollected).toDateString()}</p>
+            <p>{collector.id}</p>
+
                 Collect
             </ActionButton>
-            <ActionButton onClick={() => ActionHandler.upgradeCollector(collector.id).then()}>
+            <ActionButton onClick={() => ActionHandler.upgradeCollector(collector.id)
+                                            .then((data:any) => {
+                                                update();
+                                                data['error'] === undefined ? notification({message:'Successfully upgraded Collector!', type:'info'}) : notification({message:(data['error'] as error).message, type:'warning'})
+                                            })
+                                    }>
                 Upgrade
             </ActionButton>
         </div>

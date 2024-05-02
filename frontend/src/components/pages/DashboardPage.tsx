@@ -3,9 +3,10 @@ import Icon from "../Icon";
 import Layout from "../Layout";
 import CustomCard from "../customCard";
 import { useEffect, useState } from "react";
-import {collector, base, fleet, galaxy, barracks} from "@/lib/types.ts";
+import {info, collector, base, fleet, galaxy, barracks} from "@/lib/types.ts";
 import {renderCollector, renderFleet} from "@/lib/RenderFunctions.tsx";
 import ActionSidebar from "../ActionSidebar";
+import ToastNotification from "@/components/toastNotification/ToastNotification.tsx";
 
 const DashboardPage = () => {
     const [baseData, setBaseData] = useState<base[]>([])
@@ -14,6 +15,8 @@ const DashboardPage = () => {
     const [starMapActive, setStarMap] = useState<boolean>(false)
     const [actionBarType, setActionBarType] = useState<string>('')
     const [actionBarItem, setActionBarItem] = useState<collector | galaxy | barracks | fleet>()
+    const [notification, setNotification] = useState(false);
+    const [info, setInfo] = useState<info>({message:'', type:'info'});
 
     useEffect(() => {
         DataHandler.getBases().then(data => {setBaseData(data); data.length > 0 && setSelectedBase(data[0])});
@@ -29,6 +32,12 @@ const DashboardPage = () => {
      const changeSidebar = (_type:string, item?: collector | galaxy | barracks | fleet) => {
         setActionBarItem(item);
         setActionBarType(_type);
+    }
+
+    const activateNotification = (info : info) => {
+        setInfo(info);
+        setNotification(true)
+        setTimeout(() => setNotification(false), 1500);
     }
 
     const reload = () => {
@@ -170,10 +179,12 @@ const DashboardPage = () => {
                     <ActionSidebar
                         type={actionBarType}
                         item={actionBarItem}
-                        reload={() => reload()}
+                        reload={ reload }
+                        notification = {activateNotification}
                     />
                 </div>
             </div>
+            {notification ? <ToastNotification type={info.type} message={info.message}/> : null}
         </Layout>
     );
 }

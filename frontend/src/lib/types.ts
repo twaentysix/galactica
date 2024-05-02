@@ -72,3 +72,14 @@ export type base = {
 };
 
 export type barracks = {};
+
+export type info = {
+  message : string
+  type : 'error' | 'info' | 'warning'
+}
+
+export type error = {
+  message : string,
+  name : string,
+  status : string,
+}

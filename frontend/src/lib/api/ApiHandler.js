@@ -57,9 +57,13 @@ class ApiHandler{
             headers: headers,
             params: payload,
         }).then(function (response) {
-            return response.data['data'];
+            if(response['error'] !== undefined){
+                return response.data['data']
+            }else{
+                return response.data;
+            }
         }).catch(function (error){
-            return error.response.data;
+            return error.response;
         });
     }
 }
