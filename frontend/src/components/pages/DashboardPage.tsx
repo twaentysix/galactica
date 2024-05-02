@@ -5,6 +5,7 @@ import CustomCard from "../customCard";
 import { useEffect, useState } from "react";
 import {collector, base, fleet, galaxy} from "@/lib/types.ts";
 import {renderCollector, renderFleet} from "@/lib/RenderFunctions.tsx";
+import ActionSidebar from "../ActionSidebar";
 
 const DashboardPage = () => {
 
@@ -12,6 +13,8 @@ const DashboardPage = () => {
     const [galaxiesData, setGalaxiesData] = useState<galaxy[]>([])
     const [selectedBase, setSelectedBase] = useState<base>()
     const [starMapActive, setStarMap] = useState<boolean>(false)
+    const [actionSideBarState, setActionSideBarState] = useState<string>('collector')
+    const [sideBarItem, setBarItem] = useState<any>()
 
     useEffect(() => {
         DataHandler.getBases().then(data => {setBaseData(data); data.length > 0 && setSelectedBase(data[0])});
@@ -127,11 +130,13 @@ const DashboardPage = () => {
                 <div className="bg-g_light h-10 px-4 flex items-center rounded-t-lg">
                     {/* Top bar content */}
                     (Third Column)
+                
                 </div>
                 {/* Content */}
                 <div className="p-4">
                     {/* Add content here */}
                     (3 sections)
+                    {actionSideBarState === 'collector' }
                 </div>
             </div>
         </Layout>
