@@ -1,7 +1,7 @@
 import {collector, fleet, galaxy, planet} from "@/lib/types";
 import CustomCard from "@/components/customCard.tsx";
 import Icon from "@/components/Icon.tsx";
-import Button from "@/components/button.tsx";
+import ActionButton from "./ActionButton";
 import ActionHandler from "@/lib/api/ActionHandler";
 
 const ActionSidebar = ({type : _type, item : item, reload : reload } : {type : string, item: any, reload : any}) => {
@@ -25,15 +25,18 @@ export default ActionSidebar;
 const getCollectorSidebar = (collector:collector, update : any) => {
     return (
         <div>
-            <h1>{collector.type}</h1>
+            {collector.type == "metal" && (<div className="mt-2 mb-6"><Icon type="metal" size="54" /></div>)}
+            {collector.type == "gems" && (<div className="mt-2 mb-6"><Icon type="gem" size="44" /></div>)}
+            {collector.type == "gas" && (<div className="mt-2 mb-6"><Icon type="fuel" size="40" /></div>)}
+            <h3 className="my-3">{}</h3>
             <p>{new Date(collector.lastCollected).toDateString()}</p>
             <p>{collector.id}</p>
-            <Button type="action" onClick={() => ActionHandler.collectResources(collector.id).then(update)}>
+            <ActionButton onClick={() => ActionHandler.collectResources(collector.id).then(update)}>
                 Collect
-            </Button>
-            <Button type="action" onClick={() => ActionHandler.upgradeCollector(collector.id).then()}>
+            </ActionButton>
+            <ActionButton onClick={() => ActionHandler.upgradeCollector(collector.id).then()}>
                 Upgrade
-            </Button>
+            </ActionButton>
         </div>
     )
 }
@@ -43,9 +46,9 @@ const getFleetSidebar = (fleet:fleet) => {
         <div>
             <h1>{fleet.name}</h1>
             {/* add onclick new dialog for updating fleet*/}
-            <Button type="action">Update ships</Button>
+            <ActionButton>Update ships</ActionButton>
             {/* add onclick new dialog for starting expeditions */}
-            <Button type="action">Start expedition</Button>
+            <ActionButton>Start expedition</ActionButton>
         </div>
 
     )
@@ -67,9 +70,9 @@ const getGalaxySidebar = (galaxy:galaxy) => {
                 ))
             }
             {/* add onclick new dialog for creating a base */}
-            <Button type="action">
-                New Base
-            </Button>
+            <ActionButton>
+                New Base    
+            </ActionButton>
         </div>
     )
 }
