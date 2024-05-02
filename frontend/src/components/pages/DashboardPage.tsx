@@ -8,7 +8,6 @@ import {renderCollector, renderFleet} from "@/lib/RenderFunctions.tsx";
 import ActionSidebar from "../ActionSidebar";
 
 const DashboardPage = () => {
-
     const [baseData, setBaseData] = useState<base[]>([])
     const [galaxiesData, setGalaxiesData] = useState<galaxy[]>([])
     const [selectedBase, setSelectedBase] = useState<base>()
@@ -34,7 +33,10 @@ const DashboardPage = () => {
     }
 
     const reload = () => {
-        DataHandler.getBases().then(data => {setBaseData(data); data.length > 0 && setSelectedBase(data[0])});
+        DataHandler.getBases().then((data : base[]) => {
+                setBaseData(data);
+                data.length > 0 && setSelectedBase(data[data.findIndex((element:base) => element.id === selectedBase?.id as number)])
+        });
         DataHandler.getGalaxies().then(data => {setGalaxiesData(data)});
     }
 
@@ -85,22 +87,24 @@ const DashboardPage = () => {
             {/* Bigger column using 7 */}
             <div className="col-span-6 bg-g_base_gradient_0 rounded-lg">
                 <div className="bg-g_light h-10 px-4 flex items-center rounded-t-lg justify-between">
-                    {/* Left-aligned icons */}
-                    <div className="flex items-center space-x-2 pl-4">
-                        <div><Icon type="metal" size="25" /></div>
-                        <p className="font-headline font-bold text-g_dark">{selectedBase?.resources.metal}</p>
-                        <div><Icon type="fuel" size="15" /></div>
-                        <p className="font-headline font-bold text-g_dark">{selectedBase?.resources.gas}</p>
-                        <div><Icon type="gem" size="20" /></div>
-                        <p className="font-headline font-bold text-g_dark">{selectedBase?.resources.gems}</p>
-                    </div>
-
-                    {/* Right-aligned medals */}
-                    <div className="flex items-center pr-4">
-                        <div className="mr-2"><Icon type="medal" size="15" /></div>
-                        <p className="text-md font-headline font-bold text-g_dark">{selectedBase?.level}</p>
-                    </div>
+                    {!starMapActive &&
+                        <div className="flex items-center space-x-2 pl-4">
+                            <div><Icon type="metal" size="25" /></div>
+                            <p className="font-headline font-bold text-g_dark">{selectedBase?.resources.metal}</p>
+                            <div><Icon type="fuel" size="15" /></div>
+                            <p className="font-headline font-bold text-g_dark">{selectedBase?.resources.gas}</p>
+                            <div><Icon type="gem" size="20" /></div>
+                            <p className="font-headline font-bold text-g_dark">{selectedBase?.resources.gems}</p>
+                        </div>
+                    }
+                    {!starMapActive &&
+                        <div className="flex items-center pr-4">
+                            <div className="mr-2"><Icon type="medal" size="15" /></div>
+                            <p className="text-md font-headline font-bold text-g_dark">{selectedBase?.level}</p>
+                        </div>
+                    }
                 </div>
+
                 {/* Content */}
                 <div className="p-8">
                     {/* Add content here */}
