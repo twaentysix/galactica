@@ -37,30 +37,29 @@ const DashboardPage = () => {
     return (
         <Layout>
             {/* First column using two grid sections */}
-            <div className="col-span-2 bg-g_base_gradient_0 rounded-lg">
+            <div className="col-span-3 bg-g_base_gradient_0 rounded-lg">
                 {/* Top bar for the first column */}
                 <div className="bg-g_light h-10 px-4 flex items-center justify-center rounded-t-lg">
                     {/* Top bar content */}
                     <span className="text-g_dark font-headline font-bold">Control Unit</span>
                 </div>
                 {/* Content */}
-                <div className="">
+                <div className="p-6">
                     <CustomCard
                         className={'mb-10 mt-5'}
                         key={galaxiesData}
                         backgroundColor="bg-g_planet_gradient"
-                        title={'Sternenkarte'}
-                        value={'Total Galaxies: ' + galaxiesData.length}
-                        svg={<Icon type="planet1" size="50"/>}
+                        title={'Star map'}
+                        value={'Total galaxies: ' + galaxiesData.length}
                         onClick={() => setStarMap(true)}
                     />
-                    <div className="m-4">
-                        <p className="text-md font-main font-bold">Bases</p>
-                        <div className="flex items-center">
-                            <p className="text-sm text-muted mr-2">Total:</p>
-                            <p className="text-md font-main font-bold">{baseData.length}</p>
+                    <>
+                        <h2 className="font-headline font-bold">Bases</h2>
+                        <div className="flex items-center gap-1 mb-5">
+                            <p>Total:</p>
+                            <p className="font-bold">{baseData.length}</p>
                         </div>
-                    </div>
+                    </>
                     {baseData.map((base: base) => (
                         <CustomCard
                             className={'mb-5'}
@@ -78,7 +77,7 @@ const DashboardPage = () => {
                 </div>
             </div>
             {/* Bigger column using 7 */}
-            <div className="col-span-7 bg-g_base_gradient_0 rounded-lg">
+            <div className="col-span-6 bg-g_base_gradient_0 rounded-lg">
                 <div className="bg-g_light h-10 px-4 flex items-center rounded-t-lg justify-between">
                     {/* Left-aligned icons */}
                     <div className="flex items-center space-x-2 pl-4">
@@ -99,7 +98,7 @@ const DashboardPage = () => {
                 {/* Content */}
                 <div className="p-8">
                     {/* Add content here */}
-                    {!starMapActive && <h1 className={'mb-5'}>Collectors</h1>}
+                    {!starMapActive && <h2 className={'mb-5'}>Collectors</h2>}
                     <div className="grid grid-cols-3 gap-8 mb-10">
                         {
                             starMapActive && galaxiesData.map((galaxy: galaxy) => (
@@ -120,7 +119,7 @@ const DashboardPage = () => {
                             ))
                         }
                     </div>
-                    {!starMapActive&& <h1 className={'mb-5'}>Harbour</h1>}
+                    {!starMapActive&& <h2 className={'mb-5'}>Harbour</h2>}
                     <div className="grid grid-cols-3 gap-8 mb-10">
                         {
 
