@@ -4,10 +4,10 @@ import Icon from "@/components/Icon.tsx";
 import Button from "@/components/button.tsx";
 import ActionHandler from "@/lib/api/ActionHandler";
 
-const ActionSidebar = ({type : _type, item : item } : {type : string, item: any}) => {
+const ActionSidebar = ({type : _type, item : item, reload : reload } : {type : string, item: any, reload : any}) => {
    switch(_type){
        case 'collector':
-           return getCollectorSidebar(item as collector)
+           return getCollectorSidebar(item as collector, reload)
        case 'galaxy':
            return getGalaxySidebar(item as galaxy)
        case 'fleet':
@@ -22,16 +22,16 @@ const ActionSidebar = ({type : _type, item : item } : {type : string, item: any}
 
 export default ActionSidebar;
 
-const getCollectorSidebar = (collector:collector) => {
+const getCollectorSidebar = (collector:collector, update : any) => {
     return (
         <div>
             <h1>{collector.type}</h1>
             <p>{new Date(collector.lastCollected).toDateString()}</p>
             <p>{collector.id}</p>
-            <Button onClick={() => ActionHandler.collectResources(collector.id).then()}>
+            <Button onClick={() => ActionHandler.collectResources(collector.id).then(update)}>
                 <h2>Collect</h2>
             </Button>
-            <Button onClick={() => ActionHandler.upgradeCollector(collector.id).then()}>
+            <Button onClick={() => ActionHandler.upgradeCollector(collector.id).then(update)}>
                 <h2>Upgrade</h2>
             </Button>
         </div>

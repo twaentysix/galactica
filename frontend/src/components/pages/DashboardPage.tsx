@@ -33,6 +33,11 @@ const DashboardPage = () => {
         setActionBarType(_type);
     }
 
+    const reload = () => {
+        DataHandler.getBases().then(data => {setBaseData(data); data.length > 0 && setSelectedBase(data[0])});
+        DataHandler.getGalaxies().then(data => {setGalaxiesData(data)});
+    }
+
 
     return (
         <Layout>
@@ -143,6 +148,7 @@ const DashboardPage = () => {
                     <ActionSidebar
                         type={actionBarType}
                         item={actionBarItem}
+                        reload={() => reload()}
                     />
                 </div>
             </div>
