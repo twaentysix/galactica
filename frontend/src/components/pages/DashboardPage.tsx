@@ -62,11 +62,11 @@ const DashboardPage = () => {
                     {/* Left-aligned icons */}
                     <div className="flex items-center space-x-2 pl-4">
                         <div><Icon type="metal" size="25" /></div>
-                        <p className="text-md">{selectedBase?.resources.metal}</p>
+                        <p className="font-headline font-bold text-g_dark">{selectedBase?.resources.metal}</p>
                         <div><Icon type="fuel" size="15" /></div>
-                        <p className="text-md">{selectedBase?.resources.gas}</p>
+                        <p className="font-headline font-bold text-g_dark">{selectedBase?.resources.gas}</p>
                         <div><Icon type="gem" size="20" /></div>
-                        <p className="text-md">{selectedBase?.resources.metal}</p>
+                        <p className="font-headline font-bold text-g_dark">{selectedBase?.resources.gems}</p>
                     </div>
 
                     {/* Right-aligned medals */}
