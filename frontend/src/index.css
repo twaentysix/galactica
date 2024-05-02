@@ -55,6 +55,8 @@
 
     --g_planet_gradient: linear-gradient(45deg, hsla(144, 100%, 33%, .1), hsl(144, 100%, 33%, 0.33));
 
+    --g_yellow_gradient: linear-gradient(45deg, hsla(43, 87%, 59%, .4), hsla(43, 87%, 59%, 1));
+
     --g_yellow: hsla(43, 87%, 59%, 1);
     --g_light: hsla(0, 0%, 90%, .8);
     --g_light_translucent: hsla(0, 0%, 90%, .3);

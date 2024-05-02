@@ -86,13 +86,19 @@ const DashboardPage = () => {
             <div className="col-span-6 bg-g_base_gradient_0 rounded-lg">
                 <div className="bg-g_light h-10 px-4 flex items-center rounded-t-lg justify-between">
                     {!starMapActive &&
-                        <div className="flex items-center space-x-2 pl-4">
-                            <div><Icon type="metal" size="25" /></div>
-                            <p className="font-headline font-bold text-g_dark">{selectedBase?.resources.metal}</p>
-                            <div><Icon type="fuel" size="15" /></div>
-                            <p className="font-headline font-bold text-g_dark">{selectedBase?.resources.gas}</p>
-                            <div><Icon type="gem" size="20" /></div>
-                            <p className="font-headline font-bold text-g_dark">{selectedBase?.resources.gems}</p>
+                        <div className="flex items-center gap-6 px-4">
+                            <div className="flex gap-2 items-center">
+                                <div><Icon type="metal" size="25" /></div>
+                                <p className="font-headline font-bold text-g_dark">{selectedBase?.resources.metal}</p>
+                            </div>
+                            <div className="flex gap-2 items-center">
+                                <div><Icon type="fuel" size="15" /></div>
+                                <p className="font-headline font-bold text-g_dark">{selectedBase?.resources.gas}</p>
+                            </div>
+                            <div className="flex gap-2 items-center">
+                                <div><Icon type="gem" size="20" /></div>
+                                <p className="font-headline font-bold text-g_dark">{selectedBase?.resources.gems}</p>
+                            </div>
                         </div>
                     }
                     {!starMapActive &&
