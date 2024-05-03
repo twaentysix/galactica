@@ -16,7 +16,7 @@ const ActionSidebar = ({type : _type, item : item, reload : reload, notification
         case 'barracks':
             return getBarracksSidebar()
         default:
-            return <div></div>
+            return null
 
     }
 }

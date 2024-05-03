@@ -10,8 +10,8 @@ export const getCollectorSidebar = (collector:collector, update : any, notificat
             {collector.type == "gems" && (<div className="mt-2 mb-6"><Icon type="gem" size="44" /></div>)}
             {collector.type == "gas" && (<div className="mt-2 mb-6"><Icon type="fuel" size="40" /></div>)}
             <h3 className="my-3">{collector.type.charAt(0).toUpperCase() + collector.type.slice(1) + " Collector"}</h3>
-            <div className="flex gap-1 mb-2"><span className="">Last collected: </span><p className="font-bold">{new Date(collector.lastCollected).toLocaleTimeString()}</p></div>
-            <div className="flex gap-1 mb-10"><span className="">Current level: </span><p className="font-bold">{collector.level}</p></div>
+            <div className="my-5 flex flex-col justify-start"><span>Last collected</span><span className="font-headline text-lg font-bold">{new Date(collector.lastCollected).toLocaleTimeString()}</span></div>
+            <div className="my-5 flex flex-col justify-start"><span>Current level</span><span className="font-headline text-lg font-bold">{collector.level}</span></div>
             <ActionButton onClick={() => ActionHandler.collectResources(collector.id)
                 .then((data:any) => {
                     update();
@@ -19,10 +19,6 @@ export const getCollectorSidebar = (collector:collector, update : any, notificat
                 })
             }
             >
-                <h3 className="my-3">{}</h3>
-                <p>{new Date(collector.lastCollected).toDateString()}</p>
-                <p>{collector.id}</p>
-
                 Collect
             </ActionButton>
             <ActionButton onClick={() => ActionHandler.upgradeCollector(collector.id)

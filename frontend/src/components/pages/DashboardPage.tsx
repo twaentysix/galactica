@@ -3,10 +3,12 @@ import Icon from "../Icon";
 import Layout from "../Layout";
 import CustomCard from "../customCard";
 import { useEffect, useState } from "react";
-import {info, collector, base, fleet, galaxy, barracks} from "@/lib/types.ts";
+import {info, collector, base, fleet, galaxy, barracks, error} from "@/lib/types.ts";
 import {renderCollector, renderFleet} from "@/lib/RenderFunctions.tsx";
 import ActionSidebar from "../ActionSidebar";
 import ToastNotification from "@/components/toastNotification/ToastNotification.tsx";
+import ActionButton from "../ActionButton";
+import ActionHandler from "@/lib/api/ActionHandler";
 
 const DashboardPage = () => {
     const [baseData, setBaseData] = useState<base[]>([])
@@ -81,7 +83,7 @@ const DashboardPage = () => {
                             key={base.id}
                             backgroundColor="bg-g_planet_gradient"
                             title={base["name"]}
-                            status={"Created at: " + new Date(base["createdAt"]).toDateString()}
+                            status={<div className="my-3 flex flex-col justify-start"><span>Created:</span><span className="font-headline text-lg font-bold">{new Date(base["createdAt"]).toDateString()}</span></div>}
                             icon={<Icon type="medal" size="20"/>}
                             value={base["level"]}
                             svg={<Icon type="planet1" size="50"/>}
@@ -120,7 +122,22 @@ const DashboardPage = () => {
 
                 {/* Content */}
                 <div className="p-8">
+                    {!starMapActive && <h2 className={'mb-5 text-4xl'}>{selectedBase?.name}</h2>}
                     {/* Add content here */}
+                     <div className="grid grid-cols-3 gap-8 mb-10">
+                        {
+                            !starMapActive && 
+                                <ActionButton 
+                                    onClick={() => {ActionHandler.upgradeBase(selectedBase?.id)
+                                        .then((data:any) => {
+                                            data['error'] === undefined ? activateNotification({message:'Successfully upgraded Base!', type:'info'}) : activateNotification({message:(data['error'] as error).message, type:'warning'})
+                                            reload();
+                                        })}}
+                                >
+                                    Upgrade base
+                                </ActionButton>
+                        }
+                    </div>
                     {!starMapActive && <h2 className={'mb-5'}>Collectors</h2>}
                     <div className="grid grid-cols-3 gap-8 mb-10">
                         {
@@ -159,7 +176,7 @@ const DashboardPage = () => {
                             <CustomCard
                                 className={'mb-5'}
                                 key={'barracks'}
-                                backgroundColor="bg-g_grey_gradient"
+                                backgroundColor="bg-g_base_gradient_1"
                                 title={'Baracks'}
                                 onClick={() => {changeSidebar('barracks')}}
                             />
