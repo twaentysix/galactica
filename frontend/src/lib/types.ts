@@ -13,8 +13,8 @@ export type resources = {
 };
 
 export type idleShips = {
-  lightFighter: number;
-  heavyFighter: number;
+  light_fighter: number;
+  heavy_fighter: number;
   cruiser: number;
   transporter: number;
   battleships: number;
@@ -28,6 +28,8 @@ export type fleet = {
   transporter: number;
   battleship: number;
   name: string;
+
+  idleShips : idleShips;
 };
 
 export type harbour = {

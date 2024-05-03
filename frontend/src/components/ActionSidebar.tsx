@@ -3,21 +3,23 @@ import CustomCard from "@/components/customCard.tsx";
 import Icon from "@/components/Icon.tsx";
 import ActionButton from "./ActionButton";
 import ActionHandler from "@/lib/api/ActionHandler";
+import {getFleetSidebar} from "@/components/FleetSidebar.tsx";
 
 const ActionSidebar = ({type : _type, item : item, reload : reload, notification : notification } : {type : string, item?: any, reload : any, notification : any}) => {
-   switch(_type){
-       case 'collector':
-           return getCollectorSidebar(item as collector, reload, notification)
-       case 'galaxy':
-           return getGalaxySidebar(item as galaxy)
-       case 'fleet':
-           return getFleetSidebar(item as fleet)
-       case 'barracks':
-           return getBarracksSidebar()
-       default:
-           return <div></div>
 
-   }
+    switch(_type){
+        case 'collector':
+            return getCollectorSidebar(item as collector, reload, notification)
+        case 'galaxy':
+            return getGalaxySidebar(item as galaxy)
+        case 'fleet':
+            return getFleetSidebar(item as fleet, reload, notification)
+        case 'barracks':
+            return getBarracksSidebar()
+        default:
+            return <div></div>
+
+    }
 }
 
 export default ActionSidebar;
@@ -45,41 +47,31 @@ const getCollectorSidebar = (collector:collector, update : any, notification : a
                 Collect
             </ActionButton>
             <ActionButton onClick={() => ActionHandler.upgradeCollector(collector.id)
-                                            .then((data:any) => {
-                                                update();
-                                                data['error'] === undefined ? notification({message:'Successfully upgraded Collector!', type:'info'}) : notification({message:(data['error'] as error).message, type:'warning'})
-                                            })
-                                    }>
+                    .then((data:any) => {
+                        update();
+                        data['error'] === undefined ? notification({message:'Successfully upgraded Collector!', type:'info'}) : notification({message:(data['error'] as error).message, type:'warning'})
+                    })
+            }
+            >
                 Upgrade
             </ActionButton>
+
+
         </div>
     )
 }
 
-const getFleetSidebar = (fleet:fleet) => {
-    return (
-        <div>
-            <h1>{fleet.name}</h1>
-            {/* add onclick new dialog for updating fleet*/}
-            <ActionButton>Update ships</ActionButton>
-            {/* add onclick new dialog for starting expeditions */}
-            <ActionButton>Start expedition</ActionButton>
-        </div>
-
-    )
-}
-
-const getGalaxySidebar = (galaxy:galaxy) => {
+const getGalaxySidebar = (galaxy: galaxy) => {
     return (
         <div>
             {
-                galaxy.planets.map((planet:planet) => (
+                galaxy.planets.map((planet: planet) => (
                     <CustomCard
                         className={'mb-5'}
                         key={planet.id}
                         backgroundColor="bg-g_planet_gradient"
                         title={planet.name}
-                        status={ planet.occupied ? "Occupied by " + planet.occupiedBy.username : ''}
+                        status={planet.occupied ? "Occupied by " + planet.occupiedBy.username : ''}
                         svg={<Icon type="planet2" size="50"/>}
                     />
                 ))
