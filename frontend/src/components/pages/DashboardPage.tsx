@@ -37,7 +37,7 @@ const DashboardPage = () => {
     const activateNotification = (info : info) => {
         setInfo(info);
         setNotification(true)
-        setTimeout(() => setNotification(false), 1500);
+        setTimeout(() => setNotification(false), 4000);
     }
 
     const reload = () => {

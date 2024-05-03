@@ -98,11 +98,20 @@ module.exports = {
           from: { filter: "brightness(0%) blur(15px)" },
           to: { filter: "brightness(100%) blur(0px)" },
         },
+        "toast-in": {
+          "0%": { opacity: "0", transform: "translateY(-50%)" },
+          "10%, 20%, 30%, 40%, 50%, 60%, 70%, 80%, 90%": {
+            opacity: "1",
+            transform: "translateY(0)",
+          },
+          "100%": { opacity: "0", transform: "translateY(50%)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "blur-in": "blur-in .8s ease-in-out forwards",
+        "toast-in": "toast-in 3s ease-in-out forwards",
       },
     },
   },
