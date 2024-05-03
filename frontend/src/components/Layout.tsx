@@ -1,5 +1,11 @@
 
 import Logo from "../assets/logo-dashboard.svg";
+import Button from "./button";
+
+const signOutHandler = () => {
+    sessionStorage.removeItem("jwt");
+    location.reload();
+}
 
 const Layout = (props: any) => {
     return (
@@ -8,7 +14,7 @@ const Layout = (props: any) => {
                 {/* Top Bar */}
                 <div className="flex items-center justify-between px-8 py-4 bg-g_background">
                     <img src={Logo} alt="Logo" />
-                    {/* Add your top bar content here */}
+                    <Button onClick={signOutHandler}>Leave</Button>
                 </div>
             </div>
             <div className="flex-1">

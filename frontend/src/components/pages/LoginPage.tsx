@@ -19,15 +19,14 @@ const LoginPage = () => {
 
     const handleSubmit = (event: any) => {
         event.preventDefault();
-        // TODO: Validate form data and create a session using the API
 
         buttonHandler();
 
         // @ts-ignore
-        const name = document.getElementById('username').value
+        const name: any = document.getElementById('username').value
 
         // @ts-ignore
-        const password = document.getElementById('password').value
+        const password: any = document.getElementById('password').value
 
         AuthHandler.login(name,password)
             .then(data => {
