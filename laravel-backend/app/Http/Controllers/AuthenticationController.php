@@ -23,7 +23,7 @@ class AuthenticationController extends Controller
             $token = JwtHelper::generateToken($user);
             return response()->json(['jwt' => $token, 'user' => new UserResource($user)]);
         }
-        return response()->json(Controller::getApiErrorMessage("Invalid credentials"), 401);
+        return response()->json(Controller::getApiErrorMessage("Invalid credentials"), 403);
     }
 
     public function register(RegisterRequest $request) {

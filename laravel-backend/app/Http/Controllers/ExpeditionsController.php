@@ -28,15 +28,15 @@ class ExpeditionsController extends Controller implements ActionController
         $duration = $request->input('duration');
 
         if(!$fleet_id){
-            return response()->json(self::getApiErrorMessage('Not enough data provided (fleet id missing)'));
+            return response()->json(self::getApiErrorMessage('Not enough data provided (fleet id missing)', 200));
         }
         if(!$duration){
-            return response()->json(self::getApiErrorMessage('Not enough data provided (duration missing)'));
+            return response()->json(self::getApiErrorMessage('Not enough data provided (duration missing)', 200));
         }
 
         $fleet = Fleets::find($fleet_id);
         if($fleet->busy){
-            return response()->json(self::getApiErrorMessage('This Fleet is busy!'));
+            return response()->json(self::getApiErrorMessage('This Fleet is busy!', 200));
         }
 
         $base = $fleet->harbour->base;
@@ -48,7 +48,7 @@ class ExpeditionsController extends Controller implements ActionController
 
         $fleetMultiplier = $fleet->getExpeditionResourceMultiplier();
         if($fleetMultiplier < 1.5){
-            return response()->json(self::getApiErrorMessage('Your fleet is not strong enough.'));
+            return response()->json(self::getApiErrorMessage('Your fleet is not strong enough.', 200));
         }
 
         $metal = round(self::$BASE_METAL_REWARD * $fleetMultiplier * (float)rand(1, 1.2) + self::$BASE_METAL_REWARD * $duration ,2);

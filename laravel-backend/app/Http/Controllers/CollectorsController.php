@@ -19,7 +19,7 @@ class CollectorsController extends Controller
 
         $collectors = $base->collectors;
         if(!$collectors){
-            return response()->json(self::getApiErrorMessage('Resources Information missing.'));
+            return response()->json(self::getApiErrorMessage('Resources Information missing.', 200));
         }
         return new CollectorsCollection($collectors);
     }
@@ -28,7 +28,7 @@ class CollectorsController extends Controller
     {
         $id = $request->input('id');
         if(!$id){
-            return response()->json(self::getApiErrorMessage('Missing ID of Collector!'));
+            return response()->json(self::getApiErrorMessage('Missing ID of Collector!', 200));
         }
         $collector = ResourceCollectors::find($id);
         $base = $collector->base;
@@ -44,7 +44,7 @@ class CollectorsController extends Controller
     {
         $id = $request->input('id');
         if(!$id){
-            return response()->json(self::getApiErrorMessage('Missing ID of Collector!'));
+            return response()->json(self::getApiErrorMessage('Missing ID of Collector!', 200));
         }
         $collector = ResourceCollectors::find($id);
         $base = $collector->base;
@@ -54,7 +54,7 @@ class CollectorsController extends Controller
         }
         $upgraded = $collector->upgrade();
         if(!$upgraded){
-            return response()->json(Controller::getApiErrorMessage('Not enough resources'));
+            return response()->json(Controller::getApiErrorMessage('Not enough resources', 200));
         }
 
         return new BasesResource($base);

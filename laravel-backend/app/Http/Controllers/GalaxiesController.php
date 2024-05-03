@@ -17,7 +17,7 @@ class GalaxiesController extends Controller
         $user = Auth::guard('localAuth')->user();
 
         if(!$user){
-            return response()->json(self::getApiErrorMessage("Authentication failed"));
+            return response()->json(self::getApiErrorMessage("Authentication failed", 403));
         }
 
         $galaxies = Galaxies::all();

@@ -17,7 +17,7 @@ class HarboursController extends Controller
 
         $harbour = $base->harbour;
         if(!$harbour){
-            return response()->json(self::getApiErrorMessage('Resources Information missing.'));
+            return response()->json(self::getApiErrorMessage('Resources Information missing.', 200));
         }
         return new HarbourResource($harbour);
     }

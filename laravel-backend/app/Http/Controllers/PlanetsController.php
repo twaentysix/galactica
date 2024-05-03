@@ -20,7 +20,7 @@ class PlanetsController extends Controller
     {
         $planet = Planets::find($id);
         if(!$planet){
-            return response()->json(self::getApiErrorMessage('There is no planet with the id: ' . $id));
+            return response()->json(self::getApiErrorMessage('There is no planet with the id: ' . $id, 200));
         }
         return new PlanetsResource($planet);
     }

@@ -28,10 +28,10 @@ class ApiAuth
                 if (Auth::guard('localAuth')->user()) {
                     return $next($request);
                 }
-                return response()->json(Controller::getApiErrorMessage("Authentication failed"), 401);
+                return response()->json(Controller::getApiErrorMessage("Authentication failed", 403), 403);
             }
         }
         // if no token is provided --> return error
-        return response()->json(Controller::getApiErrorMessage("No bearer token provided"), 401);
+        return response()->json(Controller::getApiErrorMessage("No bearer token provided", 403), 403);
     }
 }

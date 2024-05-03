@@ -10,14 +10,14 @@ use Illuminate\Support\Facades\Auth;
 
 abstract class Controller
 {
-    static function getApiErrorMessage(string $message){
+    static function getApiErrorMessage(string $message, int $status){
         return [
             'data' => null,
             'error' => [
                 'details'=>(object)[],
                 'message' => $message,
                 'name' => 'ApplicationError',
-                'status'=>400,
+                'status'=>$status,
             ],
 
         ];
@@ -27,16 +27,16 @@ abstract class Controller
     {
         $user = Auth::guard('localAuth')->user();
         if(!$user){
-            return response()->json(self::getApiErrorMessage('Authentication failed'));
+            return response()->json(self::getApiErrorMessage('Authentication failed', 403));
         }
 
         $base = Bases::find($base_id);
         if(!$base){
-            return response()->json(self::getApiErrorMessage('Base not found'));
+            return response()->json(self::getApiErrorMessage('Base not found', 200));
         }
 
         if($base->user != $user){
-            return response()->json(self::getApiErrorMessage('This is not your base!'));
+            return response()->json(self::getApiErrorMessage('This is not your base!', 200));
         }
         return $base;
     }
@@ -45,7 +45,7 @@ abstract class Controller
     {
         $user = Auth::guard('localAuth')->user();
         if(!$user){
-            return response()->json(self::getApiErrorMessage('Authentication failed'));
+            return response()->json(self::getApiErrorMessage('Authentication failed', 403));
         }
         return $user;
     }

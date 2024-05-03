@@ -22,7 +22,7 @@ class BasesController extends Controller
     {
         $user = Auth::guard('localAuth')->user();
         if(!$user){
-            return response()->json(self::getApiErrorMessage('Authentication failed'));
+            return response()->json(self::getApiErrorMessage('Authentication failed', 200));
         }
 
         return new BasesCollection($user->bases);
@@ -34,16 +34,16 @@ class BasesController extends Controller
         $galaxy_id = $request->input('galaxy_id');
 
         if(!$name){
-            return response()->json(self::getApiErrorMessage('No name for the Base given!'));
+            return response()->json(self::getApiErrorMessage('No name for the Base given!', 200));
         }
 
         if(!$galaxy_id){
-            return response()->json(self::getApiErrorMessage('No galaxy id given!'));
+            return response()->json(self::getApiErrorMessage('No galaxy id given!', 200));
         }
 
         $galaxy = Galaxies::find($galaxy_id);
         if(!$galaxy){
-            return response()->json(self::getApiErrorMessage('No Galaxy with given id found!'));
+            return response()->json(self::getApiErrorMessage('No Galaxy with given id found!', 200));
         }
 
         $user = self::checkUser();
@@ -51,7 +51,7 @@ class BasesController extends Controller
             return $user;
         }
         if($user->bases()->where('name', '=', $name)->exists()){
-            return response()->json(self::getApiErrorMessage('You already have a base named '. $name));
+            return response()->json(self::getApiErrorMessage('You already have a base named '. $name, 200));
         }
        $base = Bases::create([
            'name' => $name,
@@ -106,7 +106,7 @@ class BasesController extends Controller
     {
         $base_id = $request->input('base_id');
         if(!$base_id){
-            return response()->json(self::getApiErrorMessage('Base id missing!'));
+            return response()->json(self::getApiErrorMessage('Base id missing!', 200));
         }
 
         $base = self::checkBaseAndUser($base_id);
@@ -115,22 +115,22 @@ class BasesController extends Controller
         }
 
         if($base->level >= Bases::$MAX_LEVEL){
-            return response()->json(self::getApiErrorMessage('Your Base is already max level!'));
+            return response()->json(self::getApiErrorMessage('Your Base is already max level!', 200));
         }
 
         $resources = $base->resources;
         $cost = $base->getUpgradeCost();
 
         if($resources->metal < $cost['metal']){
-            return response()->json(self::getApiErrorMessage('You do not have enough Metal.'));
+            return response()->json(self::getApiErrorMessage('You do not have enough Metal.', 200));
         }
 
         if($resources->gas < $cost['gas']){
-            return response()->json(self::getApiErrorMessage('You do not have enough Gas.'));
+            return response()->json(self::getApiErrorMessage('You do not have enough Gas.', 200));
         }
 
         if($resources->gems < $cost['gems']){
-            return response()->json(self::getApiErrorMessage('You do not have enough Gems.'));
+            return response()->json(self::getApiErrorMessage('You do not have enough Gems.', 200));
         }
 
         $resources->update([

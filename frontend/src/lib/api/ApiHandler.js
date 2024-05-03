@@ -46,7 +46,12 @@ class ApiHandler{
         }).then(function (response) {
             return response.data['data'];
         }).catch(function (error){
-            return error.response.data;
+            if(error.response.status === 403){
+                sessionStorage.removeItem('jwt');
+                location.reload();
+            }else{
+                return error.response
+            }
         });
     }
 
@@ -63,7 +68,12 @@ class ApiHandler{
                 return response.data;
             }
         }).catch(function (error){
-            return error.response;
+            if(error.response.statusCode === 403){
+                sessionStorage.removeItem('jwt');
+                location.reload();
+            }else{
+                return error.response
+            }
         });
     }
 }

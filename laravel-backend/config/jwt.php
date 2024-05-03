@@ -24,6 +24,6 @@ return [
     |
     */
 
-    'ttl' => env('JWT_TTL', 2628000),
+    'ttl' => env('JWT_TTL', 86400),
 
 ];

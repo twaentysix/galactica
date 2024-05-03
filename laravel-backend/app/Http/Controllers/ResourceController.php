@@ -16,7 +16,7 @@ class ResourceController extends Controller
 
         $resources = $base->resources;
         if(!$resources){
-            return response()->json(self::getApiErrorMessage('Resources Information missing.'));
+            return response()->json(self::getApiErrorMessage('Resources Information missing.', 200));
         }
         return new ResourcesResource($resources);
     }
