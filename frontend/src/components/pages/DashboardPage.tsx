@@ -231,7 +231,7 @@ const DashboardPage = () => {
                         <span className="text-g_dark font-headline font-bold">Action Unit</span>
                 </div>
                 {/* Content */}
-                <div className="px-4 py-10">
+                <div className="px-4 py-10 h-full overflow-y-scroll no-scrollbar">
                     {/* Add content here */}
                     <ActionSidebar
                         type={actionBarType}
