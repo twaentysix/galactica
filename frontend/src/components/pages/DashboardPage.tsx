@@ -31,9 +31,9 @@ const DashboardPage = () => {
         setSelectedBase(base);
     };
 
-     const changeSidebar = (_type:string, item?: collector | galaxy | barracks | fleet) => {
-        setActionBarItem(item);
-        setActionBarType(_type);
+     const changeSidebar = (_type:string, item?: collector | galaxy | barracks | fleet | base) => {
+         setActionBarType(_type);
+         setActionBarItem(item);
     }
 
     const activateNotification = (info : info) => {
@@ -178,7 +178,7 @@ const DashboardPage = () => {
                                 key={'barracks'}
                                 backgroundColor="bg-g_base_gradient_1"
                                 title={'Baracks'}
-                                onClick={() => {changeSidebar('barracks')}}
+                                onClick={() => {changeSidebar('barracks', selectedBase)}}
                             />
                         }
                     </div>

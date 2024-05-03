@@ -1,4 +1,4 @@
-import {collector, fleet, galaxy} from "@/lib/types";
+import {base, collector, fleet, galaxy} from "@/lib/types";
 import {getFleetSidebar} from "@/components/FleetSidebar.tsx";
 import {getCollectorSidebar} from "@/components/CollectorSidebar.tsx";
 import {getGalaxySidebar} from "@/components/GalaxySidebar.tsx";
@@ -14,7 +14,7 @@ const ActionSidebar = ({type : _type, item : item, reload : reload, notification
         case 'fleet':
             return getFleetSidebar(item as fleet, reload, notification)
         case 'barracks':
-            return getBarracksSidebar()
+            return getBarracksSidebar(item as base, reload, notification)
         default:
             return null
 

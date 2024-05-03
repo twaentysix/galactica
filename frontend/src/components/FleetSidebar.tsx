@@ -6,9 +6,12 @@ import Button from "@/components/button.tsx";
 import ActionHandler from "@/lib/api/ActionHandler";
 import {error, fleet, idleShips} from "@/lib/types";
 
+type fleetDialog = {
+    update : boolean,
+    expedition : boolean,
+}
 export const getFleetSidebar = (fleet:fleet, reload : any, notification : any) => {
-    const [updateDialog, setUpdateDialog] = useState<boolean>(false);
-    const [expeditionDialog, setExpeditionDialog] = useState<boolean>(false);
+    const [fleetDialog, setFleetDialog] = useState<fleetDialog>({update : false, expedition : false});
     const maxShips : idleShips = {
         light_fighter: (fleet.idleShips.light_fighter + fleet.lightFighter),
         heavy_fighter: (fleet.idleShips.heavy_fighter + fleet.heavyFighter),
@@ -22,8 +25,8 @@ export const getFleetSidebar = (fleet:fleet, reload : any, notification : any) =
             <h1>{fleet.name}</h1>
             {fleet.busy && (<h2>Fleet is busy</h2>)}
             {/* add onclick new dialog for updating fleet*/}
-            <ActionButton onClick={() => {setUpdateDialog(!updateDialog)}}>Update Fleet</ActionButton>
-            {updateDialog &&
+            <ActionButton onClick={() => {setFleetDialog({update : !fleetDialog.update, expedition : false})}}>Update Fleet</ActionButton>
+            {fleetDialog.update &&
                 <DialogField>
                     <div id="dialog-headline-wrapper mb-5">
                         <h4 className="text-g_dark text-3xl">Dialog Title</h4>
@@ -74,7 +77,7 @@ export const getFleetSidebar = (fleet:fleet, reload : any, notification : any) =
                         <span>Here Icons Please</span>
                     </div>
                     <div id="dialog-button-area" className="flex flex-row gap-2 justify-between items-center w-full">
-                        <Button onClick={()=>{setUpdateDialog(!updateDialog)}}>Cancel</Button>
+                        <Button onClick={()=>{setFleetDialog({update : !fleetDialog.update, expedition : false})}}>Cancel</Button>
                         <Button onClick={
                             () => {
                                 // @ts-ignore
@@ -90,7 +93,7 @@ export const getFleetSidebar = (fleet:fleet, reload : any, notification : any) =
 
                                 ActionHandler.updateFleet(fleet.id, lf,hf,c,t,bs)
                                     .then((data:any) => {
-                                        setUpdateDialog(!updateDialog);
+                                        setFleetDialog({update : !fleetDialog.update, expedition : false});
                                         data['error'] === undefined ?  notification({message:'Successfully updated Fleet!', type:'info'})  : notification({message:(data['error'] as error).message, type:'warning'});
                                         reload();
                                     })
@@ -101,8 +104,8 @@ export const getFleetSidebar = (fleet:fleet, reload : any, notification : any) =
             }
 
             {/* add onclick new dialog for starting expeditions */}
-            <ActionButton onClick={() => {setExpeditionDialog(!expeditionDialog)}}>Start expedition</ActionButton>
-            {expeditionDialog &&
+            <ActionButton onClick={() => {setFleetDialog({update : false, expedition : !fleetDialog.expedition})}}>Start expedition</ActionButton>
+            {fleetDialog.expedition &&
                 <DialogField>
                     <div id="dialog-headline-wrapper mb-5">
                         <h4 className="text-g_dark text-3xl">Dialog Title</h4>
@@ -119,7 +122,7 @@ export const getFleetSidebar = (fleet:fleet, reload : any, notification : any) =
                        />
                     </div>
                     <div id="dialog-button-area" className="flex flex-row gap-2 justify-between items-center w-full">
-                        <Button onClick={()=>{setExpeditionDialog(!expeditionDialog)}}>Cancel</Button>
+                        <Button onClick={()=>{setFleetDialog({update : false, expedition : !fleetDialog.expedition})}}>Cancel</Button>
                         <Button onClick={
                             () => {
                                 // @ts-ignore
@@ -127,7 +130,7 @@ export const getFleetSidebar = (fleet:fleet, reload : any, notification : any) =
 
                                 ActionHandler.registerExpedition(fleet.id, duration)
                                     .then((data:any) => {
-                                        setExpeditionDialog(!expeditionDialog);
+                                        setFleetDialog({update : false, expedition : !fleetDialog.expedition});
                                         data['error'] === undefined ?  notification({message:'Successfully started Expedition!', type:'info'})  : notification({message:(data['error'] as error).message, type:'warning'});
                                         reload();
                                     })
