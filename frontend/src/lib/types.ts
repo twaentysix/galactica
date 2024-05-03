@@ -28,7 +28,7 @@ export type fleet = {
   transporter: number;
   battleship: number;
   name: string;
-
+  busy : boolean
   idleShips : idleShips;
 };
 

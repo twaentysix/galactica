@@ -20,7 +20,7 @@ export const getFleetSidebar = (fleet:fleet, reload : any, notification : any) =
     return (
         <div>
             <h1>{fleet.name}</h1>
-
+            {fleet.busy && (<h2>Fleet is busy</h2>)}
             {/* add onclick new dialog for updating fleet*/}
             <ActionButton onClick={() => {setUpdateDialog(!updateDialog)}}>Update Fleet</ActionButton>
             {updateDialog &&
