@@ -91,9 +91,11 @@ class ResourceCollectors extends Model
                 break;
         }
         $resources->save();
-        $this->update([
-            'last_collected' => Carbon::now(),
-        ]);
+        if($amount > 0) {
+            $this->update([
+                'last_collected' => Carbon::now(),
+            ]);
+        }
         $this->save();
     }
 
