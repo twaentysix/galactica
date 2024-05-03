@@ -12,7 +12,7 @@ import ActionButton from "@/components/ActionButton.tsx";
 export const getGalaxySidebar = (galaxy: galaxy, reload : any, notification : any) => {
     const [galaxyDialog, setGalaxyDialog] = useState<boolean>(false);
     return (
-        <div>
+        <div className="mt-5">
             {
                 galaxy.planets.map((planet: planet) => (
                     <CustomCard

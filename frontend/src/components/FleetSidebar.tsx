@@ -21,7 +21,7 @@ export const getFleetSidebar = (fleet:fleet, reload : any, notification : any) =
     }
 
     return (
-        <div>
+        <div className="mt-5">
             <h1>{fleet.name}</h1>
             {fleet.busy && (<h2>Fleet is busy</h2>)}
             {/* add onclick new dialog for updating fleet*/}
@@ -29,7 +29,7 @@ export const getFleetSidebar = (fleet:fleet, reload : any, notification : any) =
             {fleetDialog.update &&
                 <DialogField>
                     <div id="dialog-headline-wrapper mb-5">
-                        <h4 className="text-g_dark text-3xl">Dialog Title</h4>
+                        <h4 className="text-g_dark text-3xl">Configure your fleet!</h4>
                     </div>
                     <div id="dialog-body-wrapper">
                         <Label htmlFor="t" className="sr-only">Transporter</Label>

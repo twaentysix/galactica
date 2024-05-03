@@ -7,7 +7,7 @@ function App() {
   let sessionExists = sessionStorage.getItem("jwt");
 
   return (
-      <div>
+      <div className="h-screen overflow-y-hidden">
         {sessionExists ? <DashboardPage /> : <LoginPage />}
       </div>
   )

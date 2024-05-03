@@ -62,14 +62,14 @@ const DashboardPage = () => {
     return (
         <Layout>
             {/* First column using two grid sections */}
-            <div className="col-span-3 bg-g_base_gradient_0 rounded-lg">
+            <div className="relative col-span-3 bg-g_base_gradient_0 rounded-lg h-[85vh]">
                 {/* Top bar for the first column */}
-                <div className="bg-g_light h-10 px-4 flex items-center justify-center rounded-t-lg">
+                <div className="bg-g_light absolute top-0 z-30 left-0 w-full h-10 px-4 flex items-center justify-center rounded-t-lg">
                     {/* Top bar content */}
                     <span className="text-g_dark font-headline font-bold">Control Unit</span>
                 </div>
                 {/* Content */}
-                <div className="p-6">
+                <div className="px-6 py-10 h-full overflow-y-scroll no-scrollbar">
                     <CustomCard
                         className={'mb-10 mt-5'}
                         key={galaxiesData}
@@ -103,8 +103,8 @@ const DashboardPage = () => {
                 </div>
             </div>
             {/* Bigger column using 7 */}
-            <div className="col-span-6 bg-g_base_gradient_0 rounded-lg">
-                <div className="bg-g_light h-10 px-4 flex items-center rounded-t-lg justify-between">
+            <div className="relative col-span-6 bg-g_base_gradient_0 rounded-lg h-[85vh]">
+                <div className="absolute top-0 z-30 left-0 w-full bg-g_light h-10 px-4 flex items-center rounded-t-lg justify-between">
                     {!starMapActive &&
                         <div className="flex items-center gap-6 px-4">
                             <div className="flex gap-2 items-center">
@@ -130,8 +130,8 @@ const DashboardPage = () => {
                 </div>
 
                 {/* Content */}
-                <div className="p-8">
-                    {!starMapActive && <h2 className={'mb-5 text-4xl'}>{selectedBase?.name}</h2>}
+                <div className="px-8 py-10 h-full overflow-y-scroll no-scrollbar">
+                    {!starMapActive && <h2 className={'my-5 text-4xl'}>{selectedBase?.name}</h2>}
                     {/* Add content here */}
                      <div className="grid grid-cols-3 gap-8 mb-10">
                         {
@@ -152,7 +152,7 @@ const DashboardPage = () => {
                         {
                             starMapActive && galaxiesData.map((galaxy: galaxy) => (
                                 <CustomCard
-                                    className={'mb-5'}
+                                    className={''}
                                     key={galaxy.id}
                                     backgroundColor="bg-g_base_gradient_1"
                                     title={galaxy.name}
@@ -225,13 +225,13 @@ const DashboardPage = () => {
                 </div>
             </div>
             {/* Third column using 3 */}
-            <div className="col-span-3 bg-g_base_gradient_0 rounded-lg">
+            <div className="col-span-3 bg-g_base_gradient_0 rounded-lg relative h-[85vh]">
                 {/* Top bar for the third column */}
-                <div className="bg-g_light h-10 px-4 flex items-center rounded-t-lg justify-center">
+                <div className="bg-g_light h-10 px-4 flex items-center rounded-t-lg justify-center absolute top-0 z-30 left-0 w-full">
                         <span className="text-g_dark font-headline font-bold">Action Unit</span>
                 </div>
                 {/* Content */}
-                <div className="p-4">
+                <div className="px-4 py-10">
                     {/* Add content here */}
                     <ActionSidebar
                         type={actionBarType}
