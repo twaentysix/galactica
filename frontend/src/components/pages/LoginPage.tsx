@@ -8,10 +8,12 @@ import { useState } from "react";
 
 import ToastNotification from "../toastNotification/ToastNotification";
 import AuthHandler from "@/lib/api/AuthHandler";
+import {info} from "@/lib/types.ts";
 
 const LoginPage = () => {
     const [notification, setNotification] = useState(false);
-    const [errorMessage, setErrorMessage] = useState("");
+    const [info, setInfo] = useState<info>({message:'', type:'info'});
+    const [register, setRegister] = useState(false);
 
     const buttonHandler = () => {
         setTimeout(() => setNotification(false), 6000);
@@ -20,28 +22,45 @@ const LoginPage = () => {
     const handleSubmit = (event: any) => {
         event.preventDefault();
 
-        buttonHandler();
-
         // @ts-ignore
         const name: any = document.getElementById('username').value
 
         // @ts-ignore
         const password: any = document.getElementById('password').value
 
-        AuthHandler.login(name,password)
-            .then(data => {
-                if (data["error"] !== undefined) {
-                    setErrorMessage(data["error"]["message"])
-                    setNotification(true)
-                } else {
-                    location.reload()
-                }
-            });
+        if(!register) {
+            AuthHandler.login(name, password)
+                .then(data => {
+                    if (data["error"] !== undefined) {
+                        setInfo({message:data["error"]["message"], type:'warning'})
+                        setNotification(true)
+                        buttonHandler()
+                    } else {
+                        location.reload()
+                    }
+                });
+        }else{
+            // @ts-ignore
+            const email: any = document.getElementById('email').value
+            AuthHandler.register(name, email, password)
+                .then(data => {
+                    if (data["error"] !== undefined) {
+                        setInfo({message:data["error"]["message"], type:'warning'});
+                        setNotification(true);
+                        buttonHandler();
+                    } else {
+                        setInfo({message : 'Successfully registered new Account', type:'info'});
+                        setNotification(true);
+                        buttonHandler();
+                        setRegister(false);
+                    }
+                });
+        }
     };
 
     return (
         <div id="loginScreen" className="lg:flex">
-            {notification === true ? <ToastNotification type="error" message={errorMessage}/> : null}
+            {notification ? <ToastNotification type={info.type} message={info.message}/> : null}
             <div className="hidden lg:block lg:w-2/3 h-dvh overflow-y-hidden">
                 <img
                     src={LoginImage}
@@ -56,9 +75,19 @@ const LoginPage = () => {
                             <img src={Logo} alt="Logo Galactica" />
                         </div>
                         <h1>Welcome to Galactica</h1>
-                        <p className="">
-                            Login to your account
-                        </p>    
+
+                        {
+                            !register &&
+                                <p className="">
+                                    Login to your account
+                                </p>
+                        }
+                        {
+                            register &&
+                            <p className="">
+                                Register an account
+                            </p>
+                        }
                     </div>
                     <form onSubmit={handleSubmit}>
                         <div className="flex flex-col gap-5">
@@ -67,27 +96,56 @@ const LoginPage = () => {
                                 <Input
                                     id="username"
                                     type="name"
-                                    placeholder="YouUsername123"
+                                    placeholder="Your username"
                                     required
                                 />
                             </div>
+                            {register &&
+                                <div className="">
+                                    <div className="">
+                                        <Label htmlFor="email" className="sr-only">Email</Label>
+                                    </div>
+                                    <Input id="email" type="email" required placeholder="Your email"/>
+                                </div>
+                            }
                             <div className="">
                                 <div className="">
                                     <Label htmlFor="password" className="sr-only">Password</Label>
                                 </div>
                                 <Input id="password" type="password" required  placeholder="Your password"/>
                             </div>
-                            <Button type="submit">
-                                Login
-                            </Button>
+                                {
+                                    !register &&
+                                    <Button type="submit">
+                                        Login
+                                    </Button>
+                                }
+                                {
+                                    register &&
+                                    <Button type="submit">
+                                        Register
+                                    </Button>
+                                }
                         </div>
                     </form>
-                    <div className="text-center">
-                        Don&apos;t have an account?{" "}
-                            <a href="#" className="underline">
-                                Sign up
+                    {
+                        !register &&
+                            <div className="text-center">
+                                Don&apos;t have an account?{" "}
+                                <a href="#" onClick={() => {setRegister(true)}} className="underline">
+                                        Sign up
+                                    </a>
+                            </div>
+                    }
+                    {
+                        register &&
+                        <div className="text-center">
+                            Already have an account?{" "}
+                            <a href="#" onClick={() => {setRegister(false)}} className="underline">
+                                Login
                             </a>
-                    </div>
+                        </div>
+                    }
                 </div>
             </div>
         </div>

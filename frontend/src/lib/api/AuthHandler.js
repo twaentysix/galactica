@@ -23,7 +23,7 @@ class AuthHandler{
     static async register (name, email, password) {
         return axios({
             method: 'post',
-            url: ApiHandler.BASE_URL + "/auth/register",
+            url: ApiHandler.BASE_URL + "auth/register",
             headers: ApiHandler.getHeaders('auth'),
             data: {
                 name: name,
