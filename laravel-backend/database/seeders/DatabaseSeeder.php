@@ -8,7 +8,6 @@ use App\Models\Galaxies;
 use App\Models\Planets;
 use App\Models\ResourceCollectors;
 use App\Models\Resources;
-use App\Models\ShipTypes;
 use App\Models\Fleets;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -92,22 +91,6 @@ class DatabaseSeeder extends Seeder
         ]);
         $gem_collector->base()->associate($base);
         $gem_collector->save();
-
-        ShipTypes::create([
-            'type' => 'light_fighter'
-        ]);
-        ShipTypes::create([
-            'type' => 'heavy_fighter'
-        ]);
-        ShipTypes::create([
-            'type' => 'transporter'
-        ]);
-        ShipTypes::create([
-            'type' => 'battleship'
-        ]);
-        ShipTypes::create([
-            'type' => 'cruiser'
-        ]);
 
         $fleet = Fleets::create([
             'name' => 'Pirates_easy',

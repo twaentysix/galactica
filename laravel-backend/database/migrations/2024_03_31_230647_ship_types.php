@@ -30,22 +30,6 @@ return new class extends Migration
             $table->integer('cruiser')->default(0);;
             $table->integer('battleships')->default(0);;
         });
-
-        Schema::create('ship_types', function(Blueprint $table){
-            $table->id();
-            $table->string('type')->unique();
-            $table->integer('health')->default(200);
-            $table->integer('armor')->default(200);
-            $table->integer('damage')->default(50);
-        });
-        DB::statement("ALTER TABLE ship_types ADD CONSTRAINT ship_types_type_constraint
-                            CHECK (type IN ('transporter',
-                                            'light_fighter',
-                                            'heavy_fighter',
-                                            'cruiser',
-                                            'battleship')
-                                )
-                        ");
     }
 
     /**
