@@ -82,7 +82,9 @@ class FleetsController extends Controller
         if(!$fleet){
             return response()->json(self::getApiErrorMessage('No fleet with given id found!', 200));
         }
-
+        if($fleet->busy){
+            return response()->json(self::getApiErrorMessage('The fleet is currently on an expedition!', 200));
+        }
         $harbour = $fleet->harbour;
         if(!isset($fleet->harbour)){
             return response()->json(self::getApiErrorMessage('Internal error!(maybe attempting to try edit PirateFleets? :/', 200));
