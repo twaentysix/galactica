@@ -9,16 +9,25 @@ import ActionSidebar from "../ActionSidebar";
 import ToastNotification from "@/components/toastNotification/ToastNotification.tsx";
 import ActionButton from "../ActionButton";
 import ActionHandler from "@/lib/api/ActionHandler";
+import DialogField from "@/components/DialogField.tsx";
+import {Label} from "@/components/ui/label.tsx";
+import {Input} from "@/components/ui/input.tsx";
+import Button from "@/components/button.tsx";
+
+type addFleetDialog = {
+    dialog : boolean
+}
 
 const DashboardPage = () => {
     const [baseData, setBaseData] = useState<base[]>([])
     const [galaxiesData, setGalaxiesData] = useState<galaxy[]>([])
     const [selectedBase, setSelectedBase] = useState<base>()
-    const [starMapActive, setStarMap] = useState<boolean>(false)
+    const [starMapActive, setStarMap] = useState<boolean>(true)
     const [actionBarType, setActionBarType] = useState<string>('')
     const [actionBarItem, setActionBarItem] = useState<collector | galaxy | barracks | fleet>()
     const [notification, setNotification] = useState(false);
     const [info, setInfo] = useState<info>({message:'', type:'info'});
+    const [addFleetDialog, setAddFleetDialog] = useState<addFleetDialog>({dialog : false});
 
     useEffect(() => {
         DataHandler.getBases().then(data => {setBaseData(data); data.length > 0 && setSelectedBase(data[0])});
@@ -159,7 +168,7 @@ const DashboardPage = () => {
                             ))
                         }
                     </div>
-                    {!starMapActive&& <h2 className={'mb-5'}>Harbour</h2>}
+                    {!starMapActive && <h2 className={'mb-5'}>Harbour</h2>}
                     <div className="grid grid-cols-3 gap-8 mb-10">
                         {
 
@@ -168,8 +177,39 @@ const DashboardPage = () => {
                                 renderFleet(fleet, ()=>{changeSidebar('fleet',fleet)})
                             ))
                         }
+                        {!starMapActive && <ActionButton onClick={() => {setAddFleetDialog({dialog : !addFleetDialog.dialog})}}>Create fleet</ActionButton>}
+                        {
+                            addFleetDialog.dialog &&
+                            <DialogField>
+                                <div id="dialog-headline-wrapper mb-5">
+                                    <h4 className="text-g_dark text-3xl">Dialog Title</h4>
+                                </div>
+                                <div id="dialog-body-wrapper">
+                                    <Label htmlFor="name">Name for the Ship: </Label>
+                                    <Input id={'name'} placeholder={'e.g. Destroyer3000'} type={'text'}></Input>
+                                </div>
+                                <div id="dialog-button-area" className="flex flex-row gap-2 justify-between items-center w-full">
+                                    <Button onClick={()=>{setAddFleetDialog({dialog : !addFleetDialog.dialog})}}>Cancel</Button>
+                                    <Button onClick={
+                                        () => {
+                                            // @ts-ignore
+                                            const name = document.getElementById('name').value
+
+                                            ActionHandler.createFleet(selectedBase?.harbour.id, name)
+                                                .then((data:any) => {
+                                                    reload();
+                                                    setAddFleetDialog({dialog : !addFleetDialog.dialog});
+                                                    data['error'] === undefined ?  activateNotification({message:'Successfully built new Ships!', type:'info'})  : activateNotification({message:(data['error'] as error).message, type:'warning'});
+                                                })
+                                        }
+                                    }>
+                                        Apply
+                                    </Button>
+                                </div>
+                            </DialogField>
+                        }
                     </div>
-                    {!starMapActive&& <h2 className={'mb-5'}>Barracks</h2>}
+                    {!starMapActive && <h2 className={'mb-5'}>Barracks</h2>}
                     <div className="grid grid-cols-3 gap-8 mb-10">
                         {
                             !starMapActive &&
