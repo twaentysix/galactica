@@ -121,11 +121,11 @@ class Fleets extends Model
         // update harbour of the fleet
         $harbour = $this->harbour;
         $harbour->update([
-            'battleships' => $harbour->battleships - $this->battleships - $newBS,
-            'heavy_fighter' => $harbour->heavy_fighter - $this->heavy_fighter - $newHF,
-            'light_fighter' => $harbour->light_fighter - $this->light_fighter - $newLF,
-            'cruiser' => $harbour->cruiser - $this->cruiser - $newC,
-            'transporter' => $harbour->transporter - $this->transporter - $newT,
+            'battleships' => $harbour->battleships - ($this->battleships - $newBS),
+            'heavy_fighter' => $harbour->heavy_fighter - ($this->heavy_fighter - $newHF),
+            'light_fighter' => $harbour->light_fighter - ($this->light_fighter - $newLF),
+            'cruiser' => $harbour->cruiser - ($this->cruiser - $newC),
+            'transporter' => $harbour->transporter - ($this->transporter - $newT),
         ]);
         $harbour->save();
 
