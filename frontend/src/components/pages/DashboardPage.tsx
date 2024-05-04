@@ -144,7 +144,7 @@ const DashboardPage = () => {
                 <div className="px-8 py-10 h-full overflow-y-scroll no-scrollbar">
                     {!starMapActive && <h2 className={'my-5 text-4xl'}>{selectedBase?.name}</h2>}
                     {/* Add content here */}
-                     <div className="grid grid-cols-3 gap-8 mb-10">
+                     <div className="grid grid-cols-1 gap-8 mb-10">
                         {
                             !starMapActive && 
                                 <ActionButton 
