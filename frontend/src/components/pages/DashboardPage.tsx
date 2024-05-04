@@ -33,7 +33,7 @@ const DashboardPage = () => {
 
     useEffect(() => {
         DataHandler.getBases().then(data => {
-            setBaseData(data); data.length > 0 && setSelectedBase(data[0])
+            setBaseData(data)
         });
         DataHandler.getGalaxies().then(data => {setGalaxiesData(data)});
     }, []);
