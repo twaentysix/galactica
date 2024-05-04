@@ -3,7 +3,7 @@ import Icon from "../Icon";
 import Layout from "../Layout";
 import CustomCard from "../customCard";
 import { useEffect, useState } from "react";
-import {info, collector, base, fleet, galaxy, barracks, error, expedition} from "@/lib/types.ts";
+import {info, collector, base, fleet, galaxy, barracks, error, expedition, battle} from "@/lib/types.ts";
 import {renderCollector, renderFleet} from "@/lib/RenderFunctions.tsx";
 import ActionSidebar from "../ActionSidebar";
 import ToastNotification from "@/components/toastNotification/ToastNotification.tsx";
@@ -29,6 +29,7 @@ const DashboardPage = () => {
     const [notification, setNotification] = useState(false);
     const [info, setInfo] = useState<info>({message:'', type:'info'});
     const [dialogs, setDialogs] = useState<addFleetDialog>({addFleet : false, expeditionNotification: false});
+    const [currentIndex, setCurrentIndex] = useState<number>(0);
 
     useEffect(() => {
         DataHandler.getBases().then(data => {
@@ -274,72 +275,86 @@ const DashboardPage = () => {
                     </div>
                     <div id="dialog-body-wrapper">
                         <Label htmlFor="name" className="sr-only">Alert: Your fleets are back!</Label>
-                        {
-                            selectedBase?.unseenExpeditions && selectedBase?.unseenExpeditions.map((expedition : expedition) => (
+                        {   
+                            selectedBase?.unseenExpeditions && selectedBase?.unseenExpeditions && (
                                 <div>
-                                    {expedition.battle &&
-                                        <div className="flex flex-col gap-5">
-                                            <div className="flex flex-col">
-                                                <span className="text-g_dark">You've</span>
-                                                {expedition.battle.won && <span className="text-3xl font-headline text-g_green font-bold">won</span>}
-                                                {!expedition.battle.won && <span className="text-3xl font-headline text-g_red font-bold">lost</span>}
-                                            </div>
-                                            <div className="flex flex-col justify-between items-center gap-3">
-
-                                            </div>
-                                            <div className="flex flex-col gap-1">
-                                                <span className="text-g_dark">You were attacked by:</span>
-                                                <span className="font-headline text-g_dark font-bold text-lg">{expedition.battle.opponent}</span>
-                                            </div>
-                                            <div className="flex flex-col gap-1">
-                                                <span className="text-g_dark">Fleet loss:</span>
-                                                <span className="font-headline text-g_dark font-bold text-lg">{expedition.battle.lostShips}</span>
-                                            </div>
-                                            {
-                                                expedition.battle.won && (
-                                                    <div className="flex flex-col gap-2">
-                                                        <div className="flex flex-row justify-between w-28">
-                                                            <Icon type="metal" size="24" />
-                                                            <span className="font-headline text-g_dark font-bold text-2xl">{expedition.metal}</span>
-                                                        </div>
-                                                        <div className="flex flex-row justify-between w-28">
-                                                            <Icon type="fuel" size="16" />
-                                                            <span className="font-headline text-g_dark font-bold text-2xl">{expedition.gas}</span>
-                                                        </div>
-                                                        <div className="flex flex-row justify-between w-28">
-                                                            <Icon type="gem" size="24" />
-                                                            <span className="font-headline text-g_dark font-bold text-2xl">{expedition.gems}</span>
-                                                        </div>
+                                    {
+                                        <div>
+                                            <h3 className="text-3xl text-g_dark">{selectedBase?.unseenExpeditions[currentIndex].fleet.name}</h3>
+                                            {selectedBase?.unseenExpeditions[currentIndex].battle &&
+                                                <div className="flex flex-col gap-5">
+                                                    <div className="flex flex-col">
+                                                        <span className="text-g_dark">You've</span>
+                                                        {(selectedBase?.unseenExpeditions[currentIndex].battle as battle).won && <span className="text-3xl font-headline text-g_green font-bold">won</span>}
+                                                        {!(selectedBase?.unseenExpeditions[currentIndex].battle as battle).won && <span className="text-3xl font-headline text-g_red font-bold">lost</span>}
                                                     </div>
-                                                )
+                                                    <div className="flex flex-col justify-between items-center gap-3">
+
+                                                    </div>
+                                                    <div className="flex flex-col gap-1">
+                                                        <span className="text-g_dark">You were attacked by:</span>
+                                                        <span className="font-headline text-g_dark font-bold text-lg">{(selectedBase?.unseenExpeditions[currentIndex].battle as battle).opponent}</span>
+                                                    </div>
+                                                    <div className="flex flex-col gap-1">
+                                                        <span className="text-g_dark">Fleet loss:</span>
+                                                        <span className="font-headline text-g_dark font-bold text-lg">{(selectedBase?.unseenExpeditions[currentIndex].battle as battle).lostShips}</span>
+                                                    </div>
+                                                    {
+                                                        (selectedBase?.unseenExpeditions[currentIndex].battle as battle).won && (
+                                                            <div className="flex flex-col gap-2">
+                                                                <div className="flex flex-row justify-between w-28">
+                                                                    <Icon type="metal" size="24" />
+                                                                    <span className="font-headline text-g_dark font-bold text-2xl">{selectedBase?.unseenExpeditions[currentIndex].metal}</span>
+                                                                </div>
+                                                                <div className="flex flex-row justify-between w-28">
+                                                                    <Icon type="fuel" size="16" />
+                                                                    <span className="font-headline text-g_dark font-bold text-2xl">{selectedBase?.unseenExpeditions[currentIndex].gas}</span>
+                                                                </div>
+                                                                <div className="flex flex-row justify-between w-28">
+                                                                    <Icon type="gem" size="24" />
+                                                                    <span className="font-headline text-g_dark font-bold text-2xl">{selectedBase?.unseenExpeditions[currentIndex].gems}</span>
+                                                                </div>
+                                                            </div>
+                                                        )
+                                                    }
+                                                </div>
                                             }
-                                        </div>
-                                    }
-                                    {!expedition.battle &&
-                                        <div className="flex flex-col gap-2">
-                                            <div className="mb-5">
-                                                <h4 className="text-g_dark">There was no battle, however you've gained</h4>
-                                            </div>
-                                            <div className="flex flex-row justify-between w-28">
-                                                <Icon type="metal" size="24" />
-                                                <span className="font-headline text-g_dark font-bold text-2xl">{expedition.metal}</span>
-                                            </div>
-                                            <div className="flex flex-row justify-between w-28">
-                                                <Icon type="fuel" size="16" />
-                                                <span className="font-headline text-g_dark font-bold text-2xl">{expedition.gas}</span>
-                                            </div>
-                                            <div className="flex flex-row justify-between w-28">
-                                                <Icon type="gem" size="24" />
-                                                <span className="font-headline text-g_dark font-bold text-2xl">{expedition.gems}</span>
-                                            </div>
-                                        </div>
+                                            {!selectedBase?.unseenExpeditions[currentIndex].battle &&
+                                                <div className="flex flex-col gap-2">
+                                                    <div className="mb-5">
+                                                        <h4 className="text-g_dark">There was no battle, however you've gained</h4>
+                                                    </div>
+                                                    <div className="flex flex-row justify-between w-28">
+                                                        <Icon type="metal" size="24" />
+                                                        <span className="font-headline text-g_dark font-bold text-2xl">{selectedBase?.unseenExpeditions[currentIndex].metal}</span>
+                                                    </div>
+                                                    <div className="flex flex-row justify-between w-28">
+                                                        <Icon type="fuel" size="16" />
+                                                        <span className="font-headline text-g_dark font-bold text-2xl">{selectedBase?.unseenExpeditions[currentIndex].gas}</span>
+                                                    </div>
+                                                    <div className="flex flex-row justify-between w-28">
+                                                        <Icon type="gem" size="24" />
+                                                        <span className="font-headline text-g_dark font-bold text-2xl">{selectedBase?.unseenExpeditions[currentIndex].gems}</span>
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div> 
                                     }
                                 </div>
-                            ))
+                            )
                         }
                     </div>
                     <div id="dialog-button-area" className="flex flex-row gap-2 justify-between items-center w-full">
-                        <Button onClick={()=>{reload(); setDialogs({addFleet : dialogs.addFleet, expeditionNotification : !dialogs.expeditionNotification})}}>Continue</Button>
+                        <Button onClick={()=>{
+                                if (selectedBase && selectedBase.unseenExpeditions.length > currentIndex + 1) {
+                                    // Wenn es noch mehr Objekte gibt, erhöhe den Index, um das nächste Objekt anzuzeigen
+                                    setCurrentIndex(currentIndex + 1);
+                                } else {
+                                    reload(); setDialogs({addFleet : dialogs.addFleet, expeditionNotification : !dialogs.expeditionNotification})}
+                                }  
+                            }>
+                                Continue
+                        </Button>
                     </div>
                 </DialogField>
             }
