@@ -182,11 +182,11 @@ const DashboardPage = () => {
                             addFleetDialog.dialog &&
                             <DialogField>
                                 <div id="dialog-headline-wrapper mb-5">
-                                    <h4 className="text-g_dark text-3xl">Dialog Title</h4>
+                                    <h4 className="text-g_dark text-3xl">Create fleet</h4>
                                 </div>
                                 <div id="dialog-body-wrapper">
-                                    <Label htmlFor="name">Name for the Ship: </Label>
-                                    <Input id={'name'} placeholder={'e.g. Destroyer3000'} type={'text'}></Input>
+                                    <Label htmlFor="name" className="sr-only">Name of the fleet</Label>
+                                    <Input id={'name'} placeholder={'Name of the fleet'} type={'text'}></Input>
                                 </div>
                                 <div id="dialog-button-area" className="flex flex-row gap-2 justify-between items-center w-full">
                                     <Button onClick={()=>{setAddFleetDialog({dialog : !addFleetDialog.dialog})}}>Cancel</Button>

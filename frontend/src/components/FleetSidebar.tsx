@@ -33,49 +33,81 @@ export const getFleetSidebar = (fleet:fleet, reload : any, notification : any) =
                         <h4 className="text-g_dark text-3xl">Configure your fleet!</h4>
                     </div>
                     <div id="dialog-body-wrapper">
-                        <Label htmlFor="t" className="sr-only">Transporter</Label>
-                        <input
-                            type={"range"}
-                            min="0"
-                            max={maxShips.transporter}
-                            defaultValue={ fleet.transporter }
-                            id="t"
-                        />
-                        <Label htmlFor="lf" className="sr-only">Light Fighter</Label>
-                        <input
-                            type={"range"}
-                            min="0"
-                            max={maxShips.light_fighter}
-                            defaultValue={ fleet.lightFighter }
-                            id="lf"
-                        />
-                        <Label htmlFor="hf" className="sr-only">Heavy Fighter</Label>
-                        <input
-                            type={"range"}
-                            min="0"
-                            max={maxShips.heavy_fighter}
-                            defaultValue={ fleet.heavyFighter }
-                            id="hf"
-                        />
-                        <Label htmlFor="c" className="sr-only">Cruiser</Label>
-                        <input
-                            type={"range"}
-                            min="0"
-                            max={maxShips.cruiser}
-                            defaultValue={ fleet.cruiser }
-                            id="c"
-                        />
-                        <Label htmlFor="bs" className="sr-only">Battleships</Label>
-                        <input
-                            type={"range"}
-                            min="0"
-                            max={maxShips.battleships}
-                            defaultValue={ fleet.battleship }
-                            id="bs"
-                        />
-                    </div>
-                    <div id="dialog-meta-info" className="mb-5">
-                        <span>Here Icons Please</span>
+                        <Label htmlFor="t">Transporter: <span id={'tl'}>{fleet.transporter}</span></Label>
+                        {/* <Slider id="t" defaultValue={[fleet.transporter]} min={0} max={maxShips.transporter} step={1} /> */}
+                        <div className="relative mb-6">
+                            <input id="t" type="range" onChange={(e) => {
+                                // @ts-ignore 
+                                document.getElementById('tl').innerText = e.currentTarget.value}} 
+                                defaultValue={fleet.transporter}
+                                min={0}
+                                max={maxShips.transporter}
+                                className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700" 
+                            />
+                            <span className="text-sm text-gray-500 dark:text-gray-400 absolute start-0 -bottom-6">Min {0}</span>
+                            <span className="text-sm text-gray-500 dark:text-gray-400 absolute end-0 -bottom-6">Max {maxShips.transporter}</span>
+                        </div>
+                        
+                        <Label htmlFor="lfl">Light Fighter: <span id={'lfl'}>{fleet.lightFighter}</span></Label>
+                        {/* <Slider id="t" defaultValue={[fleet.transporter]} min={0} max={maxShips.transporter} step={1} /> */}
+                        <div className="relative mb-6">
+                            <input id="lf" type="range" onChange={(e) => {
+                                // @ts-ignore 
+                                document.getElementById('lfl').innerText = e.currentTarget.value}} 
+                                defaultValue={fleet.lightFighter}
+                                min={0}
+                                max={maxShips.light_fighter}
+                                className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700" 
+                            />
+                            <span className="text-sm text-gray-500 dark:text-gray-400 absolute start-0 -bottom-6">Min {0}</span>
+                            <span className="text-sm text-gray-500 dark:text-gray-400 absolute end-0 -bottom-6">Max {maxShips.light_fighter}</span>
+                        </div>
+
+                        <Label htmlFor="hf">Heavy Fighter: <span id={'hfl'}>{fleet.heavyFighter}</span></Label>
+                        {/* <Slider id="t" defaultValue={[fleet.transporter]} min={0} max={maxShips.transporter} step={1} /> */}
+                        <div className="relative mb-6">
+                            <input id="hf" type="range" onChange={(e) => {
+                                // @ts-ignore 
+                                document.getElementById('hfl').innerText = e.currentTarget.value}} 
+                                defaultValue={fleet.heavyFighter}
+                                min={0}
+                                max={maxShips.heavy_fighter}
+                                className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700" 
+                            />
+                            <span className="text-sm text-gray-500 dark:text-gray-400 absolute start-0 -bottom-6">Min {0}</span>
+                            <span className="text-sm text-gray-500 dark:text-gray-400 absolute end-0 -bottom-6">Max {maxShips.heavy_fighter}</span>
+                        </div>
+
+                        <Label htmlFor="c">Cruiser: <span id={'cl'}>{fleet.cruiser}</span></Label>
+                        {/* <Slider id="t" defaultValue={[fleet.transporter]} min={0} max={maxShips.transporter} step={1} /> */}
+                        <div className="relative mb-6">
+                            <input id="c" type="range" onChange={(e) => {
+                                // @ts-ignore 
+                                document.getElementById('cl').innerText = e.currentTarget.value}} 
+                                defaultValue={fleet.cruiser}
+                                min={0}
+                                max={maxShips.cruiser}
+                                className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700" 
+                            />
+                            <span className="text-sm text-gray-500 dark:text-gray-400 absolute start-0 -bottom-6">Min {0}</span>
+                            <span className="text-sm text-gray-500 dark:text-gray-400 absolute end-0 -bottom-6">Max {maxShips.cruiser}</span>
+                        </div>
+
+                        <Label htmlFor="b">Battleships: <span id={'bl'}>{fleet.battleship}</span></Label>
+                        {/* <Slider id="t" defaultValue={[fleet.transporter]} min={0} max={maxShips.transporter} step={1} /> */}
+                        <div className="relative mb-6">
+                            <input id="b" type="range" onChange={(e) => {
+                                // @ts-ignore 
+                                document.getElementById('bl').innerText = e.currentTarget.value}} 
+                                defaultValue={fleet.battleship}
+                                min={0}
+                                max={maxShips.battleships}
+                                className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700" 
+                            />
+                            <span className="text-sm text-gray-500 dark:text-gray-400 absolute start-0 -bottom-6">Min {0}</span>
+                            <span className="text-sm text-gray-500 dark:text-gray-400 absolute end-0 -bottom-6">Max {maxShips.battleships}</span>
+                        </div>
+
                     </div>
                     <div id="dialog-button-area" className="flex flex-row gap-2 justify-between items-center w-full">
                         <Button onClick={()=>{setFleetDialog({update : !fleetDialog.update, expedition : false})}}>Cancel</Button>
@@ -90,7 +122,7 @@ export const getFleetSidebar = (fleet:fleet, reload : any, notification : any) =
                                 // @ts-ignore
                                 const c = document.getElementById('c').value
                                 // @ts-ignore
-                                const bs = document.getElementById('bs').value
+                                const bs = document.getElementById('b').value
 
                                 ActionHandler.updateFleet(fleet.id, lf,hf,c,t,bs)
                                     .then((data:any) => {
