@@ -297,16 +297,16 @@ const DashboardPage = () => {
                                             </div>
                                             {
                                                 expedition.battle.won && (
-                                                    <div className="flex flex-col gap-2 w-50">
-                                                        <div className="flex flex-row justify-between">
+                                                    <div className="flex flex-col gap-2">
+                                                        <div className="flex flex-row justify-between w-28">
                                                             <Icon type="metal" size="24" />
                                                             <span className="font-headline text-g_dark font-bold text-2xl">{expedition.metal}</span>
                                                         </div>
-                                                        <div className="flex flex-row justify-between">
+                                                        <div className="flex flex-row justify-between w-28">
                                                             <Icon type="fuel" size="16" />
                                                             <span className="font-headline text-g_dark font-bold text-2xl">{expedition.gas}</span>
                                                         </div>
-                                                        <div className="flex flex-row justify-between">
+                                                        <div className="flex flex-row justify-between w-28">
                                                             <Icon type="gem" size="24" />
                                                             <span className="font-headline text-g_dark font-bold text-2xl">{expedition.gems}</span>
                                                         </div>
@@ -316,8 +316,22 @@ const DashboardPage = () => {
                                         </div>
                                     }
                                     {!expedition.battle &&
-                                        <div>
-                                            They brought the following resources: metal - {expedition.metal}, fuel - {expedition.gas}, gems - {expedition.gems}
+                                        <div className="flex flex-col gap-2">
+                                            <div className="mb-5">
+                                                <h4 className="text-g_dark">There was no battle, however you've gained</h4>
+                                            </div>
+                                            <div className="flex flex-row justify-between w-28">
+                                                <Icon type="metal" size="24" />
+                                                <span className="font-headline text-g_dark font-bold text-2xl">{expedition.metal}</span>
+                                            </div>
+                                            <div className="flex flex-row justify-between w-28">
+                                                <Icon type="fuel" size="16" />
+                                                <span className="font-headline text-g_dark font-bold text-2xl">{expedition.gas}</span>
+                                            </div>
+                                            <div className="flex flex-row justify-between w-28">
+                                                <Icon type="gem" size="24" />
+                                                <span className="font-headline text-g_dark font-bold text-2xl">{expedition.gems}</span>
+                                            </div>
                                         </div>
                                     }
                                 </div>
