@@ -4,6 +4,7 @@ export type collector = {
   level: number;
   id: number;
   amountStored : number;
+  upgradeCost : upgradeCost,
 };
 
 export type resources = {
@@ -76,6 +77,7 @@ export type base = {
   resources: resources;
   collectors: collector[];
   unseenExpeditions : expedition[]
+  upgradeCost : upgradeCost
 };
 
 export type barracks = {};
@@ -112,4 +114,10 @@ export type expedition = {
   timeLeft : number,
   battle : battle | null
   fleet : fleet
+}
+
+export type upgradeCost = {
+  metal : number,
+  gas : number,
+  gems : number,
 }

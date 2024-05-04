@@ -42,6 +42,7 @@ class BasesResource extends JsonResource
             'user' => $user ? new UserResource($user) : null,
             'planet' => $planet ? new PlanetsResource($this->planet) : null,
             'unseenExpeditions' => $unseenExpeditions ? new ExpeditionCollection($unseenExpeditions) : null,
+            'upgradeCost' => $this->getUpgradeCost()
         ];
     }
 
@@ -65,6 +66,7 @@ class BasesResource extends JsonResource
             'user' => $user ? new UserResource($user) : null,
             'planet' => $planet ? new PlanetsResource($this->planet) : null,
             'reward' => $reward,
+            'upgradeCost' => $this->getUpgradeCost()
             ];
     }
 }

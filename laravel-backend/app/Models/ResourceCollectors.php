@@ -116,7 +116,7 @@ class ResourceCollectors extends Model
         $metal = $resources->metal;
         $gems = $resources->gems;
         $gas = $resources->gas;
-        $price = $this->upgradePrice();
+        $price = $this->upgradeCost();
 
         if($metal >= $price['metal'] && $gems >= $price['gems'] && $gas >= $price['gas']){
             $level = $this->level + 1;
@@ -135,7 +135,7 @@ class ResourceCollectors extends Model
         return false;
     }
 
-    public function upgradePrice(): array
+    public function upgradeCost(): array
     {
         return [
             'metal' => round(self::$BASIS_COST_METAL * (pow(self::$UPGRADE_PARAM_METAL, $this->level)),2),

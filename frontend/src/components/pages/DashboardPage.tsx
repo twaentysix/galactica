@@ -150,14 +150,19 @@ const DashboardPage = () => {
                                 <ActionButton 
                                     onClick={() => {ActionHandler.upgradeBase(selectedBase?.id)
                                         .then((data:any) => {
-                                            data['error'] === undefined ? activateNotification({message:'Successfully upgraded Base!', type:'info'}) : activateNotification({message:(data['error'] as error).message, type:'warning'})
+                                            data['error'] === undefined ? activateNotification({message:'Successfully upgraded Base!' , type:'info'}) : activateNotification({message:(data['error'] as error).message, type:'warning'})
                                             reload();
                                         })}}
                                 >
                                     Upgrade base
+                                    <div className={'flex justify-center items-center gap-2'}  >
+                                        <span className="font-headline text-lg font-bold flex items-center gap-2"><Icon type={'metal'} size={'20'}/> {selectedBase?.upgradeCost.metal}</span>
+                                        <span className="font-headline text-lg font-bold flex items-center gap-2"><Icon type={'fuel'} size={'16'}/> {selectedBase?.upgradeCost.gas}</span>
+                                        <span className="font-headline text-lg font-bold flex items-center gap-2"><Icon type={'gem'} size={'20'}/> {selectedBase?.upgradeCost.gems}</span>
+                                    </div>
                                 </ActionButton>
                         }
-                    </div>
+                     </div>
                     {!starMapActive && <h2 className={'mb-5'}>Collectors</h2>}
                     <div className="grid grid-cols-3 gap-8 mb-10">
                         {

@@ -20,7 +20,7 @@ class CollectorsResource extends JsonResource
             'type' => $this->type,
             'lastCollected' => $this->last_collected,
             'level' => $this->level,
-            'upgradePrice' => $this->upgradePrice(),
+            'upgradeCost' => $this->upgradeCost(),
             'amountStored' => $this->getAmountStored(),
         ];
     }
