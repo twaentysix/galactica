@@ -45,7 +45,7 @@
 
     --g_red_gradient: linear-gradient(45deg, hsla(0, 86%, 70%, .15), hsl(0, 86%, 70%, 1));
 
-    --g_green_gradient: linear-gradient(45deg, hsla(144, 100%, 33%, .44), hsl(144, 100%, 33%, 1));
+    --g_green_gradient: linear-gradient(45deg, hsla(144, 100%, 33%, .44), hsla(144, 100%, 33%, 1));
 
     --g_light_gradient: linear-gradient(0deg, hsla(0, 0%, 90%, .5), hsl(0, 0%, 90%, 1));
     --g_light_gradient_inactive: linear-gradient(0deg, hsla(0, 0%, 90%, .15), hsl(0, 0%, 90%, .4));
@@ -63,6 +63,7 @@
     --g_dark: hsla(0, 0%, 10%, 1);
     --g_dark_translucent: hsla(0, 0%, 10%, .4);
     --g_cyan: hsla(180, 48%, 50%, 1);
+    --g_green: hsla(144, 100%, 33%, 1);
     --g_purple: hsla(299, 51%, 40%, 1);
     --g_brown: hsla(0, 9%, 38%, 1);
 

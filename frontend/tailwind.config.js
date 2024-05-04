@@ -21,6 +21,9 @@ module.exports = {
         main: ["Inter", "sans-serif"],
         headline: ["Glory", "serif"],
       },
+      boxShadow: {
+        glow: "0px 0px 26px 7px var(--g_green)",
+      },
       backgroundImage: {
         g_base_gradient_0: "var(--g_base_gradient_0)",
         g_base_gradient_1: "var(--g_base_gradient_1)",
@@ -43,6 +46,7 @@ module.exports = {
         g_background: "var(--g_background)",
         g_yellow: "var(--g_yellow)",
         g_light: "var(--g_light)",
+        g_green: "var(--g_green)",
         g_light_translucent: "var(--g_light_translucent)",
         g_dark: "var(--g_dark)",
         g_dark_translucent: "var(--g_dark_translucent)",

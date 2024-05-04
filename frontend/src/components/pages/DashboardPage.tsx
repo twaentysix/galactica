@@ -88,7 +88,7 @@ const DashboardPage = () => {
                     </>
                     {baseData.map((base: base) => (
                         <CustomCard
-                            className={'mb-5'}
+                            className={`${selectedBase?.id == base.id ? '!shadow-glow mb-5 scale-105 !brightness-150' : 'mb-5'}`}
                             key={base.id}
                             backgroundColor="bg-g_planet_gradient"
                             title={base["name"]}
