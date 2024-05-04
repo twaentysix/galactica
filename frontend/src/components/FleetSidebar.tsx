@@ -24,6 +24,7 @@ export const getFleetSidebar = (fleet:fleet, reload : any, notification : any) =
         <div className="mt-5">
             <h1>{fleet.name}</h1>
             {fleet.busy && (<h2>Fleet is busy</h2>)}
+            <h2>Fleet Strength: <span className={'text-sm'}>{fleet.strength}</span></h2>
             {/* add onclick new dialog for updating fleet*/}
             <ActionButton onClick={() => {setFleetDialog({update : !fleetDialog.update, expedition : false})}}>Update Fleet</ActionButton>
             {fleetDialog.update &&
