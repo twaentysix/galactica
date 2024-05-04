@@ -24,11 +24,6 @@ export const getCollectorSidebar = (collector:collector, update : any, notificat
             }
             >
                 Collect
-                <div className={'flex justify-center items-center gap-2'}>
-                    <span className="font-headline text-lg font-bold flex items-center gap-2"><Icon type={'metal'} size={'20'}/> {collector.upgradeCost.metal}</span>
-                    <span className="font-headline text-lg font-bold flex items-center gap-2"><Icon type={'fuel'} size={'16'}/> {collector.upgradeCost.gas}</span>
-                    <span className="font-headline text-lg font-bold flex items-center gap-2"><Icon type={'gem'} size={'20'}/> {collector.upgradeCost.gems}</span>
-                </div>
             </ActionButton>
             <ActionButton onClick={() => ActionHandler.upgradeCollector(collector.id)
                 .then((data: any) => {
@@ -41,6 +36,11 @@ export const getCollectorSidebar = (collector:collector, update : any, notificat
             }
             >
                 Upgrade
+                <div className={'flex justify-center items-center gap-2'}>
+                    <span className="font-headline text-lg font-bold flex items-center gap-2"><Icon type={'metal'} size={'20'}/> {collector.upgradeCost.metal}</span>
+                    <span className="font-headline text-lg font-bold flex items-center gap-2"><Icon type={'fuel'} size={'16'}/> {collector.upgradeCost.gas}</span>
+                    <span className="font-headline text-lg font-bold flex items-center gap-2"><Icon type={'gem'} size={'20'}/> {collector.upgradeCost.gems}</span>
+                </div>
             </ActionButton>
 
 
