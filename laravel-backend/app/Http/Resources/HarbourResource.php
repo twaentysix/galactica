@@ -15,6 +15,7 @@ class HarbourResource extends JsonResource
     public function toArray(Request $request): array
     {
         $fleets = $this->fleets;
+        $totalAmountShips = $this->light_fighter + $this->transporter + $this->heavy_fighter + $this->battleships + $this->cruiser;
         return [
             'id' => $this->id,
             'lightFighter' => $this->light_fighter,
@@ -22,7 +23,8 @@ class HarbourResource extends JsonResource
             'heavyFighter' => $this->heavy_fighter,
             'battleships' => $this->battleships,
             'cruiser' => $this->cruiser,
-            'fleets' => $fleets ? new FleetsCollection($fleets) : null
+            'fleets' => $fleets ? new FleetsCollection($fleets) : null,
+            'totalAmountShips' => $totalAmountShips
         ];
     }
 }

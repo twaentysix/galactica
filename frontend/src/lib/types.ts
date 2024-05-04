@@ -39,6 +39,7 @@ export type harbour = {
   cruiser: number;
   transporter: number;
   battleships: number;
+  totalAmountShips : number;
   fleets: fleet[];
 };
 

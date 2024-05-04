@@ -168,7 +168,7 @@ const DashboardPage = () => {
                             ))
                         }
                     </div>
-                    {!starMapActive && <h2 className={'mb-5'}>Harbour</h2>}
+                    {!starMapActive && <h2 className={'mb-5'}>Harbour <span className={'text-sm'}>Total Amount of Ships: {selectedBase?.harbour.totalAmountShips}</span></h2>}
                     <div className="grid grid-cols-3 gap-8 mb-10">
                         {
 
