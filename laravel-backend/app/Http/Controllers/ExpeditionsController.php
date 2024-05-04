@@ -86,7 +86,7 @@ class ExpeditionsController extends Controller implements ActionController
             return false;
         }
 
-        $battleHappens = 0.05 * $model->duration <= rand(0, 10000) / 10000;
+        $battleHappens = 0.02 * $model->duration >= rand(0, 10000) / 10000;
 
         if($battleHappens){
             $battleController = new ExpeditionBattleController();
