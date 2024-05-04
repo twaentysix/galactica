@@ -60,6 +60,12 @@ COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY php.ini /etc/php/8.0/cli/conf.d/99-sail.ini
 RUN chmod +x /usr/local/bin/start-container
 
+
+#laravel scheduling
+RUN apt-get update
+RUN apt-get install -y cron
+RUN crontab -l | { cat; echo "* * * * * cd /var/www/html && php artisan schedule:run >> /dev/null 2>&1"; } | crontab -
+
 EXPOSE 8000
 
 ENTRYPOINT ["start-container"]

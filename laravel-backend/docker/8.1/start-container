@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+service cron start
+
 if [ "$SUPERVISOR_PHP_USER" != "root" ] && [ "$SUPERVISOR_PHP_USER" != "sail" ]; then
     echo "You should set SUPERVISOR_PHP_USER to either 'sail' or 'root'."
     exit 1
