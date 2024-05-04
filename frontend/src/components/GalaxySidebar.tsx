@@ -30,7 +30,7 @@ export const getGalaxySidebar = (galaxy: galaxy, reload : any, notification : an
                 galaxyDialog &&
                     <DialogField>
                         <div id="dialog-headline-wrapper mb-5">
-                            <h4 className="text-g_dark text-3xl">Dialog Title</h4>
+                            <h4 className="text-g_dark text-3xl">Create a new base</h4>
                         </div>
                         <div id="dialog-body-wrapper">
                             <Label htmlFor="name" className="sr-only">Transporter</Label>

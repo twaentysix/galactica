@@ -58,7 +58,7 @@
     --g_yellow_gradient: linear-gradient(45deg, hsla(43, 87%, 59%, .4), hsla(43, 87%, 59%, 1));
 
     --g_yellow: hsla(43, 87%, 59%, 1);
-    --g_light: hsla(0, 0%, 80%, 1);
+    --g_light: hsla(0, 0%, 85%, 1);
     --g_light_translucent: hsla(0, 0%, 90%, .3);
     --g_dark: hsla(0, 0%, 10%, 1);
     --g_dark_translucent: hsla(0, 0%, 10%, .4);

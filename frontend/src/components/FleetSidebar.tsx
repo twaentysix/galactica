@@ -143,7 +143,7 @@ export const getFleetSidebar = (fleet:fleet, reload : any, notification : any) =
             {fleetDialog.expedition &&
                 <DialogField>
                     <div id="dialog-headline-wrapper mb-5">
-                        <h4 className="text-g_dark text-3xl">Dialog Title</h4>
+                        <h4 className="text-g_dark text-3xl">Start the expedition</h4>
                     </div>
                     <div id="dialog-body-wrapper">
                         <Label htmlFor="duration">Duration in Minutes: </Label>
