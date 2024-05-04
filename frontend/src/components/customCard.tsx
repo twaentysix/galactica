@@ -11,10 +11,10 @@ const CustomCard = (props: any) => {
       {/* Card content */}
       <div className="mb-3">
         <h2 className="text-2xl font-headline font-bold">{title}</h2>
-        <p className="mb-4 text-sm font-main font-muted">{status}</p>
+        <div className="mb-4 text-sm font-main font-muted">{status}</div>
         <div className="flex items-center">
           <div className="mr-2">{icon}</div>
-          <p className="text-2xl font-headline font-bold">{value}</p>
+          <div className="text-2xl font-headline font-bold">{value}</div>
         </div>
       </div>
       <div>
