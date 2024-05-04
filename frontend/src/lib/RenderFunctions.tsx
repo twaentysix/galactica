@@ -3,6 +3,7 @@
 import Icon from "@/components/Icon.tsx";
 import {collector, fleet} from "@/lib/types.ts";
 import CustomCard from "@/components/customCard.tsx";
+import { getFleetSidebar } from "@/components/FleetSidebar";
 
 export function renderCollector(collector : collector, changeSidebar:any) {
     switch (collector.type) {
@@ -54,6 +55,7 @@ export function renderCollector(collector : collector, changeSidebar:any) {
 
 export function renderFleet(fleet : fleet, changeSidebar:any) {
     return <CustomCard
+                className={`${fleet.busy ? '!shadow-glow' : ''}`}
                 key={fleet.id}
                 backgroundColor="bg-g_base_gradient_1"
                 title={fleet.name}
