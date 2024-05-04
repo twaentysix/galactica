@@ -3,6 +3,7 @@ export type collector = {
   lastCollected: string;
   level: number;
   id: number;
+  amountStored : number;
 };
 
 export type resources = {
