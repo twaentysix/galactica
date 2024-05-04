@@ -31,6 +31,7 @@ export type fleet = {
   busy : boolean;
   strength : number;
   idleShips : idleShips;
+  expedition : expedition | null;
 };
 
 export type harbour = {
@@ -107,6 +108,7 @@ export type expedition = {
   gas : number,
   gems : number,
   notified : boolean,
+  timeLeft : number,
   battle : battle | null
   fleet : fleet
 }

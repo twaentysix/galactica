@@ -15,7 +15,7 @@ class ExpeditionResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        $time_left = $this->started_at ? Carbon::now()->diffInMinutes($this->started_at) : $this->duration;
+        $time_left = $this->started_at ? round($this->duration - $this->started_at->diffInMinutes(Carbon::now(), 2)) : $this->duration;
         return [
             'id' => $this->id,
             'status' => $this->status,
@@ -25,7 +25,25 @@ class ExpeditionResource extends JsonResource
             'metal' => $this->metal,
             'gems' => $this->gems,
             'battle' => new BattlesResource($this->battle),
-            'fleet' => new FleetsResource($this->fleet),
+            'fleet' => (new FleetsResource($this->fleet))
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function withoutFleet(): array
+    {
+        $time_left = $this->started_at ? round($this->duration - $this->started_at->diffInMinutes(Carbon::now(), 2)) : $this->duration;
+        return [
+            'id' => $this->id,
+            'status' => $this->status,
+            'duration' => $this->duration,
+            'timeLeft' => $time_left,
+            'gas' => $this->gas,
+            'metal' => $this->metal,
+            'gems' => $this->gems,
+            'battle' => new BattlesResource($this->battle),
         ];
     }
 }

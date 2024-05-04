@@ -14,6 +14,7 @@ class FleetsResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $expedition = $this->getOngoingExpedition();
         return [
             'id' => $this->id,
             'lightFighter' => $this->light_fighter,
@@ -25,6 +26,7 @@ class FleetsResource extends JsonResource
             'idleShips' => $this->harbour->getIdleShips(),
             'busy' => $this->busy,
             'strength' => $this->getBattleStrength(),
+            'expedition' => $expedition ? (new ExpeditionResource($expedition))->withoutFleet() : null,
         ];
     }
 }

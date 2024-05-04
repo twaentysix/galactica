@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use LaravelIdea\Helper\App\Models\_IH_Expeditions_QB;
 
 class Fleets extends Model
 {
@@ -142,6 +143,13 @@ class Fleets extends Model
         return $lostShips;
     }
 
+    /**
+     * @return Model|Expeditions|HasMany|_IH_Expeditions_QB|null
+     */
+    public function getOngoingExpedition(): Model|Expeditions|HasMany|_IH_Expeditions_QB|null
+    {
+        return $this->expeditions()->whereNull('ended_at')->first();
+    }
 
     /**
      * @return BelongsTo
