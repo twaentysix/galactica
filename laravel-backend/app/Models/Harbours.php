@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use LaravelIdea\Helper\App\Models\_IH_Expeditions_C;
 
 class Harbours extends Model
 {
@@ -83,6 +86,22 @@ class Harbours extends Model
     }
 
     /**
+     * @return Expeditions[]|Builder[]|Collection|_IH_Expeditions_C|null
+     */
+    public function getUnseenExpeditions(): Collection|array|_IH_Expeditions_C|null
+    {
+        $expeditions = Expeditions::where('notified', '=', false)
+                            ->whereNotNull('ended_at')
+                            ->whereRelation('fleet', 'harbour_id', '=', $this->id)
+                            ->get();
+        if(sizeof($expeditions) === 0){
+            return null;
+        }else{
+            return $expeditions;
+        }
+    }
+
+    /**x
      * @return BelongsTo
      */
     public function base()

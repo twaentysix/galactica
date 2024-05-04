@@ -73,6 +73,7 @@ export type base = {
   harbour: harbour;
   resources: resources;
   collectors: collector[];
+  unseenExpeditions : expedition[]
 };
 
 export type barracks = {};
@@ -86,4 +87,26 @@ export type error = {
   message : string,
   name : string,
   status : string,
+}
+
+export type battle = {
+  id : number,
+  won : boolean,
+  fleet : fleet,
+  opponent : string,
+  lostShips : number,
+}
+
+export type expedition = {
+  id : number,
+  status : string,
+  started_at : string | null,
+  ended_at : string | null,
+  duration : number,
+  metal : number,
+  gas : number,
+  gems : number,
+  notified : boolean,
+  battle : battle | null
+  fleet : fleet
 }

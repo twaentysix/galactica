@@ -3,7 +3,7 @@ import Icon from "../Icon";
 import Layout from "../Layout";
 import CustomCard from "../customCard";
 import { useEffect, useState } from "react";
-import {info, collector, base, fleet, galaxy, barracks, error} from "@/lib/types.ts";
+import {info, collector, base, fleet, galaxy, barracks, error, expedition} from "@/lib/types.ts";
 import {renderCollector, renderFleet} from "@/lib/RenderFunctions.tsx";
 import ActionSidebar from "../ActionSidebar";
 import ToastNotification from "@/components/toastNotification/ToastNotification.tsx";
@@ -15,7 +15,8 @@ import {Input} from "@/components/ui/input.tsx";
 import Button from "@/components/button.tsx";
 
 type addFleetDialog = {
-    dialog : boolean
+    addFleet : boolean
+    expeditionNotification : boolean;
 }
 
 const DashboardPage = () => {
@@ -27,10 +28,12 @@ const DashboardPage = () => {
     const [actionBarItem, setActionBarItem] = useState<collector | galaxy | barracks | fleet>()
     const [notification, setNotification] = useState(false);
     const [info, setInfo] = useState<info>({message:'', type:'info'});
-    const [addFleetDialog, setAddFleetDialog] = useState<addFleetDialog>({dialog : false});
+    const [dialogs, setDialogs] = useState<addFleetDialog>({addFleet : false, expeditionNotification: false});
 
     useEffect(() => {
-        DataHandler.getBases().then(data => {setBaseData(data); data.length > 0 && setSelectedBase(data[0])});
+        DataHandler.getBases().then(data => {
+            setBaseData(data); data.length > 0 && setSelectedBase(data[0])
+        });
         DataHandler.getGalaxies().then(data => {setGalaxiesData(data)});
     }, []);
 
@@ -38,6 +41,9 @@ const DashboardPage = () => {
     const changeBase = (base : base) => {
         starMapActive && setStarMap(false);
         setSelectedBase(base);
+        if(base.unseenExpeditions){
+            setDialogs({addFleet : dialogs.addFleet, expeditionNotification : true});
+        }
     };
 
      const changeSidebar = (_type:string, item?: collector | galaxy | barracks | fleet | base) => {
@@ -177,9 +183,9 @@ const DashboardPage = () => {
                                 renderFleet(fleet, ()=>{changeSidebar('fleet',fleet)})
                             ))
                         }
-                        {!starMapActive && <ActionButton onClick={() => {setAddFleetDialog({dialog : !addFleetDialog.dialog})}}>Create fleet</ActionButton>}
+                        {!starMapActive && <ActionButton onClick={() => {setDialogs({addFleet : !dialogs.addFleet, expeditionNotification : dialogs.expeditionNotification})}}>Create fleet</ActionButton>}
                         {
-                            addFleetDialog.dialog &&
+                            dialogs.addFleet &&
                             <DialogField>
                                 <div id="dialog-headline-wrapper mb-5">
                                     <h4 className="text-g_dark text-3xl">Create fleet</h4>
@@ -189,7 +195,7 @@ const DashboardPage = () => {
                                     <Input id={'name'} placeholder={'Name of the fleet'} type={'text'}></Input>
                                 </div>
                                 <div id="dialog-button-area" className="flex flex-row gap-2 justify-between items-center w-full">
-                                    <Button onClick={()=>{setAddFleetDialog({dialog : !addFleetDialog.dialog})}}>Cancel</Button>
+                                    <Button onClick={()=>{setDialogs({addFleet : !dialogs.addFleet, expeditionNotification : dialogs.expeditionNotification})}}>Cancel</Button>
                                     <Button onClick={
                                         () => {
                                             // @ts-ignore
@@ -198,7 +204,7 @@ const DashboardPage = () => {
                                             ActionHandler.createFleet(selectedBase?.harbour.id, name)
                                                 .then((data:any) => {
                                                     reload();
-                                                    setAddFleetDialog({dialog : !addFleetDialog.dialog});
+                                                    setDialogs({addFleet : !dialogs.addFleet, expeditionNotification : dialogs.expeditionNotification});
                                                     data['error'] === undefined ?  activateNotification({message:'Successfully built new Ships!', type:'info'})  : activateNotification({message:(data['error'] as error).message, type:'warning'});
                                                 })
                                         }
@@ -242,6 +248,40 @@ const DashboardPage = () => {
                 </div>
             </div>
             {notification ? <ToastNotification type={info.type} message={info.message}/> : null}
+            {
+                dialogs.expeditionNotification &&
+                <DialogField>
+                    <div id="dialog-headline-wrapper mb-5">
+                        <h4 className="text-g_dark text-3xl">Alert: Your fleets are back!</h4>
+                    </div>
+                    <div id="dialog-body-wrapper">
+                        <Label htmlFor="name" className="sr-only">Alert: Your fleets are back!</Label>
+                        {
+                            selectedBase?.unseenExpeditions && selectedBase?.unseenExpeditions.map((expedition : expedition) => (
+                                <div>
+                                    {expedition.fleet.name} has returned to the harbour:
+                                    {expedition.battle &&
+                                        <div>
+                                            They were attacked by the Pirate Fleet: {expedition.battle.opponent}
+                                            {expedition.battle.won && <div>They won the battle. They brought the following resources: metal - {expedition.metal}, fuel - {expedition.gas}, gems - {expedition.gems}</div>}
+                                            {!expedition.battle.won && <div>They lost the battle. All resources got lost!</div>}
+                                            The fleet lost {expedition.battle.lostShips}
+                                        </div>
+                                    }
+                                    {!expedition.battle &&
+                                        <div>
+                                            They brought the following resources: metal - {expedition.metal}, fuel - {expedition.gas}, gems - {expedition.gems}
+                                        </div>
+                                    }
+                                </div>
+                            ))
+                        }
+                    </div>
+                    <div id="dialog-button-area" className="flex flex-row gap-2 justify-between items-center w-full">
+                        <Button onClick={()=>{reload(); setDialogs({addFleet : dialogs.addFleet, expeditionNotification : !dialogs.expeditionNotification})}}>Continue</Button>
+                    </div>
+                </DialogField>
+            }
         </Layout>
     );
 }

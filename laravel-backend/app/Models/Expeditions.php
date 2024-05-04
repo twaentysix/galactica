@@ -26,7 +26,8 @@ class Expeditions extends Model
         'metal',
         'gas',
         'gems',
-        'fleet_id'
+        'fleet_id',
+        'notified',
     ];
 
     /**
@@ -52,6 +53,7 @@ class Expeditions extends Model
             'metal' => 'float',
             'gas' => 'float',
             'gems' => 'float',
+            'notified' => 'boolean',
         ];
     }
 
