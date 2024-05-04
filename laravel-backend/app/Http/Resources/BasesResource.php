@@ -20,6 +20,15 @@ class BasesResource extends JsonResource
         $collectors = $this->collectors;
         $user = $this->user;
         $planet = $this->planet;
+        $unseenExpeditions = $this->harbour->getUnseenExpeditions();
+
+        if($unseenExpeditions != null) {
+            foreach ($unseenExpeditions as $ex) {
+                $ex->update([
+                    'notified' => true,
+                ]);
+            }
+        }
 
         return [
             'id' => $this->id,
@@ -31,7 +40,8 @@ class BasesResource extends JsonResource
             'resources' => $resources ? new ResourcesResource($resources) : null,
             'collectors' => $collectors ? new CollectorsCollection($collectors) : null,
             'user' => $user ? new UserResource($user) : null,
-            'planet' => $planet ? new PlanetsResource($this->planet) : null
+            'planet' => $planet ? new PlanetsResource($this->planet) : null,
+            'unseenExpeditions' => $unseenExpeditions ? new ExpeditionCollection($unseenExpeditions) : null,
         ];
     }
 

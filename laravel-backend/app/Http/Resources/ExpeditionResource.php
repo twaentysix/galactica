@@ -24,8 +24,8 @@ class ExpeditionResource extends JsonResource
             'gas' => $this->gas,
             'metal' => $this->metal,
             'gems' => $this->gems,
-            'battle' => new BattlesResource($this->battle)
-
+            'battle' => new BattlesResource($this->battle),
+            'fleet' => new FleetsResource($this->fleet),
         ];
     }
 }
