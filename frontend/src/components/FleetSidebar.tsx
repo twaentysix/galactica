@@ -146,9 +146,10 @@ export const getFleetSidebar = (fleet:fleet, reload : any, notification : any) =
                         <h4 className="text-g_dark text-3xl">Start the expedition</h4>
                     </div>
                     <div id="dialog-body-wrapper">
-                        <Label htmlFor="duration">Duration in Minutes: </Label>
+                        <Label htmlFor="duration">Duration in minutes: </Label>
                         <input
                             type={"number"}
+                            className="bg-g_light shadow-xl p-3 w-full font-sans rounded-xl my-2"
                             max={100}
                             min={5}
                             step={5}
