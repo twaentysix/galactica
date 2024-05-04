@@ -47,6 +47,7 @@ module.exports = {
         g_yellow: "var(--g_yellow)",
         g_light: "var(--g_light)",
         g_green: "var(--g_green)",
+        g_red: "var(--g_red)",
         g_light_translucent: "var(--g_light_translucent)",
         g_dark: "var(--g_dark)",
         g_dark_translucent: "var(--g_dark_translucent)",

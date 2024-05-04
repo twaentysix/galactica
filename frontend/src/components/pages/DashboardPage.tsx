@@ -179,7 +179,15 @@ const DashboardPage = () => {
                             ))
                         }
                     </div>
-                    {!starMapActive && <h2 className={'mb-5'}>Harbour <span className={'text-sm'}>Total Amount of Ships: {selectedBase?.harbour.totalAmountShips}</span></h2>}
+                    {!starMapActive && (
+                        <div className={'mb-5'}>
+                            <h2>Harbour</h2>
+                            <div className="flex flex-col gap-1 my-5">
+                                <span>Total Amount of Ships:</span>
+                                <span className="font-headline font-bold">{selectedBase?.harbour.totalAmountShips}</span>
+                            </div>
+                        </div>
+                    )}
                     <div className="grid grid-cols-3 gap-8 mb-10">
                         {
 
@@ -264,13 +272,42 @@ const DashboardPage = () => {
                         {
                             selectedBase?.unseenExpeditions && selectedBase?.unseenExpeditions.map((expedition : expedition) => (
                                 <div>
-                                    {expedition.fleet.name} has returned to the harbour:
                                     {expedition.battle &&
-                                        <div>
-                                            They were attacked by the Pirate Fleet: {expedition.battle.opponent}
-                                            {expedition.battle.won && <div>They won the battle. They brought the following resources: metal - {expedition.metal}, fuel - {expedition.gas}, gems - {expedition.gems}</div>}
-                                            {!expedition.battle.won && <div>They lost the battle. All resources got lost!</div>}
-                                            The fleet lost {expedition.battle.lostShips}
+                                        <div className="flex flex-col gap-5">
+                                            <div className="flex flex-col">
+                                                <span className="text-g_dark">You've</span>
+                                                {expedition.battle.won && <span className="text-3xl font-headline text-g_green font-bold">won</span>}
+                                                {!expedition.battle.won && <span className="text-3xl font-headline text-g_red font-bold">lost</span>}
+                                            </div>
+                                            <div className="flex flex-col justify-between items-center gap-3">
+
+                                            </div>
+                                            <div className="flex flex-col gap-1">
+                                                <span className="text-g_dark">You were attacked by:</span>
+                                                <span className="font-headline text-g_dark font-bold text-lg">{expedition.battle.opponent}</span>
+                                            </div>
+                                            <div className="flex flex-col gap-1">
+                                                <span className="text-g_dark">Fleet loss:</span>
+                                                <span className="font-headline text-g_dark font-bold text-lg">{expedition.battle.lostShips}</span>
+                                            </div>
+                                            {
+                                                expedition.battle.won && (
+                                                    <div className="flex flex-col gap-2 w-50">
+                                                        <div className="flex flex-row justify-between">
+                                                            <Icon type="metal" size="24" />
+                                                            <span className="font-headline text-g_dark font-bold text-2xl">{expedition.metal}</span>
+                                                        </div>
+                                                        <div className="flex flex-row justify-between">
+                                                            <Icon type="fuel" size="16" />
+                                                            <span className="font-headline text-g_dark font-bold text-2xl">{expedition.gas}</span>
+                                                        </div>
+                                                        <div className="flex flex-row justify-between">
+                                                            <Icon type="gem" size="24" />
+                                                            <span className="font-headline text-g_dark font-bold text-2xl">{expedition.gems}</span>
+                                                        </div>
+                                                    </div>
+                                                )
+                                            }
                                         </div>
                                     }
                                     {!expedition.battle &&

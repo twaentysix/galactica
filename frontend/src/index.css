@@ -66,6 +66,7 @@
     --g_green: hsla(144, 100%, 33%, 1);
     --g_purple: hsla(299, 51%, 40%, 1);
     --g_brown: hsla(0, 9%, 38%, 1);
+    --g_red: hsla(0, 86%, 70%, 1);
 
     --g_border: 2px solid hsla(0, 0%, 100%, .1);
     --g_shadow: box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.75);

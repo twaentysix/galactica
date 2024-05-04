@@ -48,15 +48,18 @@ export const getFleetSidebar = (fleet:fleet, reload : any, notification : any) =
                 className={`${fleet.busy ? 'grayscale pointer-events-none cursor-not-allowed opacity-25' : ''}`}
                 onClick={() => {
                     setFleetDialog({update: !fleetDialog.update, expedition: false})
-                }}>{fleet.busy ? `Unable to upgrade due to an expedition` : `Update fleet`}</ActionButton>
+                }}>{fleet.busy ? `Unable to upgrade due to an expedition` : `Set up fleet`}</ActionButton>
             {fleetDialog.update &&
                 <DialogField>
                     <div id="dialog-headline-wrapper mb-5">
                         <h4 className="text-g_dark text-3xl">Configure your fleet!</h4>
                     </div>
                     <div id="dialog-body-wrapper">
-                        <Label htmlFor="t">Transporter: <span id={'tl'}>{fleet.transporter}</span></Label>
-                        {/* <Slider id="t" defaultValue={[fleet.transporter]} min={0} max={maxShips.transporter} step={1} /> */}
+
+                        <div className="flex gap-2 items-center justify-start">
+                            <Label htmlFor="t">Transporter: <span className="font-headline font-bold text-g_purple text-2xl" id={'tl'}>{fleet.transporter}</span></Label>
+                            <span className="font-headline font-bold text-g_dark text-2xl"> / {maxShips.transporter}</span>
+                        </div>
                         <div className="relative mb-6">
                             <input id="t" type="range" onChange={(e) => {
                                 // @ts-ignore 
@@ -67,14 +70,12 @@ export const getFleetSidebar = (fleet:fleet, reload : any, notification : any) =
                                    max={maxShips.transporter}
                                    className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
                             />
-                            <span
-                                className="text-sm text-gray-500 dark:text-gray-400 absolute start-0 -bottom-6">Min {0}</span>
-                            <span
-                                className="text-sm text-gray-500 dark:text-gray-400 absolute end-0 -bottom-6">Max {maxShips.transporter}</span>
                         </div>
 
-                        <Label htmlFor="lfl">Light Fighter: <span id={'lfl'}>{fleet.lightFighter}</span></Label>
-                        {/* <Slider id="t" defaultValue={[fleet.transporter]} min={0} max={maxShips.transporter} step={1} /> */}
+                        <div className="flex gap-2 items-center justify-start">
+                            <Label htmlFor="lf">Light Fighter: <span className="font-headline font-bold text-g_purple text-2xl" id={'lfl'}>{fleet.lightFighter}</span></Label>
+                            <span className="font-headline font-bold text-g_dark text-2xl"> / {maxShips.light_fighter}</span>
+                        </div>
                         <div className="relative mb-6">
                             <input id="lf" type="range" onChange={(e) => {
                                 // @ts-ignore 
@@ -85,14 +86,12 @@ export const getFleetSidebar = (fleet:fleet, reload : any, notification : any) =
                                    max={maxShips.light_fighter}
                                    className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
                             />
-                            <span
-                                className="text-sm text-gray-500 dark:text-gray-400 absolute start-0 -bottom-6">Min {0}</span>
-                            <span
-                                className="text-sm text-gray-500 dark:text-gray-400 absolute end-0 -bottom-6">Max {maxShips.light_fighter}</span>
                         </div>
 
-                        <Label htmlFor="hf">Heavy Fighter: <span id={'hfl'}>{fleet.heavyFighter}</span></Label>
-                        {/* <Slider id="t" defaultValue={[fleet.transporter]} min={0} max={maxShips.transporter} step={1} /> */}
+                        <div className="flex gap-2 items-center justify-start">
+                            <Label htmlFor="hf">Heavy Fighter: <span className="font-headline font-bold text-g_purple text-2xl" id={'hfl'}>{fleet.heavyFighter}</span></Label>
+                            <span className="font-headline font-bold text-g_dark text-2xl"> / {maxShips.heavy_fighter}</span>
+                        </div>
                         <div className="relative mb-6">
                             <input id="hf" type="range" onChange={(e) => {
                                 // @ts-ignore 
@@ -103,14 +102,12 @@ export const getFleetSidebar = (fleet:fleet, reload : any, notification : any) =
                                    max={maxShips.heavy_fighter}
                                    className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
                             />
-                            <span
-                                className="text-sm text-gray-500 dark:text-gray-400 absolute start-0 -bottom-6">Min {0}</span>
-                            <span
-                                className="text-sm text-gray-500 dark:text-gray-400 absolute end-0 -bottom-6">Max {maxShips.heavy_fighter}</span>
                         </div>
 
-                        <Label htmlFor="c">Cruiser: <span id={'cl'}>{fleet.cruiser}</span></Label>
-                        {/* <Slider id="t" defaultValue={[fleet.transporter]} min={0} max={maxShips.transporter} step={1} /> */}
+                        <div className="flex gap-2 items-center justify-start">
+                            <Label htmlFor="c">Cruiser: <span className="font-headline font-bold text-g_purple text-2xl" id={'cl'}>{fleet.cruiser}</span></Label>
+                            <span className="font-headline font-bold text-g_dark text-2xl"> / {maxShips.cruiser}</span>
+                        </div>
                         <div className="relative mb-6">
                             <input id="c" type="range" onChange={(e) => {
                                 // @ts-ignore 
@@ -121,13 +118,12 @@ export const getFleetSidebar = (fleet:fleet, reload : any, notification : any) =
                                    max={maxShips.cruiser}
                                    className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
                             />
-                            <span
-                                className="text-sm text-gray-500 dark:text-gray-400 absolute start-0 -bottom-6">Min {0}</span>
-                            <span
-                                className="text-sm text-gray-500 dark:text-gray-400 absolute end-0 -bottom-6">Max {maxShips.cruiser}</span>
                         </div>
 
-                        <Label htmlFor="b">Battleships: <span id={'bl'}>{fleet.battleship}</span></Label>
+                        <div className="flex gap-2 items-center justify-start">
+                            <Label htmlFor="b">Battleships: <span className="font-headline font-bold text-g_purple text-2xl" id={'bl'}>{fleet.battleship}</span></Label>
+                            <span className="font-headline font-bold text-g_dark text-2xl"> / {maxShips.battleships}</span>
+                        </div>
                         {/* <Slider id="t" defaultValue={[fleet.transporter]} min={0} max={maxShips.transporter} step={1} /> */}
                         <div className="relative mb-6">
                             <input id="b" type="range" onChange={(e) => {
@@ -139,10 +135,6 @@ export const getFleetSidebar = (fleet:fleet, reload : any, notification : any) =
                                    max={maxShips.battleships}
                                    className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
                             />
-                            <span
-                                className="text-sm text-gray-500 dark:text-gray-400 absolute start-0 -bottom-6">Min {0}</span>
-                            <span
-                                className="text-sm text-gray-500 dark:text-gray-400 absolute end-0 -bottom-6">Max {maxShips.battleships}</span>
                         </div>
 
                     </div>
@@ -179,9 +171,9 @@ export const getFleetSidebar = (fleet:fleet, reload : any, notification : any) =
             }
 
             {/* add onclick new dialog for starting expeditions */}
-            <ActionButton onClick={() => {
+            <ActionButton className={`${fleet.busy ? 'grayscale pointer-events-none cursor-not-allowed opacity-25' : ''}`} onClick={() => {
                 setFleetDialog({update: false, expedition: !fleetDialog.expedition})
-            }}>Start expedition</ActionButton>
+            }}>{fleet.busy ? `Fleet is already on expedition` : `Start expedition`}</ActionButton>
             {fleetDialog.expedition &&
                 <DialogField>
                     <div id="dialog-headline-wrapper mb-5">
