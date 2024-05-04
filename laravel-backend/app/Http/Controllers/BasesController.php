@@ -65,7 +65,11 @@ class BasesController extends Controller
         $harbour->base()->associate($base);
         $harbour->save();
 
-        $resources = Resources::create();
+        $resources = Resources::create([
+            'metal' => 1000,
+            'gas' => 800,
+            'gems' => 600,
+        ]);
         $resources->base()->associate($base);
         $resources->save();
 
