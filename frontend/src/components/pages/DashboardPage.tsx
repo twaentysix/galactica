@@ -59,6 +59,11 @@ const DashboardPage = () => {
         DataHandler.getGalaxies().then(data => {setGalaxiesData(data)});
     }
 
+    const starMapHandler = () => {
+        setStarMap(true);
+        setSelectedBase(undefined);
+    }
+
     return (
         <Layout>
             {/* First column using two grid sections */}
@@ -76,7 +81,7 @@ const DashboardPage = () => {
                         backgroundColor="bg-g_planet_gradient"
                         title={'Star map'}
                         value={galaxiesData.length}
-                        onClick={() => setStarMap(true)}
+                        onClick={starMapHandler}
                         icon={<Icon type="galaxy" size="32" />}
                     />
                     <>
