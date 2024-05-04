@@ -27,11 +27,20 @@ class BarracksController extends Controller
 
         $harbour = $base->harbour;
         switch($type){
+            case 'transporter':
+                $rs = $this->applyResources($base, $amount, 6, 4, 3);
+                if(!$rs){
+                    return response()->json(self::getApiErrorMessage('Not enough resources!', 200));
+                }
+                $harbour->update([
+                    'transporter' => $harbour->transporter + $amount,
+                ]);
+                break;
             case 'light_fighter':
                     if($base->level < 2){
                         return response()->json(self::getApiErrorMessage('You need to upgrade your base!', 200));
                     }
-                    $rs = $this->applyResources($base, $amount, 50, 25, 5);
+                    $rs = $this->applyResources($base, $amount, 9, 6, 5);
                     if(!$rs){
                         return response()->json(self::getApiErrorMessage('Not enough resources!', 200));
                     }
@@ -43,7 +52,7 @@ class BarracksController extends Controller
                     if($base->level < 4){
                         return response()->json(self::getApiErrorMessage('You need to upgrade your base!',200));
                     }
-                    $rs = $this->applyResources($base, $amount, 70, 35, 10);
+                    $rs = $this->applyResources($base, $amount, 13, 10, 8);
                     if(!$rs){
                         return response()->json(self::getApiErrorMessage('Not enough resources!', 200));
                     }
@@ -56,7 +65,7 @@ class BarracksController extends Controller
                     if($base->level < 6){
                         return response()->json(self::getApiErrorMessage('You need to upgrade your base!', 200));
                     }
-                    $rs = $this->applyResources($base, $amount, 80, 45, 15);
+                    $rs = $this->applyResources($base, $amount, 16, 14, 12);
                     if(!$rs){
                         return response()->json(self::getApiErrorMessage('Not enough resources!', 200));
                     }
@@ -68,21 +77,12 @@ class BarracksController extends Controller
                     if($base->level < 10){
                         return response()->json(self::getApiErrorMessage('You need to upgrade your base!', 200));
                     }
-                    $rs = $this->applyResources($base, $amount, 90, 50, 12);
+                    $rs = $this->applyResources($base, $amount, 18, 16, 14);
                     if(!$rs){
                         return response()->json(self::getApiErrorMessage('Not enough resources!', 200));
                     }
                     $harbour->update([
                         'cruiser' => $harbour->cruiser + $amount,
-                    ]);
-                break;
-            case 'transporter':
-                    $rs = $this->applyResources($base, $amount, 40, 15, 2);
-                    if(!$rs){
-                        return response()->json(self::getApiErrorMessage('Not enough resources!', 200));
-                    }
-                    $harbour->update([
-                        'transporter' => $harbour->transporter + $amount,
                     ]);
                 break;
             default:
