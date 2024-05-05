@@ -52,7 +52,7 @@ export const getFleetSidebar = (fleet:fleet, reload : any, notification : any) =
             {fleetDialog.update &&
                 <DialogField>
                     <div id="dialog-headline-wrapper mb-5">
-                        <h4 className="text-g_dark text-3xl">Configure your fleet!</h4>
+                        <h4 className="text-g_dark text-3xl">Build your ships ..</h4>
                     </div>
                     <div id="dialog-body-wrapper">
 
