@@ -30,19 +30,11 @@ Route::prefix('planets')->middleware(ApiAuth::class)->controller(PlanetsControll
     Route::GET('/{id}', 'fetchOne');
 });
 
-Route::prefix('users')->middleware(ApiAuth::class)->controller(UserController::class)->group(function () {
-    Route::GET('/me','fetchLoggedInUser');
-    Route::GET('/{id}', 'w');
-});
-
-Route::middleware(ApiAuth::class)->get('/base',[BasesController::class, 'fetchBase']);
 Route::middleware(ApiAuth::class)->get('/bases',[BasesController::class, 'fetchBases']);
 Route::middleware(ApiAuth::class)->get('/resources/{base_id}',[ResourceController::class, 'fetch']);
 Route::middleware(ApiAuth::class)->get('/harbour/{base_id}',[HarboursController::class, 'fetch']);
-Route::middleware(ApiAuth::class)->get('/ship-types',[ShipTypesController::class, 'fetch']);
 
 Route::prefix('bases')->middleware(ApiAuth::class)->controller(BasesController::class)->group(function () {
-    // TODO Route::GET('/{base_id}','fetchOne');
     Route::GET('/','fetchBases');
     Route::POST('/create', 'create');
     Route::PATCH('/upgrade', 'upgrade');

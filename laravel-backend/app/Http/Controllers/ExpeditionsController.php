@@ -79,9 +79,6 @@ class ExpeditionsController extends Controller implements ActionController
      */
     function resolve(Model $model)
     {
-        // TODO: Implement resolve() method. --> battle and set resources and status of expedition
-        // TODO: check if battle happend, resolve the battle
-        // TODO: if expedition succeeded --> resources into base resources, update expedition
         if(!$model instanceof Expeditions){
             return false;
         }
