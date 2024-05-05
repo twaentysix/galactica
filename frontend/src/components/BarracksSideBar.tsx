@@ -21,7 +21,7 @@ export const getBarracksSidebar = (base : base, reload : any, notification : any
                 barracksDialog.buildShips &&
                 <DialogField>
                     <div id="dialog-headline-wrapper mb-5">
-                        <h4 className="text-g_dark text-3xl">Configure your fleet ..</h4>
+                        <h4 className="text-g_dark text-3xl">Build your ships ..</h4>
                     </div>
                     <div id="dialog-body-wrapper">
                         <select id="type">
