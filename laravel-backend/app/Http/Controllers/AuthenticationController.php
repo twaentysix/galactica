@@ -18,29 +18,29 @@ class AuthenticationController extends Controller
         if(Auth::guard('localAuth')->attempt($credentials)){
             $user = Auth::guard('localAuth')->user();
             if(!$user->hasVerifiedEmail()){
-                return response()->json(Controller::getApiErrorMessage("Your account email is not confirmed"), 400);
+                return response()->json(Controller::getApiErrorMessage("Your account email is not confirmed", 403), 403);
             }
             $token = JwtHelper::generateToken($user);
             return response()->json(['jwt' => $token, 'user' => new UserResource($user)]);
         }
-        return response()->json(Controller::getApiErrorMessage("Invalid credentials"), 403);
+        return response()->json(Controller::getApiErrorMessage("Invalid credentials", 403), 403);
     }
 
     public function register(RegisterRequest $request) {
         $data = request()->post();
         if(!$data){
-            return response()->json(Controller::getApiErrorMessage("Missing data"),400);
+            return response()->json(Controller::getApiErrorMessage("Missing data", 403),403);
         }
 
         $data = $request->validated();
         $user = User::where('name', '=', $data['name'])->first();
         if($user){
-            return response()->json(Controller::getApiErrorMessage("Username already taken."),400);
+            return response()->json(Controller::getApiErrorMessage("Username already taken.",403),403);
         }
 
         $user = User::where('email', '=', $data['email'])->first();
         if($user){
-            return response()->json(Controller::getApiErrorMessage("Email already taken."),400);
+            return response()->json(Controller::getApiErrorMessage("Email already taken.",403),403);
         }
 
         // TODO send email on verification
