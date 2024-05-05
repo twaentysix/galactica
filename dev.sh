@@ -18,11 +18,18 @@ function setup(){
     cd laravel-backend
     composer install
     vendor/bin/sail build --no-cache
-    vendor/bin/sail up -d
-    vendor/bin/sail artisan migrate
-    vendor/bin/sail artisan db:seed
-    # frontend stuff missing
     cd ../frontend
+    npm install
+}
+
+function setup-backend(){
+    cd laravel-backend
+    composer install
+    vendor/bin/sail build --no-cache
+}
+
+function setup-frontend(){
+    cd frontend
     npm install
 }
 
@@ -32,6 +39,18 @@ function start(){
     cd ../frontend
     npm run dev
 }
+
+function start-backend(){
+    cd laravel-backend
+    vendor/bin/sail up -d
+}
+
+function start-frontend(){
+    dev setup-frontend
+    cd frontend
+    npm run dev
+}
+
 
 function seed(){
     cd laravel-backend
