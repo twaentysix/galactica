@@ -100,10 +100,10 @@ class Fleets extends Model
 
         // percentage of all ships
         $pHF = $this->heavy_fighter / $amountShips;
-        $pLF = $this->heavy_fighter / $amountShips;
-        $pC = $this->heavy_fighter / $amountShips;
-        $pT = $this->heavy_fighter / $amountShips;
-        $pBS = $this->heavy_fighter / $amountShips;
+        $pLF = $this->light_fighter / $amountShips;
+        $pC = $this->cruiser / $amountShips;
+        $pT = $this->transporter / $amountShips;
+        $pBS = $this->battleships / $amountShips;
 
         // subtract standard part of the lostShips considering the percentage
         $newHF = $this->heavy_fighter - $lostShips * $pHF;
