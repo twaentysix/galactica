@@ -1,9 +1,6 @@
-
-
 import Icon from "@/components/Icon.tsx";
 import {collector, fleet} from "@/lib/types.ts";
 import CustomCard from "@/components/customCard.tsx";
-import { getFleetSidebar } from "@/components/FleetSidebar";
 
 export function renderCollector(collector : collector, changeSidebar:any) {
     switch (collector.type) {

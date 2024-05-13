@@ -3,7 +3,7 @@ import Icon from "../Icon";
 import Layout from "../Layout";
 import CustomCard from "../customCard";
 import { useEffect, useState } from "react";
-import {info, collector, base, fleet, galaxy, barracks, error, expedition, battle} from "@/lib/types.ts";
+import {info, collector, base, fleet, galaxy, barracks, error, battle} from "@/lib/types.ts";
 import {renderCollector, renderFleet} from "@/lib/RenderFunctions.tsx";
 import ActionSidebar from "../ActionSidebar";
 import ToastNotification from "@/components/toastNotification/ToastNotification.tsx";

@@ -1,11 +1,6 @@
 services:
     laravel.test:
-        build:
-            context: ./docker/8.3
-            dockerfile: Dockerfile
-            args:
-                WWWGROUP: '${WWWGROUP}'
-        image: sail-8.3/app
+        image: joriex/galactica
         extra_hosts:
             - 'host.docker.internal:host-gateway'
         ports:
