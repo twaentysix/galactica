@@ -13,11 +13,14 @@ use App\Http\Controllers\ShipTypesController;
 use App\Http\Controllers\FleetsController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\ApiAuth;
+use App\Mail\ConfirmationEmail;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('auth')->controller(AuthenticationController::class)->group(function () {
     Route::POST('/login','authenticate');
     Route::POST('/register', 'register');
+    Route::get('confirm-email/{referralCode}', [AuthenticationController::class, 'confirmEmail'])->name('confirm.email');
 });
 
 Route::prefix('galaxies')->middleware(ApiAuth::class)->controller(GalaxiesController::class)->group(function () {

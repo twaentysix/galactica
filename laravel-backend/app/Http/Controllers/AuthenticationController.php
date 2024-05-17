@@ -6,8 +6,12 @@ use App\Guards\JwtHelper;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Resources\UserResource;
+use App\Mail\ConfirmationEmail;
 use App\Models\User;
+use Filament\Pages\Auth\Login;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 class AuthenticationController extends Controller
 {
@@ -43,20 +47,32 @@ class AuthenticationController extends Controller
         }
 
         // TODO send email on verification
+        $referralCode = Str::uuid();
         $user = User::create(
             [
                 'name' => $data['name'],
                 'password' => $data['password'],
                 'email' => $data['email'],
+                'referral_code' => $referralCode,
             ]
         );
-        $user->markEmailAsVerified();
         $user->save();
+
+        Mail::to($data['email'])->send(new ConfirmationEmail($referralCode));
 
         return [
             'data' => [
                 'user' => new UserResource($user),
             ]
         ];
+    }
+
+    public function confirmEmail ($referralCode) {
+        $user = User::where('referral_code', '=', $referralCode)->first();
+        if($user){
+            $user->markEmailAsVerified();
+            return view('confirm_email', ['confirmed' => true]);
+        }
+        return view('confirm_email', ['confirmed' => false]);
     }
 }

@@ -45,7 +45,7 @@ class ExpeditionsController extends Controller implements ActionController
         if(!$base instanceof Bases){
             return $base;
         }
-
+        //TODO change to fleet strength
         $fleetMultiplier = $fleet->getExpeditionResourceMultiplier();
         if($fleetMultiplier < 1.5){
             return response()->json(self::getApiErrorMessage('Your fleet is not strong enough.', 200));

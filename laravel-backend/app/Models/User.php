@@ -19,6 +19,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'referral_code',
     ];
 
     /**
@@ -41,6 +42,7 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'referral_code' => 'string',
         ];
     }
 
