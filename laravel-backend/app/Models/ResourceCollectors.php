@@ -126,8 +126,8 @@ class ResourceCollectors extends Model
             $this->save();
             $resources->update([
                 'metal' => $metal - $price['metal'],
-                'gems' => $metal - $price['gems'],
-                'gas' => $metal - $price['gas']
+                'gems' => $gems - $price['gems'],
+                'gas' => $gas - $price['gas']
             ]);
             $resources->save();
             return true;
