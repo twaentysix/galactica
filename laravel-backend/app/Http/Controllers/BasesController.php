@@ -139,8 +139,8 @@ class BasesController extends Controller
 
         $resources->update([
             'metal' => $resources->metal - $cost['metal'],
-            'gas' => $resources->metal - $cost['gas'],
-            'gems' => $resources->metal - $cost['gems'],
+            'gas' => $resources->gas - $cost['gas'],
+            'gems' => $resources->gems - $cost['gems'],
         ]);
         $resources->save();
 
