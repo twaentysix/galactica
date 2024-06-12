@@ -20,6 +20,7 @@ class User extends Authenticatable
         'email',
         'password',
         'referral_code',
+        'email_verified_at',
     ];
 
     /**
