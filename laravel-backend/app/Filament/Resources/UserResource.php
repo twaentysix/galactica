@@ -27,6 +27,7 @@ class UserResource extends Resource
                 Forms\Components\TextInput::make('email')
                     ->email(),
                 Forms\Components\DateTimePicker::make('email_verified_at'),
+                Forms\Components\TextInput::make('password')->password(),
             ]);
     }
 
