@@ -45,3 +45,9 @@
 
 **in frontend directory**
 - run `npm run dev`
+
+## Deployment
+
+* AppServiceProvider needs in boot function: `URL::forceScheme('https')`;
+
+* run command in case anything breaks: `php artisan vendor:publish --force --tag=livewire:assets`
