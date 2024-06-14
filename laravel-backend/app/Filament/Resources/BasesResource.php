@@ -26,6 +26,13 @@ class BasesResource extends Resource
                 Forms\Components\TextInput::make('name'),
                 Forms\Components\TextInput::make('level')
                     ->numeric(),
+                Forms\Components\Fieldset::make('Resources')
+                    ->relationship('resources')
+                    ->schema([
+                        Forms\Components\TextInput::make('metal')->label('Metal')->numeric(),
+                        Forms\Components\TextInput::make('gas')->label('Gas')->numeric(),
+                        Forms\Components\TextInput::make('gems')->label('Gems')->numeric(),
+                    ]),
             ]);
     }
 
@@ -36,6 +43,15 @@ class BasesResource extends Resource
                 Tables\Columns\TextColumn::make('name'),
                 Tables\Columns\TextColumn::make('level')
                     ->numeric(),
+                Tables\Columns\TextColumn::make('resources.metal')
+                    ->numeric()
+                    ->label('Metal'),
+                Tables\Columns\TextColumn::make('resources.gas')
+                    ->numeric()
+                    ->label('Fuel'),
+                Tables\Columns\TextColumn::make('resources.gems')
+                    ->numeric()
+                    ->label('Gems'),
             ])
             ->filters([
                 //
